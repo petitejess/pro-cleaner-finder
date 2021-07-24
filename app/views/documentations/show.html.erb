@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Npc reference:</strong>
+  <%= @documentation.npc_reference %>
+</p>
+
+<p>
+  <strong>Abn number:</strong>
+  <%= @documentation.abn_number %>
+</p>
+
+<p>
+  <strong>Insured:</strong>
+  <%= @documentation.insured %>
+</p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @documentation.profile_id %>
+</p>
+
+<%= link_to 'Edit', edit_documentation_path(@documentation) %> |
+<%= link_to 'Back', documentations_path %>
