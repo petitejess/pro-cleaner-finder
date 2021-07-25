@@ -11,8 +11,16 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
+    <%= render 'partials/page_header' %>
+    
+    <main>
+      <div class="container">
+        <p class="notice"><%= notice %></p>
 
-    <%= yield %>
+        <%= yield %>
+      </div>
+    </main>
+
+    <%= render 'partials/footer' %>
   </body>
 </html>
