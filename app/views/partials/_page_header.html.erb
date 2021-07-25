@@ -1,0 +1,10 @@
+<header>
+  <!-- Main Navigation -->
+  <%= render 'partials/main_nav' %>
+
+  <div class="container d-flex flex-column justify-content-center align-items-stretch">
+    <h1>
+      <%= content_for?(:html_title) ? yield(:html_title) : "" %>
+    </h1>
+  </div>
+</header>
