@@ -17,7 +17,7 @@ class ProfilesTest < ApplicationSystemTestCase
     fill_in "First name", with: @profile.first_name
     fill_in "Last name", with: @profile.last_name
     fill_in "Phone", with: @profile.phone
-    fill_in "Type", with: @profile.type
+    fill_in "Type", with: @profile.user_type
     fill_in "User", with: @profile.user_id
     click_on "Create Profile"
 
@@ -32,7 +32,7 @@ class ProfilesTest < ApplicationSystemTestCase
     fill_in "First name", with: @profile.first_name
     fill_in "Last name", with: @profile.last_name
     fill_in "Phone", with: @profile.phone
-    fill_in "Type", with: @profile.type
+    fill_in "Type", with: @profile.user_type
     fill_in "User", with: @profile.user_id
     click_on "Update Profile"
 
