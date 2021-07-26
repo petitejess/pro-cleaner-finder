@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
+  property_type: MyString
   storey: 1
   bed: 1
   bath: 1
@@ -11,7 +11,7 @@ one:
   profile: one
 
 two:
-  type: 
+  property_type: MyString
   storey: 1
   bed: 1
   bath: 1

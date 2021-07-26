@@ -21,7 +21,7 @@ class PropertiesTest < ApplicationSystemTestCase
     fill_in "Storey", with: @property.storey
     fill_in "Street address", with: @property.street_address
     fill_in "Suburb", with: @property.suburb_id
-    fill_in "Type", with: @property.type
+    fill_in "Type", with: @property.property_type
     click_on "Create Property"
 
     assert_text "Property was successfully created"
@@ -39,7 +39,7 @@ class PropertiesTest < ApplicationSystemTestCase
     fill_in "Storey", with: @property.storey
     fill_in "Street address", with: @property.street_address
     fill_in "Suburb", with: @property.suburb_id
-    fill_in "Type", with: @property.type
+    fill_in "Type", with: @property.property_type
     click_on "Update Property"
 
     assert_text "Property was successfully updated"

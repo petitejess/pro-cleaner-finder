@@ -4,12 +4,12 @@ one:
   first_name: MyString
   last_name: MyString
   phone: MyString
-  type: 
+  user_type: MyString
   user: one
 
 two:
   first_name: MyString
   last_name: MyString
   phone: MyString
-  type: 
+  user_type: MyString
   user: two

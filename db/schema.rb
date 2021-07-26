@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_24_081241) do
+ActiveRecord::Schema.define(version: 2021_07_26_170618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_081241) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
-    t.string "type"
+    t.string "user_type"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_081241) do
   end
 
   create_table "properties", force: :cascade do |t|
-    t.string "type"
+    t.string "property_type"
     t.integer "storey"
     t.integer "bed"
     t.integer "bath"

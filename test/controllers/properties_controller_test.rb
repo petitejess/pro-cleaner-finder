@@ -17,7 +17,7 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create property" do
     assert_difference('Property.count') do
-      post properties_url, params: { property: { bath: @property.bath, bed: @property.bed, description: @property.description, profile_id: @property.profile_id, storey: @property.storey, street_address: @property.street_address, suburb_id: @property.suburb_id, type: @property.type } }
+      post properties_url, params: { property: { bath: @property.bath, bed: @property.bed, description: @property.description, profile_id: @property.profile_id, storey: @property.storey, street_address: @property.street_address, suburb_id: @property.suburb_id, property_type: @property.property_type } }
     end
 
     assert_redirected_to property_url(Property.last)
@@ -34,7 +34,7 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update property" do
-    patch property_url(@property), params: { property: { bath: @property.bath, bed: @property.bed, description: @property.description, profile_id: @property.profile_id, storey: @property.storey, street_address: @property.street_address, suburb_id: @property.suburb_id, type: @property.type } }
+    patch property_url(@property), params: { property: { bath: @property.bath, bed: @property.bed, description: @property.description, profile_id: @property.profile_id, storey: @property.storey, street_address: @property.street_address, suburb_id: @property.suburb_id, property_type: @property.property_type } }
     assert_redirected_to property_url(@property)
   end
 
