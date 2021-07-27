@@ -30,6 +30,6 @@
 
 <br>
 
-<%= link_to 'New Listing', new_listing_path %>
-
-<h2><%= @profile.user_type %></h2>
+<% if current_user && @profile.user_type == "pro" %>
+  <%= link_to 'New Listing', new_listing_path %>
+<% end %>
