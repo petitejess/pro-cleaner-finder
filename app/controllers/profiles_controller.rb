@@ -90,7 +90,7 @@ class ProfilesController < ApplicationController
 
     def set_user_type
       # Capture query params being passed
-      @user_type = params[:user_type] ? params[:user_type] : "customer"
+      @user_type = params[:user_type]
     end
 
     def set_states

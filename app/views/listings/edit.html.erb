@@ -1,6 +1,8 @@
-<h1>Editing Listing</h1>
+<% content_for(:html_title) { 'Edit My Listing' } %>
 
-<%= render 'form', listing: @listing %>
+<%= render 'form', listing: @listing, suburbs: @suburbs %>
 
 <%= link_to 'Show', @listing %> |
 <%= link_to 'Back', listings_path %>
+
+<h2><%= @profile.user_type %></h2>

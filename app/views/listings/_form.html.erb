@@ -8,6 +8,13 @@
     <%= f.input :description %>
     <%= f.input :rate_per_hour, input_html: { min: '1', step: 'any' } %>
 
+    <!-- Service Area -->
+    <%= f.fields_for :service_areas do |service_areas_form| %>
+      <%= service_areas_form.label :suburb_id %>
+      <%= service_areas_form.text_field :suburb_id %>
+      <% service_areas_form.hidden_field :listing_id, value: params[:id] %>
+    <% end %>
+    
     <!-- Image upload for profile picture -->
     <%= f.label :image, "Upload Listing Picture" %>
     <%= f.file_field :image, multiple: false, direct_upload: true %>

@@ -1,4 +1,4 @@
-<h1>New Profile</h1>
+<% content_for(:html_title) { 'New Profile' } %>
 
 <%= render 'form', profile: @profile, user_type: @user_type, suburbs: @suburbs, states: @states, postcodes: @postcodes %>
 

@@ -1,3 +1,5 @@
+<% content_for(:html_title) { 'My Listing' } %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -20,9 +22,17 @@
   <%= @listing.profile_id %>
 </p>
 
-<p>
+<p>Service areas:
+<% @service_areas.to_a.each do |a| %>
+  <%= a.suburb_id %>
+<% end %>
+</p>
+
+<p style="max-width: 500px; max-height: 500px; overflow: hidden;">
   <%= image_tag(@listing.image) %>
 </p>
 
 <%= link_to 'Edit', edit_listing_path(@listing) %> |
 <%= link_to 'Back', listings_path %>
+
+<h2><%= @profile.user_type %></h2>

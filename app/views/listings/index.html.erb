@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:html_title) { 'My Listings' } %>
 
-<h1>Listings</h1>
+<p id="notice"><%= notice %></p>
 
 <table>
   <thead>
@@ -31,3 +31,5 @@
 <br>
 
 <%= link_to 'New Listing', new_listing_path %>
+
+<h2><%= @profile.user_type %></h2>

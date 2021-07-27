@@ -1,4 +1,4 @@
-<h1>Editing Profile</h1>
+<% content_for(:html_title) { 'Edit My Profile' } %>
 
 <%= render 'form', profile: @profile, user_type: @user_type, suburbs: @suburbs %>
 
