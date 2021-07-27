@@ -29,5 +29,69 @@
   <%= image_tag(@profile.image) %>
 </p>
 
+<% if @profile.user_type == "pro" && @documentation %>
+  <!-- Show Documentation -->
+  <p>
+    <strong>Npc reference:</strong>
+    <%= @documentation.npc_reference %>
+  </p>
+
+  <p>
+    <strong>Abn number:</strong>
+    <%= @documentation.abn_number %>
+  </p>
+
+  <p>
+    <strong>Insured:</strong>
+    <%= @documentation.insured %>
+  </p>
+
+  <p>
+    <strong>Profile:</strong>
+    <%= @documentation.profile_id %>
+  </p>
+<% elsif @profile.user_type == "customer" && @property %>
+  <!-- Property -->
+  <p>
+    <strong>Type:</strong>
+    <%= @property.property_type %>
+  </p>
+
+  <p>
+    <strong>Storey:</strong>
+    <%= @property.storey %>
+  </p>
+
+  <p>
+    <strong>Bed:</strong>
+    <%= @property.bed %>
+  </p>
+
+  <p>
+    <strong>Bath:</strong>
+    <%= @property.bath %>
+  </p>
+
+  <p>
+    <strong>Street address:</strong>
+    <%= @property.street_address %>
+  </p>
+
+  <p>
+    <strong>Suburb:</strong>
+    <%= @property.suburb_id %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @property.description %>
+  </p>
+
+  <p>
+    <strong>Profile:</strong>
+    <%= @property.profile_id %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

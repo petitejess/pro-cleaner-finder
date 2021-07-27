@@ -9,6 +9,8 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1 or /profiles/1.json
   def show
+    @documentation = Documentation.find_by(profile_id: params[:id])
+    @property = Property.find_by(profile_id: params[:id])
   end
 
   # GET /profiles/new
@@ -16,11 +18,18 @@ class ProfilesController < ApplicationController
     @profile = Profile.new
     @profile.user_type = @user_type
     @profile.build_documentation
+    @profile.build_property
   end
 
   # GET /profiles/1/edit
   def edit
     @user_type = @profile.user_type
+    if !(@documentation)
+      @profile.build_documentation
+    end
+    if !(@profile)
+      @profile.build_property
+    end
   end
 
   # POST /profiles or /profiles.json
@@ -101,7 +110,7 @@ class ProfilesController < ApplicationController
     end
 
     def set_property
-      @documentation = Property.new
+      @property = Property.new
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,9 +1,9 @@
 class Profile < ApplicationRecord
   belongs_to :user
-  has_one :documentation
-  accepts_nested_attributes_for :documentation
-  has_one :property
-  accepts_nested_attributes_for :property
+  has_one :documentation, inverse_of: :profile, autosave: true, :dependent => :destroy
+  accepts_nested_attributes_for :documentation, allow_destroy: true
+  has_one :property, inverse_of: :profile, autosave: true, :dependent => :destroy
+  accepts_nested_attributes_for :property, allow_destroy: true
   has_one_attached :image
 
   # Validation
