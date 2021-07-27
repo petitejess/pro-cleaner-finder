@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_025331) do
+ActiveRecord::Schema.define(version: 2021_07_27_232032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 2021_07_27_025331) do
     t.index ["profile_id"], name: "index_documentations_on_profile_id"
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.date "date"
+    t.float "service_hour"
+    t.float "total_cost"
+    t.string "status"
+    t.bigint "quote_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quote_id"], name: "index_jobs_on_quote_id"
+  end
+
   create_table "listings", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -61,6 +72,16 @@ ActiveRecord::Schema.define(version: 2021_07_27_025331) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["profile_id"], name: "index_listings_on_profile_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.datetime "payment_date"
+    t.string "payment_method"
+    t.float "payment_amount"
+    t.bigint "job_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_payments_on_job_id"
   end
 
   create_table "postcodes", force: :cascade do |t|
@@ -95,6 +116,28 @@ ActiveRecord::Schema.define(version: 2021_07_27_025331) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["profile_id"], name: "index_properties_on_profile_id"
     t.index ["suburb_id"], name: "index_properties_on_suburb_id"
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.date "date"
+    t.float "service_hour"
+    t.float "total_cost"
+    t.string "status"
+    t.bigint "request_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["request_id"], name: "index_quotes_on_request_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.date "service_date"
+    t.string "start_time"
+    t.bigint "listing_id", null: false
+    t.bigint "property_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["listing_id"], name: "index_requests_on_listing_id"
+    t.index ["property_id"], name: "index_requests_on_property_id"
   end
 
   create_table "service_areas", force: :cascade do |t|
@@ -135,11 +178,16 @@ ActiveRecord::Schema.define(version: 2021_07_27_025331) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "documentations", "profiles"
+  add_foreign_key "jobs", "quotes"
   add_foreign_key "listings", "profiles"
+  add_foreign_key "payments", "jobs"
   add_foreign_key "postcodes", "states"
   add_foreign_key "profiles", "users"
   add_foreign_key "properties", "profiles"
   add_foreign_key "properties", "suburbs"
+  add_foreign_key "quotes", "requests"
+  add_foreign_key "requests", "listings"
+  add_foreign_key "requests", "properties"
   add_foreign_key "service_areas", "listings"
   add_foreign_key "service_areas", "suburbs"
   add_foreign_key "suburbs", "postcodes"
