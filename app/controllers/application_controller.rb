@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_profile
-    # If user is logged in, get user_type
+    # If user is logged in, get current user's profile
     if current_user
       @profile = Profile.find_by(user_id: current_user.id)
     end

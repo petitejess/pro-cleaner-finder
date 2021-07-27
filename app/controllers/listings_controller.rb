@@ -8,7 +8,10 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    @listings = Listing.all
+    # If user is logged in, get current user's listings
+    if current_user && (@profile.user_type == "pro")
+      @listings = Listing.where(profile_id: @profile.id)
+    end
   end
 
   # GET /listings/1 or /listings/1.json
