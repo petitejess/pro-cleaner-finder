@@ -5,6 +5,7 @@ class Profile < ApplicationRecord
   has_one :property, inverse_of: :profile, autosave: true, :dependent => :destroy
   accepts_nested_attributes_for :property, allow_destroy: true
   has_one_attached :image
+  has_many :listings
 
   # Validation
   validates :first_name, :last_name, :phone, presence: true

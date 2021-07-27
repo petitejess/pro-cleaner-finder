@@ -14,3 +14,57 @@
 
  @import "bootstrap";
  @import "partials/variables";
+
+ body {
+  overflow-x: hidden;
+}
+
+header {
+background-image: url(hero-banner.jpeg);
+background-color: $black-color;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+text-align: center;
+  nav {
+    height: 3em;
+    z-index: 9999;
+  }
+
+  .container {
+    h1 {
+      color: #fff;
+      z-index: 1;
+    }
+  }
+
+  .d-flex {
+    min-height: 7em;
+  }
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: $black-color;
+  opacity: .4;
+  height: 10em;
+}
+
+main {
+  min-height: 75vh;
+}
+
+footer {
+background-color: $black-color;
+
+  .cpyrght {
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+}

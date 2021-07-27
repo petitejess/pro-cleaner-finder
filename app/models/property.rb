@@ -3,5 +3,6 @@ class Property < ApplicationRecord
   belongs_to :profile
 
   # Validation
-  validates :storey, :bed, :bath, numericality: true, length: { minimum: 0, maximum: 99 }
+  validates :storey, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
+  validates :bed, :bath, numericality: { only_integer: true, greater_than: -1, less_than: 100 }
 end
