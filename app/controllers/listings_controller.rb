@@ -1,4 +1,7 @@
 class ListingsController < ApplicationController
+  # Allow visitor to see individual listing without login
+  skip_before_action :authenticate_user!, only: [:show]
+
   before_action :set_listing, only: %i[ show edit update destroy ]
   before_action :set_profile, :set_suburbs
   before_action :set_service_areas, except: [:edit, :update]
@@ -74,8 +77,11 @@ class ListingsController < ApplicationController
     end
 
     def set_profile
-      # Gets current user's profile
-      @profile = Profile.find_by(user_id: current_user.id)
+      # If user is logged in
+      if current_user
+        # Gets current user's profile
+        @profile = Profile.find_by(user_id: current_user.id)
+      end
     end
 
     def set_suburbs

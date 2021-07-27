@@ -1,8 +1,20 @@
 class ApplicationController < ActionController::Base
+  # User authentication
+  before_action :authenticate_user!
+
   # Capture query params that are passed to the view
-  before_action :set_user_type
+  before_action :set_user_type, :get_profile
   def set_user_type
-    @user_type = params[:user_type]
+    if params[:user_type]
+      @user_type = params[:user_type]
+    end
+  end
+
+  def get_profile
+    # If user is logged in, get user_type
+    if current_user
+      @profile = Profile.find_by(user_id: current_user.id)
+    end
   end
 
   # Make after_sign_in method redirection

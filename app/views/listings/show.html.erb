@@ -32,7 +32,8 @@
   <%= image_tag(@listing.image) %>
 </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
-
-<h2><%= @profile.user_type %></h2>
+<% if current_user && @profile.user_type == "pro" %>
+  <%= link_to 'Edit', edit_listing_path(@listing) %> | <%= link_to 'Back', listings_path %>
+<% else %>
+  <%= link_to 'Back', root_path %>
+<% end %>
