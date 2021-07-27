@@ -9,8 +9,8 @@
     <%= f.hidden_field :user_type, value: user_type %>
 
     <!-- Image upload for profile picture -->
-    <%#= f.label :image, "Upload Profile Picture" %>
-    <%#= f.file_field :image, multiple: false, direct_upload: true %>
+    <%= f.label :image, "Upload Profile Picture" %>
+    <%= f.file_field :image, multiple: false, direct_upload: true %>
     
     <% if user_type == "pro" %>
       <!-- Fields for Documentation -->

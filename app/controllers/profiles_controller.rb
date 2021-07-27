@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
-  before_action :set_user_type, :set_states, :set_postcodes, :set_suburbs
+  before_action :set_user_type, :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
 
   # GET /profiles or /profiles.json
   def index
@@ -15,10 +15,12 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
     @profile.user_type = @user_type
+    @profile.build_documentation
   end
 
   # GET /profiles/1/edit
   def edit
+    @user_type = @profile.user_type
   end
 
   # POST /profiles or /profiles.json
@@ -94,8 +96,16 @@ class ProfilesController < ApplicationController
       @suburbs = Suburb.all
     end
 
+    def set_documentation
+      @documentation = Documentation.new
+    end
+
+    def set_property
+      @documentation = Property.new
+    end
+
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :phone, :user_type, :user_id, :npc_reference, :abn_number, :insured, :property_type, :storey, :bed, :bath, :street_address, :suburb_id, :description)
+      params.require(:profile).permit(:first_name, :last_name, :phone, :user_type, :user_id, :image, documentation_attributes: [:npc_reference, :abn_number, :insured], property_attributes: [:property_type, :storey, :bed, :bath, :street_address, :suburb_id, :description])
     end
 end
