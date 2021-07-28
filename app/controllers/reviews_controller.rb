@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: %i[ show edit update destroy ]
+  before_action :set_job, :set_listing, only: [:edit, :update]
+  after_action :set_reviewer, only: [:update]
 
   # GET /reviews or /reviews.json
   def index
@@ -60,6 +62,23 @@ class ReviewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params[:id])
+    end
+
+    def set_job
+      # Get the job associated with current review
+      @job = Job.find(@review.job_id)
+    end
+
+    def set_listing
+      # Get the listing associated with current review
+      @listing = Listing.find(@review.job.quote.request.listing_id)
+    end
+
+    def set_reviewer
+      # Set id for review_from and review_to
+      @review.review_from = @job.quote.request.property.profile_id
+      @review.review_to = @listing.profile_id
+      @review.save
     end
 
     # Only allow a list of trusted parameters through.
