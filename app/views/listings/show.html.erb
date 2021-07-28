@@ -30,6 +30,60 @@
   <%= image_tag(@listing.image) %>
 </p>
 
+<!-- Registered Customer Request for a quote section -->
+<% if current_user && @profile.user_type == "customer" %>
+  <!-- Display Customer's Property information -->
+  <div class="row">
+    <div class="col-12">
+      <h3><%= @profile.first_name %> <%= @profile.last_name %></h3>
+    </div>
+    <div class="col-6">
+      <p><%= @profile.property.property_type %></p>
+    </div>
+    <div class="col-6">
+      <p><%= @profile.property.description %></p>
+    </div>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-4">
+              <p><%= @profile.property.storey %> - Storey</p>
+            </div>
+            <div class="col-4">
+              <p><%= @profile.property.bed %> - Bed</p>
+            </div>
+            <div class="col-4">
+              <p><%= @profile.property.bath %> - Bath</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+          <p>
+            <%= @profile.property.street_address %> </br>
+            <%= @profile.property.suburb.name %>, <%= @profile.property.suburb.postcode.state.name %>, <%= @profile.property.suburb.postcode.number %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display Customer's Request form -->
+  <div class="row">
+    <div class="col-12">
+      <h3>Service Time</h3>
+    </div>
+
+    <div class="col-12">
+      <%= render 'requests/form' %>
+    </div>
+  </div>
+<% end %>
+
 <% if current_user && @profile.user_type == "pro" %>
   <%= link_to 'Edit', edit_listing_path(@listing) %> | <%= link_to 'Back', listings_path %>
 <% else %>

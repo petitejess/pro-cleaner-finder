@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@quote) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :date %>
+    <%= f.input :service_hour %>
+    <%= f.input :total_cost %>
+    <%= f.input :status %>
+    <%= f.association :request %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
   before_action :set_listing, only: %i[ show edit update destroy ]
-  before_action :set_profile, :set_suburbs
+  before_action :set_profile, :set_suburbs, :set_request
   before_action :set_service_areas, except: [:edit, :update]
 
   # GET /listings or /listings.json
@@ -94,6 +94,10 @@ class ListingsController < ApplicationController
 
     def set_service_areas
       @service_areas = ServiceArea.new
+    end
+
+    def set_request
+      @request = Request.new
     end
 
     # Only allow a list of trusted parameters through.

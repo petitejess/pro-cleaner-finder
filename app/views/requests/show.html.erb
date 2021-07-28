@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service date:</strong>
+  <%= @request.service_date %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @request.start_time %>
+</p>
+
+<p>
+  <strong>Listing:</strong>
+  <%= @request.listing_id %>
+</p>
+
+<p>
+  <strong>Property:</strong>
+  <%= @request.property_id %>
+</p>
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>

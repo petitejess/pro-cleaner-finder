@@ -1,0 +1,22 @@
+<p>
+  <strong>Date:</strong>
+  <%= @job.date %>
+</p>
+
+<p>
+  <strong>Service hour:</strong>
+  <%= @job.service_hour %>
+</p>
+
+<p>
+  <strong>Total cost:</strong>
+  <%= @job.total_cost %>
+</p>
+
+<p>
+  <strong>Quote:</strong>
+  <%= @job.quote_id %>
+</p>
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>
