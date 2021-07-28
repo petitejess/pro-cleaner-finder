@@ -4,6 +4,8 @@ class Listing < ApplicationRecord
   has_many :suburbs, through: :service_areas
   accepts_nested_attributes_for :service_areas, reject_if: :all_blank, allow_destroy: true
   has_one_attached :image
+  has_many :requests
+  accepts_nested_attributes_for :requests, reject_if: :all_blank, allow_destroy: true
 
   # Validation
   validates :title, :description, :rate_per_hour, presence: true

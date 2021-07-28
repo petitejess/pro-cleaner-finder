@@ -1,5 +1,6 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: %i[ show edit update destroy ]
+  after_action :update_quote_status, only: [:update]
 
   # GET /quotes or /quotes.json
   def index
@@ -60,6 +61,11 @@ class QuotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_quote
       @quote = Quote.find(params[:id])
+    end
+
+    def update_quote_status
+      # Update quote status after Cleaner add hour and total cost
+      @quote.update(status: "Quote sent.")
     end
 
     # Only allow a list of trusted parameters through.

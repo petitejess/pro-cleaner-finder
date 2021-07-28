@@ -3,5 +3,5 @@ class Quote < ApplicationRecord
   has_one :job
 
   # Validation
-  validates :date, :service_hour, :total_cost, :status, presence: true
+  validates :date, :status, presence: true
 end

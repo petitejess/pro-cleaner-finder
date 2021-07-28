@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
+  after_action :create_quote, only: [:create]
 
   # GET /requests or /requests.json
   def index
@@ -60,6 +61,12 @@ class RequestsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.find(params[:id])
+    end
+
+    def create_quote
+      # After Customer create a request for a quote, create a new quote in database
+      quote = Quote.new(date: @request.created_at.to_date, request_id: @request.id, status: "Request for a quote.")
+      quote.save
     end
 
     # Only allow a list of trusted parameters through.

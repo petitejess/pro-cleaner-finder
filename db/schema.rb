@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_232032) do
+ActiveRecord::Schema.define(version: 2021_07_28_065812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 2021_07_27_232032) do
     t.date "date"
     t.float "service_hour"
     t.float "total_cost"
-    t.string "status"
     t.bigint "quote_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -131,11 +130,11 @@ ActiveRecord::Schema.define(version: 2021_07_27_232032) do
 
   create_table "requests", force: :cascade do |t|
     t.date "service_date"
-    t.string "start_time"
     t.bigint "listing_id", null: false
     t.bigint "property_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.time "start_time"
     t.index ["listing_id"], name: "index_requests_on_listing_id"
     t.index ["property_id"], name: "index_requests_on_property_id"
   end

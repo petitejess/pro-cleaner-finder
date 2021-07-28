@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:html_title) { 'Quote' } %>
 
 <p>
   <strong>Date:</strong>
@@ -24,6 +24,32 @@
   <strong>Request:</strong>
   <%= @quote.request_id %>
 </p>
+
+<!-- Cleaner form to send a quote -->
+<% if @profile.user_type == "pro" %>
+  <div class="row">
+    <div class="col-12">
+      <h3>Quote <%= @quote.id %></h3>
+    </div>
+
+    <div class="col-12">
+      <%= render 'quotes/form' %>
+    </div>
+  </div>
+<% end %>
+
+<!-- Customer form to Approve and pay/Reject quote -->
+<% if @profile.user_type == "customer" && @quote.status == "Quote sent." %>
+  <div class="row">
+    <div class="col-4">
+      <%= link_to "Approve and Pay", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post %>
+    </div>
+    <div class="col-4">
+      <p>Reject</p>
+    </div>
+  </div>
+<% end %>
+
 
 <%= link_to 'Edit', edit_quote_path(@quote) %> |
 <%= link_to 'Back', quotes_path %>

@@ -3,14 +3,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   # Capture query params that are passed to the view
-  before_action :set_user_type, :get_profile
+  before_action :set_user_type, :set_profile
   def set_user_type
     if params[:user_type]
       @user_type = params[:user_type]
     end
   end
 
-  def get_profile
+  def set_profile
     # If user is logged in, get current user's profile
     if current_user
       @profile = Profile.find_by(user_id: current_user.id)
