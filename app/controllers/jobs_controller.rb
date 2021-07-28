@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   before_action :set_job, only: %i[ show edit update destroy ]
-  after_action :update_quote_status, only: [:create]
+  before_action :set_review, only: [:show]
+  after_action :update_quote_status, :create_review, only: [:create]
 
   # GET /jobs or /jobs.json
   def index
@@ -22,7 +23,7 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
-    # @job = Job.new(job_params)
+    # Create job based on accepted quote
     @job = Job.new(date: params[:date], service_hour: params[:service_hour], total_cost: params[:total_cost], quote_id: params[:quote_id])
 
     respond_to do |format|
@@ -68,6 +69,17 @@ class JobsController < ApplicationController
       # After Customer accept the quote, and quote becomes a job, change the quote status to accepted
       quote = Quote.find(@job.quote_id)
       quote.update(status: "Quote Accepted.")
+    end
+
+    def create_review
+      # After a quote becomes a job, create review based on created job
+      review = Review.new(job_id: @job.id, profile_id: @job.quote.request.property.profile_id)
+      review.save
+    end
+
+    def set_review
+      # To check if a review has been left for this job
+      @review = Review.find_by(job_id: @job.id)
     end
 
     # Only allow a list of trusted parameters through.

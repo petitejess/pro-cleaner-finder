@@ -18,5 +18,10 @@
   <%= @job.quote_id %>
 </p>
 
+<!-- Allow Customer to leave a Review -->
+<% if @profile.user_type = "customer" && !(@review.review_to) %>
+  <%= link_to "Leave a Review", edit_review_path(@review.id) %>
+<% end %>
+
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>
