@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: %i[ show edit update destroy ]
+  after_action :update_quote_status, only: [:create]
 
   # GET /jobs or /jobs.json
   def index
@@ -61,6 +62,12 @@ class JobsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_job
       @job = Job.find(params[:id])
+    end
+
+    def update_quote_status
+      # After Customer accept the quote, and quote becomes a job, change the quote status to accepted
+      quote = Quote.find(@job.quote_id)
+      quote.update(status: "Quote Accepted.")
     end
 
     # Only allow a list of trusted parameters through.
