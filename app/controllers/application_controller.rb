@@ -12,20 +12,20 @@ class ApplicationController < ActionController::Base
 
   def set_profile
     # If user is logged in, get current user's profile
-    if current_user
+    if user_signed_in? && current_user.profile
       @profile = Profile.find_by(user_id: current_user.id)
     end
   end
 
   # Make after_sign_in method redirection
   def after_sign_in_path_for(current_user)
-    # If user is customer and have profile, take to root path
+    # If user is Customer and have profile, take to root path
     if current_user.profile
       if (params[:user][:user_type] == "customer")
         root_path
       else
-        # jobs_path
-        root_path
+        # If user is Cleaner and have profile, take to jobs path
+        jobs_path
       end
     else
       # Pass the user type when creating the new profile
