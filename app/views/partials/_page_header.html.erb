@@ -1,10 +1,15 @@
-<header>
+<header <%= "class=hero-banner" if current_page?(root_path) || current_page?(search_path) %>>
   <!-- Main Navigation -->
   <%= render 'partials/main_nav', profile: profile %>
-
+  
   <div class="container d-flex flex-column justify-content-center align-items-stretch">
     <h1>
       <%= content_for?(:html_title) ? yield(:html_title) : "" %>
     </h1>
+
+    <% if current_page?(root_path) || current_page?(search_path) %>
+      <p>Find cleaners in your area. Enter your suburb or postcode to search.</p>
+      <%= render 'home/form' %>
+    <% end %>
   </div>
 </header>

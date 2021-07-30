@@ -2,5 +2,9 @@
 
 <%= render 'form', profile: @profile, user_type: @user_type, suburbs: @suburbs %>
 
-<%= link_to 'Show', @profile %> |
-<%= link_to 'Back', profiles_path %>
+<div class="row justify-content-center">
+  <div class="col-5">
+    <%= link_to 'Show', @profile %> |
+    <%= link_to 'Back', profiles_path %>
+  </div>
+</div>
