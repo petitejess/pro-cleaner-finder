@@ -20,7 +20,7 @@
         <%= yield %>
       </div>
     </main>
-
+    <%= render 'partials/cta_banner' if current_page?(root_path) %>
     <%= render 'partials/footer' %>
   </body>
 </html>

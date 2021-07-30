@@ -1,63 +1,104 @@
-<%= simple_form_for(@profile) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <%= simple_form_for(@profile) do |f| %>
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :phone %>
-    <%= f.hidden_field :user_type, value: user_type %>
-
-    <!-- Image upload for profile picture -->
-    <%= f.label :image, "Upload Profile Picture" %>
-    <%= f.file_field :image, multiple: false, direct_upload: true %>
-    
-    <% if user_type == "pro" %>
-      <!-- Fields for Documentation -->
-      <%= f.fields_for :documentation do |documentation_form| %>
-        <%= documentation_form.error_notification %>
-        <%= documentation_form.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-      
-        <div class="form-inputs">
-          <%= documentation_form.input :npc_reference, label: "National Police Check Reference Number" %>
-          <%= documentation_form.input :abn_number, label: "ABN" %>
-          <%= documentation_form.input :insured, label: "Do you have a Public Liability insurance?", as: :radio_buttons %>
-          <%#= documentation_form.association :profile %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <%= f.input :first_name %>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <%= f.input :last_name %>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <%= f.input :phone %>
+            </div>
+            </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <%= f.hidden_field :user_type, value: user_type %>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <!-- Image upload for profile picture -->
+              <%= f.label :image, "Upload Profile Picture" %>
+              <%= f.file_field :image, multiple: false, direct_upload: true %>
+            </div> 
+          </div>
         </div>
-      <% end %>
-    <% elsif user_type == "customer" %>
-      <!-- Fields for Property-->
-      <%= f.fields_for :property do |property_form| %>
-        <%= property_form.error_notification %>
-        <%= property_form.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-      
-        <div class="form-inputs">
-          <%= property_form.label :property_type, "Type" %>
-          <%= property_form.select :property_type, ["Apartment/Flat", "House", "Villa/Townhouse"] %>
-          <%= property_form.label :storey %>
-          <%= property_form.number_field :storey, in: 1..99 %>
-          <%= property_form.label :bed %>
-          <%= property_form.number_field :bed, in: 1..99 %>
-          <%= property_form.label :bath %>
-          <%= property_form.number_field :bath, in: 1..99 %>
 
-          <!-- Property Address -->
-          <%= property_form.input :street_address %>
-          <%= property_form.label :suburb_id, "Suburb" %>
-          <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
-          <%#= property_form.label :state_id, "State" %>
-          <%#= property_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
-          <%#= property_form.label :postcode_id, "Postcode" %>
-          <%#= property_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
+        <% if user_type == "pro" %>
+          <!-- Fields for Documentation -->
+          <%= f.fields_for :documentation do |documentation_form| %>
+            <%= documentation_form.error_notification %>
+            <%= documentation_form.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          
+            <div class="form-inputs">
+              <div class="mb-3">
+                <%= documentation_form.input :npc_reference, label: "National Police Check Reference Number" %>
+              </div>
+              <div class="mb-3">
+                <%= documentation_form.input :abn_number, label: "ABN" %>
+              </div>
+              <div class="mb-3">
+                <%= documentation_form.input :insured, label: "Do you have a Public Liability insurance?", as: :radio_buttons %>
+              </div>
+            </div>
+          <% end %>
+        <% elsif user_type == "customer" %>
+          <!-- Fields for Property-->
+          <%= f.fields_for :property do |property_form| %>
+            <%= property_form.error_notification %>
+            <%= property_form.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          
+            <div class="form-inputs">
+              <div class="mb-3">
+                <%= property_form.label :property_type, "Type" %>
+              </div>
+              <div class="mb-3">
+                <%= property_form.select :property_type, ["Apartment/Flat", "House", "Villa/Townhouse"] %>
+              </div>
+              <div class="mb-3">
+                <%= property_form.label :storey %>
+                <%= property_form.number_field :storey, in: 1..99 %>
+                <%= property_form.label :bed %>
+                <%= property_form.number_field :bed, in: 1..99 %>
+                <%= property_form.label :bath %>
+                <%= property_form.number_field :bath, in: 1..99 %>
+              </div>
 
-          <%= property_form.input :description, required: false %>
-          <%#= property_form.association :profile %>
-        </div>
-      <% end %>
+              <!-- Property Address -->
+              <div class="mb-3">
+                <%= property_form.input :street_address %>
+              </div>
+              <div class="mb-3">
+                <%= property_form.label :suburb_id, "Suburb" %>
+                <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
+                <%#= property_form.label :state_id, "State" %>
+                <%#= property_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
+                <%#= property_form.label :postcode_id, "Postcode" %>
+                <%#= property_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
+              </div>
+              <div class="mb-3">
+                <%= property_form.input :description, required: false %>
+                <%#= property_form.association :profile %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-submit" %>
+      </div>
     <% end %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+</div>

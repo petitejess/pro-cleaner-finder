@@ -12,11 +12,20 @@
  *
  */
 
- @import "bootstrap";
- @import "partials/variables";
+@import "bootstrap";
+@import "partials/variables";
 
- body {
+body {
   overflow-x: hidden;
+}
+
+/* Typography */
+a {
+  color: $dark-grey-color;
+
+  &:hover {
+    color: #000;
+  }
 }
 
 header {
@@ -27,8 +36,24 @@ background-repeat: no-repeat;
 background-position: center;
 text-align: center;
   nav {
+    background-color: $main-color;
     height: 3em;
     z-index: 9999;
+
+    .nav-link {
+      font-weight: 700;
+      color: $black-color;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .1);
+        color: #000;
+      }
+    }
+
+    a.logo {
+      font-size: 150%;
+      @extend .nav-link
+    }
   }
 
   .container {
@@ -41,25 +66,147 @@ text-align: center;
   .d-flex {
     min-height: 7em;
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 3em;
+    left: 0;
+    background-color: $black-color;
+    opacity: .7;
+    height: 7em;
+  }
+
+  &.hero-banner {
+    .d-flex {
+      min-height: 50vh;
+    }
+
+    p {
+      color: #fff;
+      font-size: 120%;
+      z-index: 1;
+    }
+
+    .form-control {
+      border: none;
+    }
+
+    &::before{
+      height: 50vh;
+    }
+  }
 }
 
-header::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: $black-color;
-  opacity: .4;
-  height: 10em;
+.home-search-bar {
+  text-align: left;
+  z-index: 1;
+
+  .row {
+    max-width: 400px;
+    margin: auto;
+  }
 }
 
 main {
   min-height: 75vh;
+  padding: $start-end-space 0;
+}
+
+/* Forms */
+.form-control, .btn, .form-check-input[type="checkbox"] {
+  border-radius: 0;
+
+  &:focus {
+    border-color: $main-color;
+    outline: $main-color;
+    box-shadow: 0 0 0 0.1em $main-color;
+  }
+}
+
+label {
+  margin-top: .75rem;
+  margin-bottom: .25em;
+}
+
+.form-check-input[type="checkbox"] {
+  margin-top: 1em;
+}
+
+.form-actions {
+  margin-top: 3em;
+}
+
+.btn {
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.btn-submit, .btn-outline {
+  color: $black-color;
+  background-color: $main-color;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 3px solid $black-color;
+
+  &:hover {
+    color: $main-color;
+    background-color: $black-color;
+  }
+}
+
+/* Cards */
+.card {
+  border: none;
+  margin-bottom: $start-end-space;
+
+  .card-img, .card-img-top, .card-img-bottom {
+    max-height: 250px;
+  }
+
+  .card-title {
+    font-weight: 700;
+    margin: 1em 0 .5em;
+  }
+
+  .price {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: $dark-grey-color;
+  }
+}
+
+/* CTA Banner */
+.cta-banner {
+  p {
+    color: #fff;
+    font-size: 1.5em;
+    z-index: 1;
+
+    &:first-child {
+      margin-top: 3em;
+    }
+
+    &:last-child {
+      margin-bottom: 3em;
+    }
+  }
+
+  @extend header
+}
+
+.cta-banner::before {
+  top: auto;
+  opacity: .5;
+  min-height: 40vh;
 }
 
 footer {
 background-color: $black-color;
+padding: $start-end-space;
 
   .cpyrght {
     color: #fff;
