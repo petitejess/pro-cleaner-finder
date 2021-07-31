@@ -3,12 +3,26 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :service_date %>
-    <%= f.input :start_time, as: :time, minute_step: 15 %>
-    <%= f.hidden_field :listing_id, value: params[:id] %>
+    <div class="row">
+      <div class="col-6">
+        <div class="mb-3">
+          <%= f.input :service_date %>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="mb-3">
+          <%= f.input :start_time, as: :time, minute_step: 15 %>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="mb-3">
+          <%= f.hidden_field :listing_id, value: params[:id] %>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+        <%= f.button :submit, "Request a Quote", class: "btn btn-submit" %>
+      </div>
 <% end %>

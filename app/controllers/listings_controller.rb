@@ -18,6 +18,20 @@ class ListingsController < ApplicationController
   def show
     # Get service areas for this listing
     @service_areas = ServiceArea.where(listing_id: params[:id])
+
+    # Get reviews for this listing
+    all_reviews = Review.where(review_to: @listing.profile_id)
+    @reviews = []
+    all_reviews.each do |review|
+      if review.job.quote.request.listing_id == @listing.id
+        @reviews << review
+      end
+    end
+    @review_details = []
+    @reviews.each do |review|
+      reviewer = Profile.find(review.review_from)
+      @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+    end
   end
 
   # GET /listings/new

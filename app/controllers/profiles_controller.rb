@@ -12,13 +12,14 @@ class ProfilesController < ApplicationController
   def show
     # Show only details belonging to current profile
     @documentation = Documentation.find_by(profile_id: params[:id])
+    
     @reviews = Review.where(review_to: @profile.id)
     @review_details = []
-    @reviews.each_with_index do |review|
-      @reviewer = Profile.find(review.review_from)
+    @reviews.each do |review|
+      reviewer = Profile.find(review.review_from)
       listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
-      @reviewed_listing = Listing.find(listing_id)
-      @review_details << [review.id, @reviewed_listing.title, @reviewer.first_name, @reviewer.last_name.first + ".", @reviewer, review.rating, review.content]
+      reviewed_listing = Listing.find(listing_id)
+      @review_details << [review.id, reviewed_listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
     end
 
     @property = Property.find_by(profile_id: params[:id])
