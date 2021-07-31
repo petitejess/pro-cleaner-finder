@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
   before_action :set_user_type, :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
+  before_action :set_reviews, only: [:show]
 
   # GET /profiles or /profiles.json
   def index
@@ -9,7 +10,17 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1 or /profiles/1.json
   def show
+    # Show only details belonging to current profile
     @documentation = Documentation.find_by(profile_id: params[:id])
+    @reviews = Review.where(review_to: @profile.id)
+    @review_details = []
+    @reviews.each_with_index do |review|
+      @reviewer = Profile.find(review.review_from)
+      listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
+      @reviewed_listing = Listing.find(listing_id)
+      @review_details << [review.id, @reviewed_listing.title, @reviewer.first_name, @reviewer.last_name.first + ".", @reviewer, review.rating, review.content]
+    end
+
     @property = Property.find_by(profile_id: params[:id])
   end
 
@@ -107,6 +118,10 @@ class ProfilesController < ApplicationController
 
     def set_documentation
       @documentation = Documentation.new
+    end
+
+    def set_reviews
+      @reviews = Review.all
     end
 
     def set_property

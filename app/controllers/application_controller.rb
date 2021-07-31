@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(current_user)
     # If user is Customer and have profile, take to root path
     if current_user.profile
-      if (params[:user][:user_type] == "customer")
+      if (current_user.profile.user_type == "customer")
         root_path
       else
         # If user is Cleaner and have profile, take to jobs path
