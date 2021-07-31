@@ -1,0 +1,22 @@
+<% listings.each do |listing| %>  
+  <div class="col-md-4">
+    <div class="card-deck">
+      <div class="card">
+        <% if listing.image %>
+          <%= image_tag listing.image, class: "card-img-top" %>
+        <% else %>
+          <%= image_tag "car.jpg", class: "card-img-top" %>
+        <% end %>
+        <h5 class="card-title">
+            <%= listing.title %>
+        </h5>
+        <p class="card-text price">
+          From $<%= listing.rate_per_hour %> / hr
+        </p>
+        <p class="card-text">
+          <%= link_to "View", listing_path(listing.id), class: "btn btn-outline" %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

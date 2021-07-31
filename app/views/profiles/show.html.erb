@@ -1,99 +1,74 @@
 <% content_for(:html_title) { 'My Profile' } %>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @profile.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @profile.last_name %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @profile.phone %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @profile.user_type %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @profile.user_id %>
-</p>
-
-<p>
-  <%= image_tag(@profile.image) %>
-</p>
-
-<% if @profile.user_type == "pro" && @documentation %>
-  <!-- Show Documentation -->
-  <p>
-    <strong>Npc reference:</strong>
-    <%= @documentation.npc_reference %>
-  </p>
-
-  <p>
-    <strong>Abn number:</strong>
-    <%= @documentation.abn_number %>
-  </p>
-
-  <p>
-    <strong>Insured:</strong>
-    <%= @documentation.insured %>
-  </p>
-
-  <p>
-    <strong>Profile:</strong>
-    <%= @documentation.profile_id %>
-  </p>
-<% elsif @profile.user_type == "customer" && @property %>
-  <!-- Property -->
-  <p>
-    <strong>Type:</strong>
-    <%= @property.property_type %>
-  </p>
-
-  <p>
-    <strong>Storey:</strong>
-    <%= @property.storey %>
-  </p>
-
-  <p>
-    <strong>Bed:</strong>
-    <%= @property.bed %>
-  </p>
-
-  <p>
-    <strong>Bath:</strong>
-    <%= @property.bath %>
-  </p>
-
-  <p>
-    <strong>Street address:</strong>
-    <%= @property.street_address %>
-  </p>
-
-  <p>
-    <strong>Suburb:</strong>
-    <%= @property.suburb_id %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= @property.description %>
-  </p>
-
-  <p>
-    <strong>Profile:</strong>
-    <%= @property.profile_id %>
-  </p>
-<% end %>
-
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-6">
+        <%= image_tag(@profile.image, size: "300x300") %>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="form-heading name-title"><%= @profile.first_name %> <%= @profile.last_name %></h2>
+          </div>
+          <div class="col-12">
+            Phone: <br />
+            <%= @profile.phone %>
+          </div>
+          <% if @profile.user_type == "pro" && @documentation %>
+            <!-- Show Documentation -->
+            <div class="col-12">
+              <h2 class="form-heading">Documentation</h2>
+              NPC Reference: <br />
+              <%= @documentation.npc_reference %> <br /><br />
+              ABN: <br />
+              <%= @documentation.abn_number %> <br /><br />
+              Public Liability Insurance: <br />
+              <%= @documentation.insured %>
+            </div>
+          <% elsif @profile.user_type == "customer" && @property %>
+            <!-- Property -->
+            <div class="col-12">
+              <h2 class="form-heading">Property Information</h2>
+              <%= @property.property_type %>
+            </div>
+            <div class="col-4">
+              <%= @property.storey %>-Storey
+            </div>
+            <div class="col-4">
+              <%= @property.bed %>-Bed
+            </div>
+            <div class="col-4">
+              <%= @property.bath %>-Bath
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% if @profile.user_type == "customer" && @property %>
+      <!-- Address -->
+      <div class="row">
+        <div class="col-12">
+          <h2 class="form-heading">Address</h2>
+          <div class="row">
+            <div class="col-6">
+              <%= @property.street_address %> <br />
+              <%= @property.suburb.name %>, <%#= @property.suburb.postcode.state.name %> <%#= @property.suburb.state.postcode.number %>
+            </div>
+            <div class="col-6">
+              Description: <br />
+              <%= @property.description %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="row mt-5">
+      <div class="col-2">
+        <%= link_to 'Edit', edit_profile_path(@profile), class: "btn btn-outline" %>
+      </div>
+      <div class="col-2 mt-2">
+        <%= link_to 'Back', profiles_path %>
+      </div>
+    </div>
+  </div>
+</div>

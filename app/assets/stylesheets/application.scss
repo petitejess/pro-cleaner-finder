@@ -28,6 +28,19 @@ a {
   }
 }
 
+h2 {
+  &.form-heading {
+    font-size: 1.4em;
+    color: $black-color;
+    margin: 3em 0 1em;
+  }
+
+  &.name-title {
+    margin-top: 0;
+  }
+}
+
+/* Content */
 header {
 background-image: url(hero-banner.jpeg);
 background-color: $black-color;
@@ -115,7 +128,7 @@ main {
 }
 
 /* Forms */
-.form-control, .btn, .form-check-input[type="checkbox"] {
+.form-control, .btn, .form-check-input[type="checkbox"], select {
   border-radius: 0;
 
   &:focus {
@@ -130,8 +143,34 @@ label {
   margin-bottom: .25em;
 }
 
+select {
+  width: 100%;
+  height: 2.4em;
+  border: 1px solid #ced4da;
+}
+
+.form-check label {
+  margin-top: 0;
+  margin-left: .5em;
+}
+
 .form-check-input[type="checkbox"] {
   margin-top: 1em;
+}
+
+.form-check-input[type="radio"] {
+  margin-left: 0;
+}
+
+.form-check-input {
+  &:checked {
+    background-color: $main-color;
+    border-color: $main-color;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.1em $main-color;
+  }
 }
 
 .form-actions {
