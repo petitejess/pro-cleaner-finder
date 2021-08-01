@@ -1,6 +1,24 @@
-<h1>Editing Review</h1>
+<% content_for(:html_title) { 'Review' } %>
 
-<%= render 'form', review: @review %>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-6">
+        <!-- Job Information -->
+        <div class="row">
+          <div class="col-5">
+            <%= image_tag(@review.job.quote.request.listing.image, size: "150x150") %>
+          </div>
+          <div class="col-7">
+            <h2 class="form-heading mt-0">Job #<%= @review.job.id %></h2>
+            Listing Title <br />
+            by <%= @review.job.quote.request.listing.profile.first_name %> <%= @review.job.quote.request.listing.profile.last_name %> <br /><br />
+            <%= @review.job.quote.request.service_date.strftime("%A, %d-%B-%Y") %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<%= link_to 'Show', @review %> |
-<%= link_to 'Back', reviews_path %>
+    <%= render 'form', review: @review %>
+  </div>
+</div>

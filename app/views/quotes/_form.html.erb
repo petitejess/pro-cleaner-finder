@@ -37,9 +37,6 @@
         <div class="col-3">
           <%= f.button :submit, "Send Quote", class: "btn btn-submit" %>
         </div>
-        <div class="col-3 mt-2">
-          <%= link_to 'Back', quotes_path %>
-        </div>
       <% elsif current_user.profile.user_type == "customer" %>
         <div class="col-3">
           <%= f.button :submit, "Reject", class: "btn btn-outline" %>

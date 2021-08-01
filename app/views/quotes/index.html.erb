@@ -1,9 +1,9 @@
 <% content_for(:html_title) { 'Quotes' } %>
 
 <div class="row">
-  <% if !(@quotes.empty?) %>
-    <%= render 'partials/card_listings', listings: @quotes %>
-  <% else %>
+  <% if @no_open_quotes %>
     <p>You don't have any quotes yet.</p>
+  <% else %>
+    <%= render 'partials/card_listings', listings: @quotes %>
   <% end %>
 </div>

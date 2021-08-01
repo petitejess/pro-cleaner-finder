@@ -39,12 +39,11 @@ class ReviewsController < ApplicationController
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
     respond_to do |format|
+      # Redirect to job upon review submission
       if @review.update(review_params)
-        format.html { redirect_to @review, notice: "Review was successfully updated." }
-        format.json { render :show, status: :ok, location: @review }
+        format.html { redirect_to job_path(@job), notice: "Review was successfully created." }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.html { redirect_to job_path(@job), notice: "Something went wrong, please try again." }
       end
     end
   end

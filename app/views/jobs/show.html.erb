@@ -113,7 +113,7 @@
     </div>
 
     <!-- Allow Customer to leave a Review -->
-    <% if @profile.user_type = "customer" && !(@review.review_to) %>
+    <% if @profile.user_type == "customer" && !(@review.review_to) %>
       <div class="row mt-3">
         <div class="col-3">
           <%= link_to "Leave a Review", edit_review_path(@review.id), class: "btn btn-outline" %>

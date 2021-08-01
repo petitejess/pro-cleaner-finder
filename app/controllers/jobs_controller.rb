@@ -100,7 +100,7 @@ class JobsController < ApplicationController
     def update_quote_status
       # After Customer accept the quote, and quote becomes a job, change the quote status to accepted
       quote = Quote.find(@job.quote_id)
-      quote.update(status: "Quote Accepted.")
+      quote.update(status: "Quote accepted.")
     end
 
     def create_review

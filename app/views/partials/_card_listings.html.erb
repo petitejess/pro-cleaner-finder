@@ -1,5 +1,5 @@
 <% listings.each do |listing| %>
-  <% if current_page?(root_path) || current_page?(search_path) || current_page?(listings_path) || (current_page?(quotes_path) && !(listing.status == "Quote Accepted.")) || current_page?(jobs_path) %>
+  <% if current_page?(root_path) || current_page?(search_path) || current_page?(listings_path) || (current_page?(quotes_path) && !(listing.status.downcase == "quote accepted.")) || current_page?(jobs_path) %>
     <div class="col-md-4">
       <div class="card-deck">
         <div class="card">
@@ -35,14 +35,14 @@
             <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
               From $<%= listing.rate_per_hour %> / hr
             <% elsif current_page?(quotes_path) %>
-              <% if listing.service_hour && listing.total_cost && (listing.status == "Quote sent.") %>
+              <% if listing.service_hour && listing.total_cost && (listing.status.downcase == "quote sent.") %>
                 <%= listing.service_hour %> hours for $<%= listing.total_cost %>
                 <% if (current_user.profile.user_type == "pro") && listing.date %>
                   <br /><%= listing.request.property.suburb.name %> - <%= listing.date.strftime("%a, %d/%m/%Y") %>
                 <% else %>
                   <br /><span class="text-danger"><%= listing.status %> Please review.</span>
                 <% end %>
-              <% elsif listing.status == "Request for a quote." %>
+              <% elsif listing.status.downcase == "request for a quote." %>
                 <span class="text-danger"><%= listing.status %> <br />
                 <% if current_user.profile.user_type == "pro" %>
                   Please review.
@@ -50,7 +50,7 @@
                   <span class="text-secondary">Awaiting response.</span>
                 <% end %>
                 </span>
-              <% elsif listing.status == "Rejected." %>
+              <% elsif listing.status.downcase == "rejected." %>
                 Quote was rejected. <br />
                 ---
               <% end %>

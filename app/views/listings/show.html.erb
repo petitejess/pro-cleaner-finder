@@ -130,5 +130,15 @@
         <%= render "partials/card_reviews", review_details: @review_details %>
       </div>
     <% end %>
+
+    <div class="row">
+      <div class="col-3 mt-4">
+        <% if ((user_signed_in?) && (current_user.profile.user_type == "pro")) %>
+          <%= link_to "Back", listings_path %>
+        <% else %>
+          <%= link_to "Back", root_path %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
