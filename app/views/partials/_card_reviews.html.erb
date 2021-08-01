@@ -6,7 +6,11 @@
           <div class="row">
             <div class="col-3">
               <!-- Reviewer profile picture -->
-              <%= image_tag(review[4].image, size: "100x100") %>
+              <% if review[4].image %>
+                <%= image_tag(review[4].image, size: "100x100") %>
+              <% else %>
+                <%= image_tag(hero-banner.jpeg, size: "100x100") %>
+              <% end %>
             </div>
             <div class="col-9">
               <!-- Listing Title -->

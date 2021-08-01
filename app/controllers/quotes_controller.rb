@@ -1,10 +1,36 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: %i[ show edit update destroy ]
-  after_action :update_quote_status, only: [:update]
 
   # GET /quotes or /quotes.json
   def index
-    @quotes = Quote.all
+    # Get only quotes related to current user
+    all_quotes = Quote.all
+    profile_id = Profile.find_by(user_id: current_user.id).id
+    listings = Listing.where(profile_id: profile_id)
+    listing_ids = []
+    listings.each do |listing|
+      listing_ids << listing.id
+    end
+    property = Property.find_by(profile_id: profile_id)
+    requests = []
+    @quotes = []
+    if listing_ids.length > 0
+      listing_ids.each do |listing_id|
+        requests << Request.where(listing_id: listing_id)
+      end
+      requests.each do |request|
+        request.each do |r|
+          @quotes << Quote.find_by(request_id: r.id)
+        end
+      end
+    elsif property
+      requests = Request.where(property_id: property.id)
+      requests.each do |request|
+        @quotes << Quote.find_by(request_id: request.id)
+      end
+    end
+    # Removes nil
+    @quotes.compact!
   end
 
   # GET /quotes/1 or /quotes/1.json
@@ -61,11 +87,6 @@ class QuotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_quote
       @quote = Quote.find(params[:id])
-    end
-
-    def update_quote_status
-      # Update quote status after Cleaner add hour and total cost
-      @quote.update(status: "Quote sent.")
     end
 
     # Only allow a list of trusted parameters through.

@@ -5,9 +5,8 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-6">
-        <div class="mb-3">
-          <%= f.input :service_date %>
-        </div>
+        <%= f.label :service_date %> <br />
+        <%= f.date_field :service_date, min: Date.today + 1 %>
       </div>
       <div class="col-3">
         <div class="mb-3">
