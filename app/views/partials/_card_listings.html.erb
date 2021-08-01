@@ -1,38 +1,78 @@
-<% listings.each do |listing| %>  
-  <div class="col-md-4">
-    <div class="card-deck">
-      <div class="card">
-        <% if listing.image %>
-          <%= image_tag listing.image, class: "card-img-top" %>
-        <% else %>
-          <%= image_tag "car.jpg", class: "card-img-top" %>
-        <% end %>
-        <h5 class="card-title">
-            <%= listing.title %>
-        </h5>
-        <p class="card-text price">
-          From $<%= listing.rate_per_hour %> / hr
-        </p>
-        <% if current_page?(root_path) %>
-        <p class="card-text">
-          <%= link_to "View", listing_path(listing.id), class: "btn btn-outline" %>
-        </p>
-        <% elsif current_page?(listings_path) %>
-        <p class="card-text">
-          <div class="row">
-            <div class="col-4">
-              <%= link_to "Show", listing, class: "btn btn-outline" %>
-            </div>
-            <div class="col-4">
-              <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-outline" %>
-            </div>
-            <div class="col-4 mt-2">
-              <%= link_to "Delete", listing, method: :delete, data: { confirm: "Are you sure?" } %>
-            </div>
-          </div>
-        </p>
-        <% end %>
+<% listings.each do |listing| %>
+  <% if current_page?(root_path) || current_page?(listings_path) || (current_page?(quotes_path) && !(listing.status == "Quote Accepted.")) %>
+    <div class="col-md-4">
+      <div class="card-deck">
+        <div class="card">
+          <% if current_page?(listings_path) || current_page?(root_path) %>
+            <% if listing.image %>
+              <%= image_tag listing.image, class: "card-img-top" %>
+            <% else %>
+              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+            <% end %>
+          <% elsif current_page?(quotes_path) %>
+            <% if listing.request.listing.image %>
+              <%= image_tag listing.request.listing.image, class: "card-img-top" %>
+            <% else %>
+              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+            <% end %>
+          <% end %>
+          <h5 class="card-title">
+            <% if current_page?(listings_path) || current_page?(root_path) %>
+              <%= listing.title %>
+            <% elsif current_page?(quotes_path) %>
+              Quote #<%= listing.id %>
+            <% end %>
+          </h5>
+          <p class="card-text price">
+            <% if current_page?(listings_path) || current_page?(root_path) %>
+              From $<%= listing.rate_per_hour %> / hr
+            <% elsif current_page?(quotes_path) %>
+              <% if listing.service_hour && listing.total_cost && (listing.status == "Quote sent.") %>
+                <%= listing.service_hour %> hours for $<%= listing.total_cost %>
+                <% if (current_user.profile.user_type == "pro") && listing.date %>
+                  <br /><%= listing.request.property.suburb.name %> - <%= listing.date.strftime("%a, %d/%m/%Y") %>
+                <% else %>
+                  <br /><span class="text-danger"><%= listing.status %> Please review.</span>
+                <% end %>
+              <% elsif listing.status == "Request for a quote." %>
+                <span class="text-danger"><%= listing.status %> <br />
+                <% if current_user.profile.user_type == "pro" %>
+                  Please review.
+                <% else %>
+                  <span class="text-secondary">Awaiting response.</span>
+                <% end %>
+                </span>
+              <% elsif listing.status == "Rejected." %>
+                Quote was rejected. <br />
+                ---
+              <% end %>
+            <% end %>
+          </p>
+          <% if current_page?(root_path) %>
+            <p class="card-text">
+              <%= link_to "View", listing_path(listing.id), class: "btn btn-outline" %>
+            </p>
+          <% elsif current_page?(listings_path) %>
+            <p class="card-text">
+              <div class="row">
+                <div class="col-4">
+                  <%= link_to "Show", listing, class: "btn btn-outline" %>
+                </div>
+                <div class="col-4">
+                  <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-outline" %>
+                </div>
+                <div class="col-4 mt-2">
+                  <%= link_to "Delete", listing, method: :delete, data: { confirm: "Are you sure?" } %>
+                </div>
+              </div>
+            </p>
+          <% elsif current_page?(quotes_path) %>
+            <p class="card-text">
+              <%= link_to "Show", quote_path(listing.id), class: "btn btn-outline" %>
+            </p>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

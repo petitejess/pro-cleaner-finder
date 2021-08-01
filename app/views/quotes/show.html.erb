@@ -1,55 +1,171 @@
 <% content_for(:html_title) { 'Quote' } %>
 
-<p>
-  <strong>Date:</strong>
-  <%= @quote.date %>
-</p>
-
-<p>
-  <strong>Service hour:</strong>
-  <%= @quote.service_hour %>
-</p>
-
-<p>
-  <strong>Total cost:</strong>
-  <%= @quote.total_cost %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @quote.status %>
-</p>
-
-<p>
-  <strong>Request:</strong>
-  <%= @quote.request_id %>
-</p>
-
-<!-- Cleaner form to send a quote -->
-<% if @profile.user_type == "pro" %>
-  <div class="row">
-    <div class="col-12">
-      <h3>Quote <%= @quote.id %></h3>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-6">
+        <!-- Listing Information -->
+        <div class="row">
+          <div class="col-5">
+            <%= image_tag(@quote.request.listing.image, size: "150x150") %>
+          </div>
+          <div class="col-7">
+            <h2 class="form-heading mt-0"><%= @quote.request.listing.title %></h2>
+            Rate per Hour: <br />
+            <%= @quote.request.listing.rate_per_hour %> <br /><br />
+            <%= link_to "Check Listing", listing_path(@quote.request.listing.id) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <!-- Customer Information -->
+        <div class="row">
+          <div class="col-5">
+            <%= image_tag(@quote.request.property.profile.image, size: "150x150") %>
+          </div>
+          <div class="col-7">
+            <h2 class="form-heading mt-0">Customer</h2>
+            Name: <br />
+            <%= @quote.request.property.profile.first_name %> <%= @quote.request.property.profile.last_name %>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="col-12">
-      <%= render 'quotes/form' %>
+    <!-- Property Profile -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Property Profile</h2>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <%= @quote.request.property.property_type %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <%= @quote.request.property.storey %>-Storey
+              </div>
+              <div class="col-4">
+                <%= @quote.request.property.bed %>-Bed
+              </div>
+              <div class="col-4">
+                <%= @quote.request.property.bath %>-Bath
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <%= @quote.request.property.street_address %> <br />
+                <%= @quote.request.property.suburb.name %>, <%= @quote.request.property.suburb.postcode.state.name %> <%= @quote.request.property.suburb.postcode.number %>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <%= @quote.request.property.description %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Time -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Service Time</h2>
+      </div>
+      <div class="col-6">
+        Date <br />
+        <%= @quote.request.service_date.strftime("%A, %d-%B-%Y") %>
+      </div>
+      <div class="col-6">
+        Start Time <br />
+        <%= @quote.request.start_time.strftime("%H:%M") %>
+      </div>
+    </div>
+
+    <!-- Cleaner form to send/view quote -->
+    <% if @profile.user_type == "pro" %>
+      <div class="row">
+        <div class="col-12">
+          <h2 class="form-heading">Quote #<%= @quote.id %></h2>
+        </div>
+        <div class="col-12">
+          <% if @quote.status == "Request for a quote." %>
+            <%= render 'quotes/form' %>
+          <% elsif (@quote.status == "Quote sent.") || (@quote.status == "Rejected.") %>
+            <div class="row">
+              <div class="col-3">
+                Hours <br />
+                <%= @quote.service_hour %>
+              </div>
+              <div class="col-3">
+                Total Cost <br />
+                $<%= @quote.total_cost %>
+              </div>
+              <div class="col-6">
+                Status <br />
+                <%= @quote.status %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Customer form to Approve and pay/Reject quote -->
+    <% if (@profile.user_type == "customer") && (@quote.status != "Request for a quote.")  %>
+      <div class="row">
+        <div class="col-12">
+          <h2 class="form-heading">Quote #<%= @quote.id %></h2>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-3">
+              Hours <br />
+              <%= @quote.service_hour %>
+            </div>
+            <div class="col-3">
+              Total Cost <br />
+              $<%= @quote.total_cost %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <% if @quote.status != "Rejected." %>
+          <!-- To decide -->
+          <div class="col-4">
+            <%= link_to "Approve and Pay", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post, class: "btn btn-submit mt-4" %>
+          </div>
+          <div class="col-4">
+            <%= render 'quotes/form' %>
+          </div>
+        <% elsif @quote.status == "Rejected." %>
+          <!-- If rejected -->
+          <div class="col-12 mt-3">
+            Status <br />
+            <span class="text-danger"><strong><%= @quote.status %></strong></span>
+          </div>
+        <% end %>
+      </div>
+    <% elsif (@profile.user_type == "customer") && (@quote.status == "Request for a quote.")  %>
+      <div class="row">
+        <div class="col-12 mt-3">
+          Status <br />
+          A request for a quote has been sent to the cleaner. Awaiting for response.
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-12 mt-5">
+        <%= link_to "Back", quotes_path %>
+      </div>
     </div>
   </div>
-<% end %>
-
-<!-- Customer form to Approve and pay/Reject quote -->
-<% if @profile.user_type == "customer" && @quote.status == "Quote sent." %>
-  <div class="row">
-    <div class="col-4">
-      <%= link_to "Approve and Pay", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post %>
-    </div>
-    <div class="col-4">
-      <p>Reject</p>
-    </div>
-  </div>
-<% end %>
-
-
-<%= link_to 'Edit', edit_quote_path(@quote) %> |
-<%= link_to 'Back', quotes_path %>
+</div>

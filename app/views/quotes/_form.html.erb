@@ -1,17 +1,40 @@
-
 <%= simple_form_for(@quote) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :date %>
-    <%= f.input :service_hour %>
-    <%= f.input :total_cost %>
-    <%= f.input :status %>
-    <%= f.association :request %>
+  <div class="row">
+    <div class="col-12">
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-inputs">
+    <div class="row">
+      <% if current_user.profile.user_type == "pro" %>
+        <div class="col-3">
+          <%= f.input :service_hour %>
+        </div>
+        <div class="col-6">
+          <%= f.input :total_cost %>
+        </div>
+        <%= f.hidden_field :status, value: "Quote sent."  %>
+      <% elsif current_user.profile.user_type == "customer" %>
+        <%= f.hidden_field :status, value: "Rejected."  %>
+      <% end %>
+  </div>
+
+  <div class="form-actions mt-4">
+    <div class="row">
+      <% if current_user.profile.user_type == "pro" %>
+        <div class="col-3">
+          <%= f.button :submit, "Send Quote", class: "btn btn-submit" %>
+        </div>
+        <div class="col-3 mt-2">
+          <%= link_to 'Back', quotes_path %>
+        </div>
+      <% elsif current_user.profile.user_type == "customer" %>
+        <div class="col-3">
+          <%= f.button :submit, "Reject", class: "btn btn-outline" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 <% end %>
