@@ -1,6 +1,6 @@
 <%= simple_form_for(@quote) do |f| %>
   <div class="row">
-    <div class="col-12">
+    <div class="col-8">
       <%= f.error_notification %>
       <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
     </div>
@@ -10,10 +10,20 @@
     <div class="row">
       <% if current_user.profile.user_type == "pro" %>
         <div class="col-3">
-          <%= f.input :service_hour %>
+          <div>
+            <%= f.label :service_hour %>
+          </div>
+          <div>
+            <%= f.number_field :service_hour, in: 1..99,step: 0.5, class: "form-control" %>
+          </div>
         </div>
         <div class="col-6">
-          <%= f.input :total_cost %>
+          <div>
+            <%= f.label :total_cost %>
+          </div>
+          <div>
+            <%= f.number_field :total_cost, in: 1..99, step: :any, class: "form-control" %>
+          </div>
         </div>
         <%= f.hidden_field :status, value: "Quote sent."  %>
       <% elsif current_user.profile.user_type == "customer" %>

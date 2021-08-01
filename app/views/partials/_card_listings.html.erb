@@ -1,9 +1,9 @@
 <% listings.each do |listing| %>
-  <% if current_page?(root_path) || current_page?(listings_path) || (current_page?(quotes_path) && !(listing.status == "Quote Accepted.")) %>
+  <% if current_page?(root_path) || current_page?(search_path) || current_page?(listings_path) || (current_page?(quotes_path) && !(listing.status == "Quote Accepted.")) || current_page?(jobs_path) %>
     <div class="col-md-4">
       <div class="card-deck">
         <div class="card">
-          <% if current_page?(listings_path) || current_page?(root_path) %>
+          <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
             <% if listing.image %>
               <%= image_tag listing.image, class: "card-img-top" %>
             <% else %>
@@ -15,16 +15,24 @@
             <% else %>
               <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
             <% end %>
+          <% elsif current_page?(jobs_path) %>
+            <% if listing.quote.request.listing.image %>
+              <%= image_tag listing.quote.request.listing.image, class: "card-img-top" %>
+            <% else %>
+              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+            <% end %>
           <% end %>
           <h5 class="card-title">
-            <% if current_page?(listings_path) || current_page?(root_path) %>
+            <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
               <%= listing.title %>
             <% elsif current_page?(quotes_path) %>
               Quote #<%= listing.id %>
+            <% elsif current_page?(jobs_path) %>
+              Job #<%= listing.id %>
             <% end %>
           </h5>
           <p class="card-text price">
-            <% if current_page?(listings_path) || current_page?(root_path) %>
+            <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
               From $<%= listing.rate_per_hour %> / hr
             <% elsif current_page?(quotes_path) %>
               <% if listing.service_hour && listing.total_cost && (listing.status == "Quote sent.") %>
@@ -46,9 +54,12 @@
                 Quote was rejected. <br />
                 ---
               <% end %>
+            <% elsif current_page?(jobs_path) %>
+              <%= listing.service_hour %> hours for $<%= listing.total_cost %> <br />
+              <%= listing.date.strftime("%a, %d/%m/%Y") %>
             <% end %>
           </p>
-          <% if current_page?(root_path) %>
+          <% if current_page?(root_path) || current_page?(search_path) %>
             <p class="card-text">
               <%= link_to "View", listing_path(listing.id), class: "btn btn-outline" %>
             </p>
@@ -69,6 +80,10 @@
           <% elsif current_page?(quotes_path) %>
             <p class="card-text">
               <%= link_to "Show", quote_path(listing.id), class: "btn btn-outline" %>
+            </p>
+          <% elsif current_page?(jobs_path) %>
+            <p class="card-text">
+              <%= link_to "Show", job_path(listing.id), class: "btn btn-outline" %>
             </p>
           <% end %>
         </div>

@@ -1,7 +1,7 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
   before_action :set_property, only: [:create]
-  after_action :create_quote, only: [:create]
+  # after_action :create_quote, only: [:create]
 
   # GET /requests or /requests.json
   def index
@@ -30,11 +30,13 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to @request, notice: "Request was successfully created." }
-        format.json { render :show, status: :created, location: @request }
+        # After Customer create a request for a quote, create a new quote in database
+        create_quote
+
+        # Redirect to quote index upon request submission
+        format.html { redirect_to quote_url(@quote), notice: "Request was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
+        format.html { redirect_to listing_url(@request.listing), notice: "Something went wrong, please try again." }
       end
     end
   end
@@ -74,8 +76,8 @@ class RequestsController < ApplicationController
 
     def create_quote
       # After Customer create a request for a quote, create a new quote in database
-      quote = Quote.new(date: @request.created_at.to_date, request_id: @request.id, status: "Request for a quote.")
-      quote.save
+      @quote = Quote.new(date: @request.created_at.to_date, request_id: @request.id, status: "Request for a quote.")
+      @quote.save
     end
 
     # Only allow a list of trusted parameters through.

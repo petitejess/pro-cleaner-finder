@@ -5,7 +5,39 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    @jobs = Job.all
+    # Get only jobs related to current user
+    profile_id = Profile.find_by(user_id: current_user.id).id
+    listings = Listing.where(profile_id: profile_id)
+    listing_ids= []
+    listings.each do |listing|
+      listing_ids << listing.id
+    end
+    property = Property.find_by(profile_id: profile_id)
+    requests = []
+    quotes = []
+    if listing_ids.length > 0
+      listing_ids.each do |listing_id|
+        requests << Request.where(listing_id: listing_id)
+      end
+      requests.each do |request|
+        request.each do |r|
+          quotes << Quote.find_by(request_id: r.id)
+        end
+      end
+    elsif property
+      requests = Request.where(property_id: property.id)
+      requests.each do |request|
+        quotes << Quote.find_by(request_id: request.id)
+      end
+    end
+    # Removes nil
+    quotes.compact!
+    @jobs = []
+    quotes.each do |quote|
+      @jobs << Job.find_by(quote_id: quote.id)
+    end
+    # Removes nil
+    @jobs.compact!
   end
 
   # GET /jobs/1 or /jobs/1.json
@@ -80,6 +112,12 @@ class JobsController < ApplicationController
     def set_review
       # To check if a review has been left for this job
       @review = Review.find_by(job_id: @job.id)
+
+      if @review.review_from != nil
+        reviewer = Profile.find(@review.review_from)
+        @review_details = []
+        @review_details << [@review.id, @job.quote.request.listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, @review.rating, @review.content]
+      end
     end
 
     # Only allow a list of trusted parameters through.

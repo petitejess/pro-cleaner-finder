@@ -2,12 +2,6 @@
 
 <div class="row text-center mb-5">
   <div class="col-12">
-    <p id="notice"><%= notice %></p>
-  </div>
-</div>
-
-<div class="row text-center mb-5">
-  <div class="col-12">
     <% if current_user && @profile.user_type == "pro" %>
       <%= link_to 'New Listing', new_listing_path, class: "btn btn-submit" %>
     <% end %>
