@@ -30,10 +30,33 @@ class QuotesController < ApplicationController
     end
     # Removes nil
     @quotes.compact!
+
+    # Check if no open quotes
+    quote_open = []
+    @quotes.each do |quote|
+      if quote.status.downcase != "quote accepted."
+        quote_open << quote
+      end
+    end
+    @no_open_quotes = quote_open.length == 0 ? true : false
   end
 
   # GET /quotes/1 or /quotes/1.json
   def show
+    # Get reviews associated with the listing
+    listing = @quote.request.listing
+    all_reviews = Review.where(review_to: listing.profile_id)
+    @reviews = []
+    all_reviews.each do |review|
+      if review.job.quote.request.listing_id == listing.id
+        @reviews << review
+      end
+    end
+    @review_details = []
+    @reviews.each do |review|
+      reviewer = Profile.find(review.review_from)
+      @review_details << [review.id, listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+    end
   end
 
   # GET /quotes/new

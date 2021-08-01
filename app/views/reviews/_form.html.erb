@@ -1,15 +1,44 @@
-
 <%= simple_form_for(@review) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="row">
+    <div class="col-12">
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="form-heading">Leave a review for this job.</h2>
+    </div>
+  </div>
 
   <div class="form-inputs">
-    <%= f.input :rating %>
-    <%= f.input :content %>
-    <%= f.hidden_field :profile, value: @profile.id %>
+    <div class="row">
+      <div class="col-3">
+        <div>
+          <%= f.label :rating, "Rating (out of 5):" %>
+        </div>
+        <div>
+          <%= f.number_field :rating, in: 1..5, step: 1, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="mt-4">
+          <%= f.text_area :content, placeholder: "Enter your message here ..." %>
+        </div>
+      </div>
+      <%= f.hidden_field :profile, value: @profile.id %>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="row">
+      <div class="col-3">
+        <%= f.button :submit, class: "btn btn-submit" %>
+      </div>
+      <div class="col-3 mt-2">
+        <%= link_to 'Back', job_path(@review.job.id) %>
+      </div>
+    </div>
   </div>
 <% end %>

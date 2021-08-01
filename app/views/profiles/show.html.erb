@@ -69,7 +69,7 @@
     </div>
     
     <!-- Show reviews -->
-    <% if @profile.user_type == "pro" && @reviews %>
+    <% if @profile.user_type == "pro" && @reviews.any? %>
       <div class="row mt-3">
         <h2 class="form-heading">Reviews</h2>
       </div>
