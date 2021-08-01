@@ -4,7 +4,6 @@ class QuotesController < ApplicationController
   # GET /quotes or /quotes.json
   def index
     # Get only quotes related to current user
-    all_quotes = Quote.all
     profile_id = Profile.find_by(user_id: current_user.id).id
     listings = Listing.where(profile_id: profile_id)
     listing_ids = []

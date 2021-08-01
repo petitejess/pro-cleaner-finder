@@ -1,27 +1,162 @@
-<p>
-  <strong>Date:</strong>
-  <%= @job.date %>
-</p>
+<% content_for(:html_title) { 'Job' } %>
 
-<p>
-  <strong>Service hour:</strong>
-  <%= @job.service_hour %>
-</p>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-6">
+        <!-- Listing Information -->
+        <div class="row">
+          <div class="col-5">
+            <%= image_tag(@job.quote.request.listing.image, size: "150x150") %>
+          </div>
+          <div class="col-7">
+            <h2 class="form-heading mt-0"><%= @job.quote.request.listing.title %></h2>
+            Rate per Hour: <br />
+            <%= @job.quote.request.listing.rate_per_hour %> <br /><br />
+            <%= link_to "Check Listing", listing_path(@job.quote.request.listing.id) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <!-- Customer Information -->
+        <div class="row">
+          <div class="col-5">
+            <%= image_tag(@job.quote.request.property.profile.image, size: "150x150") %>
+          </div>
+          <div class="col-7">
+            <h2 class="form-heading mt-0">Customer</h2>
+            Name: <br />
+            <%= @job.quote.request.property.profile.first_name %> <%= @job.quote.request.property.profile.last_name %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Total cost:</strong>
-  <%= @job.total_cost %>
-</p>
+    <!-- Property Profile -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Property Profile</h2>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <%= @job.quote.request.property.property_type %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <%= @job.quote.request.property.storey %>-Storey
+              </div>
+              <div class="col-4">
+                <%= @job.quote.request.property.bed %>-Bed
+              </div>
+              <div class="col-4">
+                <%= @job.quote.request.property.bath %>-Bath
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <%= @job.quote.request.property.street_address %> <br />
+                <%= @job.quote.request.property.suburb.name %>, <%= @job.quote.request.property.suburb.postcode.state.name %> <%= @job.quote.request.property.suburb.postcode.number %>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <%= @job.quote.request.property.description %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Quote:</strong>
-  <%= @job.quote_id %>
-</p>
+    <!-- Service Time -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Service Time</h2>
+      </div>
+      <div class="col-6">
+        Date <br />
+        <%= @job.quote.request.service_date.strftime("%A, %d-%B-%Y") %>
+      </div>
+      <div class="col-6">
+        Start Time <br />
+        <%= @job.quote.request.start_time.strftime("%H:%M") %>
+      </div>
+    </div>
 
-<!-- Allow Customer to leave a Review -->
-<% if @profile.user_type = "customer" && !(@review.review_to) %>
-  <%= link_to "Leave a Review", edit_review_path(@review.id) %>
-<% end %>
+    <!-- Job Information -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Job #<%= @job.quote.id %></h2>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3">
+            Hours <br />
+            <%= @job.quote.service_hour %>
+          </div>
+          <div class="col-3">
+            Total Cost <br />
+            $<%= @job.quote.total_cost %>
+          </div>
+          <div class="col-6">
+            Quote <br />
+            #<%= @job.quote.id %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+    <!-- Allow Customer to leave a Review -->
+    <% if @profile.user_type = "customer" && !(@review.review_to) %>
+      <div class="row mt-3">
+        <div class="col-3">
+          <%= link_to "Leave a Review", edit_review_path(@review.id), class: "btn btn-outline" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Display Cleaner's information -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Pro Cleaner</h2>
+      </div>
+      <div class="col-4">
+        <%= image_tag(@job.quote.request.listing.profile.image, size: "150x150") %>
+      </div>
+      <div class="col-4">
+        Name: <br />
+        <%= @job.quote.request.listing.profile.first_name %> <%= @job.quote.request.listing.profile.last_name %> <br /><br />
+        National Police Check: <br />
+        <%= @job.quote.request.listing.profile.documentation.npc_reference %>
+      </div>
+      <div class="col-4">
+        ABN: <br />
+        <%= @job.quote.request.listing.profile.documentation.abn_number %> <br /><br />
+        Insured: <br />
+        <%= @job.quote.request.listing.profile.documentation.insured ? "Yes" : "No" %>
+      </div>
+    </div>
+
+    <!-- Show reviews -->
+    <% if @review.review_from != nil %>
+      <div class="row mt-3">
+        <h2 class="form-heading">Review</h2>
+      </div>
+      <div class="row mt-3">
+        <%= render "partials/card_reviews", review_details: @review_details %>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-3">
+        <%= link_to 'Back', jobs_path %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,33 +1,31 @@
-
-  <% review_details.each do |review| %>
-    <div class="col-6">
-      <div class="card-deck">
-        <div class="card">
-          <div class="row">
-            <div class="col-3">
-              <!-- Reviewer profile picture -->
-              <% if review[4].image %>
-                <%= image_tag(review[4].image, size: "100x100") %>
-              <% else %>
-                <%= image_tag(hero-banner.jpeg, size: "100x100") %>
-              <% end %>
-            </div>
-            <div class="col-9">
-              <!-- Listing Title -->
-              <h5 class="card-title mt-0"><%= review[1] %></h5>
-              <p class="card-text">
-                Rating: <%= review[5] %>/5
-              </p>
-              <!-- Review content -->
-              <p class="card-text">
-                "<%= review[6] %>"
-              </p>
-              <!-- Reviewee -->
-              <p class="card-text">- <%= review[2] %> <%= review[3] %></p>
-            </div>
+<% review_details.each do |review| %>
+  <div class="col-6">
+    <div class="card-deck">
+      <div class="card">
+        <div class="row">
+          <div class="col-3">
+            <!-- Reviewer profile picture -->
+            <% if review[4].image %>
+              <%= image_tag(review[4].image, size: "100x100") %>
+            <% else %>
+              <%= image_tag(hero-banner.jpeg, size: "100x100") %>
+            <% end %>
+          </div>
+          <div class="col-9">
+            <!-- Listing Title -->
+            <h5 class="card-title mt-0"><%= review[1] %></h5>
+            <p class="card-text">
+              Rating: <%= review[5] %>/5
+            </p>
+            <!-- Review content -->
+            <p class="card-text">
+              "<%= review[6] %>"
+            </p>
+            <!-- Reviewee -->
+            <p class="card-text">- <%= review[2] %> <%= review[3] %></p>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
-
+  </div>
+<% end %>
