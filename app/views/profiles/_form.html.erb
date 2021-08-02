@@ -112,20 +112,34 @@
               </div>
 
               <!-- Property Address -->
-              <div class="mb-3">
-                <%= property_form.input :street_address %>
+              <div class="row">
+                <div class="col-6">
+                  <%= property_form.input :street_address %>
+                </div>
               </div>
-              <div class="mb-3">
-                <%= property_form.label :suburb_id, "Suburb" %>
-                <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
-                <%#= property_form.label :state_id, "State" %>
-                <%#= property_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
-                <%#= property_form.label :postcode_id, "Postcode" %>
-                <%#= property_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
+              <div class="row">
+                <div class="col-6">
+                  <%= property_form.label :suburb_id, "Suburb" %>
+                  <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
+                </div>
+                <div class="col-3">
+                  <%= property_form.fields_for :postcode do |postcode_form| %>
+                    <%= postcode_form.label :state_id, "State" %>
+                    <%= postcode_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
+                  <% end %>
+                </div>
+                <div class="col-3">
+                  <%= property_form.fields_for :suburb do |suburb_form| %>
+                    <%= suburb_form.label :postcode_id, "Postcode" %>
+                    <%= suburb_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
+                  <% end %>
+                </div>
               </div>
-              <div class="mb-3">
-                <%= property_form.input :description, required: false %>
-                <%#= property_form.association :profile %>
+
+              <div class="row">
+                <div class="col-12">
+                  <%= property_form.input :description, required: false %>
+                </div>
               </div>
             </div>
           <% end %>
