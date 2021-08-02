@@ -112,6 +112,10 @@ text-align: center;
   }
 }
 
+.nav-link:hover, header nav a.logo:hover, .cta-banner nav a.logo:hover, .nav-link:focus, header nav a.logo:focus, .cta-banner nav a.logo:focus {
+  color: #000;
+}
+
 .home-search-bar {
   text-align: left;
   z-index: 1;
