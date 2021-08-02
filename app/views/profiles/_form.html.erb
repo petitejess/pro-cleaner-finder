@@ -133,11 +133,7 @@
       </div>
 
       <div class="form-actions">
-        <% if current_page?(new_profile_path) %>
-          <%= f.button :submit, "Create", class: "btn btn-submit" %>
-        <% elsif current_page?(edit_profile_path) %>
-          <%= f.button :submit, "Update", class: "btn btn-submit" %>
-        <% end %>
+        <%= f.button :submit, "Create", class: "btn btn-submit" %>
       </div>
     <% end %>
   </div>

@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: %i[ show edit update destroy ]
-  before_action :set_review, only: [:show]
+  before_action :set_review, :set_payment, only: [:show]
   after_action :update_quote_status, :create_review, only: [:create]
 
   # GET /jobs or /jobs.json
@@ -42,6 +42,14 @@ class JobsController < ApplicationController
 
   # GET /jobs/1 or /jobs/1.json
   def show
+    if params[:checkout] == "success"
+      # Update payment
+      @payment.job_id = @job.id
+      @payment.payment_date = Time.current
+      @payment.payment_method = "card"
+      @payment.payment_amount = @job.total_cost
+      @payment.save
+    end
   end
 
   # GET /jobs/new
@@ -107,6 +115,15 @@ class JobsController < ApplicationController
       # After a quote becomes a job, create review based on created job
       review = Review.new(job_id: @job.id, profile_id: @job.quote.request.property.profile_id)
       review.save
+    end
+
+    def set_payment
+      # Get payment associated with this job
+      @payment = Payment.find_by(job_id: @job.id)
+      # If no payment associated with this job, create new instance
+      if !(@payment)
+        @payment = Payment.new
+      end
     end
 
     def set_review

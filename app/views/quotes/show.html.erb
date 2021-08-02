@@ -118,7 +118,7 @@
       </div>
     <% end %>
 
-    <!-- Customer form to Approve and pay/Reject quote -->
+    <!-- Customer form to Approve or Reject quote -->
     <% if (@profile.user_type == "customer") && (@quote.status.downcase != "request for a quote.")  %>
       <div class="row">
         <div class="col-12">
@@ -140,10 +140,10 @@
       <div class="row">
         <% if @quote.status.downcase != "rejected." %>
           <!-- To decide -->
-          <div class="col-4">
-            <%= link_to "Approve and Pay", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post, class: "btn btn-submit mt-4" %>
+          <div class="col-3">
+            <%= link_to "Approve", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post, class: "btn btn-submit mt-4" %>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <%= render 'quotes/form' %>
           </div>
         <% elsif @quote.status.downcase == "rejected." %>
