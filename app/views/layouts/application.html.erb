@@ -15,11 +15,13 @@
 
     <main>
       <div class="container">
-        <div class="row">
-          <div class="col-8">
-            <p class="notice"><%= notice %></p>
+        <% if notice %>
+          <div class="row justify-content-center mb-5">
+            <div class="col-8">
+              <p class="notice alert alert-secondary" role="alert"><%= notice %></p>
+            </div>
           </div>
-        </div>
+        <% end %>
 
         <%= yield %>
       </div>

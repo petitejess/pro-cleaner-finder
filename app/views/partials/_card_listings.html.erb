@@ -32,7 +32,13 @@
               <% if listing.payment %>
                  - PAID
               <% elsif !listing.payment %>
-                <span class="text-danger"> - PAY NOW</span>
+                <span class="text-danger">
+                  <% if current_user.profile.user_type == "customer" %>
+                     - PAY NOW
+                  <% elsif current_user.profile.user_type == "pro" %>
+                     - Awaiting Payment
+                  <% end %>
+                </span>
               <% end %>
             <% end %>
           </h5>
