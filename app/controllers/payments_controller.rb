@@ -1,7 +1,7 @@
-class PaymentController < ApplicationController
+class PaymentsController < ApplicationController
   def create
     # Fetch the job
-    @job = Job.find(params[:id])
+    @job = Job.find(params[:job_id])
 
     # do not update buyer before successfully have the payment through
     # # update the buyer
@@ -24,7 +24,7 @@ class PaymentController < ApplicationController
           price_data: {
             currency: 'aud',
             product_data: {
-              name: @job.id,
+              name: "Payment for Job ##{@job.id}",
             },
             unit_amount: @job.total_cost.to_i * 100,
           },

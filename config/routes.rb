@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :quotes
   resources :requests
   devise_for :users
-  post 'payment/page', to: 'payment#create', as: 'payment'
-  get 'payment/cancel', to: 'payment#cancel', as: 'payment_cancel'
+  post 'payment/page', to: 'payments#create', as: 'payment'
+  get 'payment/cancel', to: 'payments#cancel', as: 'payment_cancel'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

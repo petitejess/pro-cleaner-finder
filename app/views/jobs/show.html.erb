@@ -2,6 +2,15 @@
 
 <div class="row justify-content-center">
   <div class="col-8">
+    <!-- For Customer to pay for the job if not yet paid -->
+    <% if current_user && @profile.user_type == "customer" && @payment.job_id == nil %>
+      <div class="row text-center mb-5">
+        <div class="col-12">
+          <%= link_to "Pay Now", payment_path(job_id: @job.id), method: :post, class: "btn btn-submit" %>
+        </div>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="col-6">
         <!-- Listing Information -->
@@ -94,7 +103,7 @@
       <div class="col-12">
         <h2 class="form-heading">Job #<%= @job.quote.id %></h2>
       </div>
-      <div class="col-12">
+      <div class="col-12 mb-3">
         <div class="row">
           <div class="col-3">
             Hours <br />
@@ -110,10 +119,25 @@
           </div>
         </div>
       </div>
+      <% if @payment.job_id %>
+        <div class="col-12 mb-3">
+          Payment <br />
+          Paid on <%= @payment.payment_date.strftime("%d-%B-%Y") %>
+        </div>
+      <% end %>
     </div>
 
-    <!-- Allow Customer to leave a Review -->
-    <% if @profile.user_type == "customer" && !(@review.review_to) %>
+    <!-- For Customer to pay for the job if not yet paid -->
+    <% if current_user && @profile.user_type == "customer" && @payment.job_id == nil %>
+      <div class="row mt-3">
+        <div class="col-3">
+          <%= link_to "Pay Now", payment_path(job_id: @job.id), method: :post, class: "btn btn-submit" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Allow Customer to leave a Review once job is paid -->
+    <% if @profile.user_type == "customer" && @payment.job_id && !(@review.review_to) %>
       <div class="row mt-3">
         <div class="col-3">
           <%= link_to "Leave a Review", edit_review_path(@review.id), class: "btn btn-outline" %>

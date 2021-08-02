@@ -29,6 +29,11 @@
               Quote #<%= listing.id %>
             <% elsif current_page?(jobs_path) %>
               Job #<%= listing.id %>
+              <% if listing.payment %>
+                 - PAID
+              <% elsif !listing.payment %>
+                <span class="text-danger"> - PAY NOW</span>
+              <% end %>
             <% end %>
           </h5>
           <p class="card-text price">
