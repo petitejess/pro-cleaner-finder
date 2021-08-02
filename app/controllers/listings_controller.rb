@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
   before_action :set_listing, only: %i[ show edit update destroy ]
-  before_action :set_profile, :set_suburbs, :set_request
+  before_action :set_profile, :set_states, :set_postcodes, :set_suburbs, :set_request
   before_action :set_service_areas, except: [:edit, :update]
 
   # GET /listings or /listings.json
@@ -37,7 +37,7 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
-    4.times { @listing.service_areas.build }
+    @listing.service_areas.build
   end
 
   # GET /listings/1/edit
@@ -99,6 +99,16 @@ class ListingsController < ApplicationController
         # Gets current user's profile
         @profile = Profile.find_by(user_id: current_user.id)
       end
+    end
+
+    def set_states
+      # Get all states stored in states table
+      @states = State.all
+    end
+
+    def set_postcodes
+      # Get all postcodes stored in postcodes table
+      @postcodes = Postcode.all
     end
 
     def set_suburbs

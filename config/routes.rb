@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/search', to: 'home#search', as: 'search'
+  get '/coming_soon', to: 'home#coming_soon', as: 'coming'
   resources :profiles
   resources :listings
   resources :reviews

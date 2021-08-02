@@ -53,4 +53,7 @@ class HomeController < ApplicationController
       @listings << all_listings.find(listing_id)
     end
   end
+
+  def coming_soon
+  end
 end

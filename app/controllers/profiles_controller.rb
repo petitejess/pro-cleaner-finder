@@ -106,14 +106,17 @@ class ProfilesController < ApplicationController
     end
 
     def set_states
+      # Get all states stored in states table
       @states = State.all
     end
 
     def set_postcodes
+      # Get all postcodes stored in postcodes table
       @postcodes = Postcode.all
     end
 
     def set_suburbs
+      # Get all suburbs stored in suburbs table
       @suburbs = Suburb.all
     end
 
