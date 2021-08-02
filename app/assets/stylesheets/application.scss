@@ -42,7 +42,7 @@ h2 {
 
 /* Content */
 header {
-background-image: url("/images/hero-banner.jpg");
+background-image: asset-url("hero-banner.jpg");
 background-color: $black-color;
 background-size: cover;
 background-repeat: no-repeat;
