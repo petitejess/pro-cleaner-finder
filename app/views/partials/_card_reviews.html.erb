@@ -5,10 +5,10 @@
         <div class="row">
           <div class="col-3">
             <!-- Reviewer profile picture -->
-            <% if review[4].image %>
+            <% if review[4].image.attached? %>
               <%= image_tag(review[4].image, size: "100x100") %>
             <% else %>
-              <%= image_tag(hero-banner.jpeg, size: "100x100") %>
+              <%= image_tag("avatar.png", size: "100x100") %>
             <% end %>
           </div>
           <div class="col-9">

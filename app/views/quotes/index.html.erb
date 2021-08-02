@@ -2,7 +2,9 @@
 
 <div class="row">
   <% if @no_open_quotes %>
-    <p>You don't have any quotes yet.</p>
+    <div class="col-8">
+      <p>You don't have any quotes yet.</p>
+    </div>
   <% else %>
     <%= render 'partials/card_listings', listings: @quotes %>
   <% end %>

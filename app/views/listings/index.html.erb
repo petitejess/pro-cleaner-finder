@@ -12,7 +12,9 @@
   <% if !(@listings.empty?) %>
     <%= render 'partials/card_listings', listings: @listings %>
   <% else %>
-    <p>You don't have any listings yet.</p>
+    <div class="col-8">
+      <p>You don't have any listings yet.</p>
+    </div>
   <% end %>
 </div>
 

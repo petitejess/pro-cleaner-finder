@@ -4,7 +4,11 @@
   <div class="col-8">
     <div class="row">
       <div class="col-6">
-        <%= image_tag(@listing.image, size: "300x300") %>
+        <% if @listing.image.attached? %>
+          <%= image_tag(@listing.image, size: "300x300") %>
+        <% else %>
+          <%= image_tag("placeholder.jpg", size: "300x300") %>
+        <% end %>
       </div>
       <div class="col-6">
         <div class="row">
@@ -100,7 +104,11 @@
             <h2 class="form-heading">Pro Cleaner</h2>
           </div>
           <div class="col-4">
-            <%= image_tag(@listing.profile.image, size: "150x150") %>
+            <% if @listing.profile.image.attached? %>
+              <%= image_tag(@listing.profile.image, size: "150x150") %>
+            <% else %>
+              <%= image_tag("avatar-pro.png", size: "150x150") %>
+            <% end %>
           </div>
           <div class="col-4">
             Name: <br />

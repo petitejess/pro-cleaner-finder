@@ -4,22 +4,22 @@
       <div class="card-deck">
         <div class="card">
           <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
-            <% if listing.image %>
+            <% if listing.image.attached? %>
               <%= image_tag listing.image, class: "card-img-top" %>
             <% else %>
-              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+              <%= image_tag "placeholder.jpg", class: "card-img-top" %>
             <% end %>
           <% elsif current_page?(quotes_path) %>
-            <% if listing.request.listing.image %>
+            <% if listing.request.listing.image.attached? %>
               <%= image_tag listing.request.listing.image, class: "card-img-top" %>
             <% else %>
-              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+              <%= image_tag "placeholder.jpg", class: "card-img-top" %>
             <% end %>
           <% elsif current_page?(jobs_path) %>
-            <% if listing.quote.request.listing.image %>
+            <% if listing.quote.request.listing.image.attached? %>
               <%= image_tag listing.quote.request.listing.image, class: "card-img-top" %>
             <% else %>
-              <%= image_tag "hero-banner.jpeg", class: "card-img-top" %>
+              <%= image_tag "placeholder.jpg", class: "card-img-top" %>
             <% end %>
           <% end %>
           <h5 class="card-title">
