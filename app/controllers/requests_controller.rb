@@ -36,7 +36,11 @@ class RequestsController < ApplicationController
         # Redirect to quote index upon request submission
         format.html { redirect_to quote_url(@quote), notice: "Request was successfully created." }
       else
-        format.html { redirect_to listing_url(@request.listing), notice: "Something went wrong, please try again." }
+        # Show user error messages
+        flash[:error] = @request.errors.full_messages.join(". ")
+        flash.keep(:error)
+
+        format.html { redirect_to listing_url(@request.listing), notice: "Something went wrong. Please review your submission." }
       end
     end
   end
@@ -48,7 +52,11 @@ class RequestsController < ApplicationController
         format.html { redirect_to @request, notice: "Request was successfully updated." }
         format.json { render :show, status: :ok, location: @request }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # Show user error messages
+        flash[:error] = @request.errors.full_messages.join(". ")
+        flash.keep(:error)
+        
+        format.html { redirect_to listing_url(@request.listing), notice: "Something went wrong. Please review your submission." }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end

@@ -4,4 +4,5 @@ class Quote < ApplicationRecord
 
   # Validation
   validates :date, :status, presence: true
+  validates :service_hour, :total_cost, numericality: { greater_than: 0 }, on: :update
 end

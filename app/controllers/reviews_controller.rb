@@ -30,7 +30,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @review, notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to @review, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
       if @review.update(review_params)
         format.html { redirect_to job_path(@job), notice: "Review was successfully created." }
       else
-        format.html { redirect_to job_path(@job), notice: "Something went wrong, please try again." }
+        format.html { redirect_to @review, notice: "Something went wrong. Please review your submission." }
       end
     end
   end

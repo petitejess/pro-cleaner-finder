@@ -1,5 +1,6 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: %i[ show edit update destroy ]
+  before_action :set_listing, except: [:index]
 
   # GET /quotes or /quotes.json
   def index
@@ -44,18 +45,17 @@ class QuotesController < ApplicationController
   # GET /quotes/1 or /quotes/1.json
   def show
     # Get reviews associated with the listing
-    listing = @quote.request.listing
-    all_reviews = Review.where(review_to: listing.profile_id)
+    all_reviews = Review.where(review_to: @listing.profile_id)
     @reviews = []
     all_reviews.each do |review|
-      if review.job.quote.request.listing_id == listing.id
+      if review.job.quote.request.listing_id == @listing.id
         @reviews << review
       end
     end
     @review_details = []
     @reviews.each do |review|
       reviewer = Profile.find(review.review_from)
-      @review_details << [review.id, listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+      @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
     end
   end
 
@@ -77,7 +77,11 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, notice: "Quote was successfully created." }
         format.json { render :show, status: :created, location: @quote }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # Show user error messages
+        flash[:error] = @quote.errors.full_messages.join(". ")
+        flash.keep(:error)
+        
+        format.html { redirect_to @quote, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end
@@ -90,7 +94,11 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, notice: "Quote was successfully updated." }
         format.json { render :show, status: :ok, location: @quote }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # Show user error messages
+        flash[:error] = @quote.errors.full_messages.join(". ")
+        flash.keep(:error)
+
+        format.html { redirect_to @quote, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end
@@ -109,6 +117,11 @@ class QuotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_quote
       @quote = Quote.find(params[:id])
+    end
+
+    def set_listing
+      # Set listing associated with this quote
+      @listing = @quote.request.listing
     end
 
     # Only allow a list of trusted parameters through.
