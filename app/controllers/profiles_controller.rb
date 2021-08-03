@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
   before_action :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
-  before_action :set_initial_user_type, only: [:new]
+  before_action :set_initial_user_type, only: [:new, :create]
   before_action :set_user_type, only: [:edit, :show, :update]
   before_action :set_reviews, only: [:show]
 
@@ -42,10 +42,10 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    if !(@documentation)
+    if !(current_user.profile.documentation)
       @profile.build_documentation
     end
-    if !(@profile)
+    if !(current_user.profile.property)
       @profile.build_property
     end
   end
@@ -64,7 +64,7 @@ class ProfilesController < ApplicationController
       if @profile.save
           # Else if params Cleaner, redirect to jobs page after creating a profile
         if @profile.user_type == "pro"
-          format.html { redirect_to root_path, notice: "Profile was successfully created." }
+          format.html { redirect_to jobs_path, notice: "Profile was successfully created." }
         else
           # If params Customer, redirect to to root path after creating a profile
           format.html { redirect_to root_path, notice: "Profile was successfully created." }
@@ -107,17 +107,11 @@ class ProfilesController < ApplicationController
     end
 
     def set_initial_user_type
-      # Capture query params being passed
-      if !(current_user.profile)
-        # If new user, set user type as params (passed from signup form)
-        if params[:user_type]
-          @initial_user_type = params[:user_type]
-        else
-          @initial_user_type = session[:user_type]
-        end
+      # If new user, set user type as params (passed from signup form)
+      if params[:user_type]
+        @initial_user_type = params[:user_type]
       else
-        # If user type already set (returning user), set user type to current user's user type
-        @initial_user_type = current_user.profile.user_type
+        @initial_user_type = session[:user_type]
       end
     end
 
