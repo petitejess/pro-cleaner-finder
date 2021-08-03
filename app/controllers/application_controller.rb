@@ -4,9 +4,15 @@ class ApplicationController < ActionController::Base
 
   # Capture query params that are passed to the view
   before_action :set_user_type, :set_profile
+
   def set_user_type
     if params[:user_type]
       @user_type = params[:user_type]
+      # Keep user_type upon sign up, in case user decides to navigate away to homepage and back to creating profile
+      session[:user_type] = params[:user_type]
+    else
+      # If user indeed navigates away and wants to continue creating profie, use the user_type kept in session
+      @user_type = session[:user_type]
     end
   end
 
@@ -29,7 +35,9 @@ class ApplicationController < ActionController::Base
       end
     else
       # Pass the user type when creating the new profile
-      new_profile_path(user_type: params[:user][:user_type]) || root_path
+      if params[:user_type]
+        new_profile_path(user_type: params[:user_type]) || root_path
+      end
     end
   end
 end

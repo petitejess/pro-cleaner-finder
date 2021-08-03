@@ -27,7 +27,11 @@
             </div>
           <div class="col-6">
             <div class="mb-3">
-              <%= f.hidden_field :user_type, value: user_type %>
+              <% if params[:user_type] %>
+                <%= f.hidden_field(:user_type, value: params[:user_type]) %>
+              <% else %>
+                <%= f.hidden_field(:user_type, value: session[:user_type]) %>
+              <% end %>
             </div>
           </div>
           <div class="col-6">

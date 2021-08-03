@@ -23,7 +23,7 @@
                       required: true,
                       input_html: { autocomplete: "new-password" } %>
           <!-- Pass between controller -->
-          <%= f.hidden_field :user_type, value: @user_type %>
+          <%= f.hidden_field(:user_type, value: params[:user_type], name: 'user_type') if params[:user_type] %>
         </div>
       </div>
 
