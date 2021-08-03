@@ -1,6 +1,8 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
-  before_action :set_user_type, :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
+  before_action :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
+  before_action :set_initial_user_type, only: [:new, :create]
+  before_action :set_user_type, only: [:edit, :show, :update]
   before_action :set_reviews, only: [:show]
 
   # GET /profiles or /profiles.json
@@ -28,18 +30,22 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
-    @profile.user_type = @user_type
+
+    # Set user type
+    if @profile.user_type == nil
+      @profile.user_type = @initial_user_type
+    end
+
     @profile.build_documentation
     @profile.build_property
   end
 
   # GET /profiles/1/edit
   def edit
-    @user_type = @profile.user_type
-    if !(@documentation)
+    if !(current_user.profile.documentation)
       @profile.build_documentation
     end
-    if !(@profile)
+    if !(current_user.profile.property)
       @profile.build_property
     end
   end
@@ -57,8 +63,8 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
           # Else if params Cleaner, redirect to jobs page after creating a profile
-        if params[:profile][:user_type] == "pro"
-          format.html { redirect_to root_path, notice: "Profile was successfully created." }
+        if @profile.user_type == "pro"
+          format.html { redirect_to jobs_path, notice: "Profile was successfully created." }
         else
           # If params Customer, redirect to to root path after creating a profile
           format.html { redirect_to root_path, notice: "Profile was successfully created." }
@@ -100,9 +106,17 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params[:id])
     end
 
+    def set_initial_user_type
+      # If new user, set user type as params (passed from signup form)
+      if params[:user_type]
+        @initial_user_type = params[:user_type]
+      else
+        @initial_user_type = session[:user_type]
+      end
+    end
+
     def set_user_type
-      # Capture query params being passed
-      @user_type = params[:user_type]
+      @user_type = current_user.profile.user_type
     end
 
     def set_states

@@ -27,7 +27,7 @@
       </div>
     </div>
     
-    <% if current_user %>
+    <% if current_user && current_user.profile %>
       <% if @profile.user_type == "pro" %>
         <!-- Service Areas -->
         <div class="row">
@@ -138,7 +138,7 @@
 
     <div class="row">
       <div class="col-3 mt-4">
-        <% if ((user_signed_in?) && (current_user.profile.user_type == "pro")) %>
+        <% if ((user_signed_in?) && (current_user.profile) && (current_user.profile.user_type == "pro")) %>
           <%= link_to "Back", listings_path %>
         <% else %>
           <%= link_to "Back", root_path %>

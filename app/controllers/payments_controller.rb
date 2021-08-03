@@ -36,13 +36,12 @@ class PaymentsController < ApplicationController
         success_url: "#{root_path}/jobs/#{@job.id}?checkout=success",
 
         # if payment cancelled show a cancel msg
-        cancel_url: "#{root_path}/payment/cancel",
+        cancel_url: "#{root_path}/payment/cancel"
       })
     
       redirect_to session.url
   end
 
   def cancel
-    render file: 'public/404.html', layout: false, status: :not_found
   end
 end

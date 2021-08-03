@@ -27,7 +27,11 @@
             </div>
           <div class="col-6">
             <div class="mb-3">
-              <%= f.hidden_field :user_type, value: user_type %>
+              <% if params[:user_type] %>
+                <%= f.hidden_field(:user_type, value: params[:user_type]) %>
+              <% else %>
+                <%= f.hidden_field(:user_type, value: session[:user_type]) %>
+              <% end %>
             </div>
           </div>
           <div class="col-6">
@@ -98,7 +102,7 @@
                     <%= property_form.label :bed %>
                   </div>
                   <div>
-                    <%= property_form.number_field :bed, in: 1..99, class: "form-control" %>
+                    <%= property_form.number_field :bed, in: 0..99, class: "form-control" %>
                   </div>
                 </div>
                 <div class="col-2">
@@ -106,7 +110,7 @@
                     <%= property_form.label :bath %>
                   </div>
                   <div>
-                    <%= property_form.number_field :bath, in: 1..99, class: "form-control" %>
+                    <%= property_form.number_field :bath, in: 0..99, class: "form-control" %>
                   </div>
                 </div>
               </div>
