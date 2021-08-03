@@ -58,11 +58,7 @@
       <div class="form-actions">
         <div class="row">
           <div class="col-2">
-            <% if current_page?(new_listing_path) %>
-              <%= f.button :submit, "Create", class: "btn btn-submit" %>
-            <% elsif current_page?(edit_listing_path) %>
-              <%= f.button :submit, "Update", class: "btn btn-submit" %>
-            <% end %>
+            <%= f.button :submit, "Create", class: "btn btn-submit" %>
           </div>
           <div class="col-2 mt-2">
             <%= link_to 'Back', listings_path %>
