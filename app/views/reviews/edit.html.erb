@@ -3,17 +3,17 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <!-- Job Information -->
         <div class="row">
-          <div class="col-5">
+          <div class="col-md-5">
             <% if @review.job.quote.request.listing.image.attached? %>
               <%= image_tag(@review.job.quote.request.listing.image, size: "150x150") %>
             <% else %>
               <%= image_tag("placeholder.jpg", size: "150x150") %>
             <% end %>
           </div>
-          <div class="col-7">
+          <div class="col-md-7">
             <h2 class="form-heading mt-0">Job #<%= @review.job.id %></h2>
             Listing Title <br />
             by <%= @review.job.quote.request.listing.profile.first_name %> <%= @review.job.quote.request.listing.profile.last_name %> <br /><br />

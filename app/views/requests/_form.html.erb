@@ -8,16 +8,16 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :service_date %> <br />
         <%= f.date_field :service_date, min: Date.today + 1 %>
       </div>
-      <div class="col-3">
+      <div class="col-md-3">
         <div class="mb-3">
           <%= f.input :start_time, as: :time, minute_step: 15 %>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-md-3">
         <div class="mb-3">
           <%= f.hidden_field :listing_id, value: params[:id] %>
         </div>

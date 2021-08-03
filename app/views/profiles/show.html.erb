@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <% if @profile.image.attached? %>
           <%= image_tag(@profile.image, size: "300x300") %>
         <% else %>
@@ -13,7 +13,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="row">
           <div class="col-12">
             <h2 class="form-heading name-title"><%= @profile.first_name %> <%= @profile.last_name %></h2>
@@ -39,13 +39,13 @@
               <h2 class="form-heading">Property Information</h2>
               <%= @property.property_type %>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <%= @property.storey %>-Storey
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <%= @property.bed %>-Bed
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <%= @property.bath %>-Bath
             </div>
           <% end %>
@@ -58,11 +58,11 @@
         <div class="col-12">
           <h2 class="form-heading">Address</h2>
           <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
               <%= @property.street_address %> <br />
               <%= @property.suburb.name %>, <%= @property.suburb.postcode.state.name %> <%= @property.suburb.postcode.number %>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
               Description: <br />
               <%= @property.description %>
             </div>

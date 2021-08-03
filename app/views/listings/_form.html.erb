@@ -20,7 +20,7 @@
               <%= f.input :description %>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <%= f.input :rate_per_hour, input_html: { min: '1', step: 'any' } %>
             </div>
@@ -29,18 +29,18 @@
           <h2 class="form-heading">Service Area</h2>
           <!-- Service Area -->
           <%= f.fields_for :service_areas do |service_areas_form| %>
-            <div class="col-6">
+            <div class="col-md-6">
             <%= service_areas_form.label :suburb_id, "Suburb" %>
             <%= service_areas_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
             <% service_areas_form.hidden_field :listing_id, value: params[:id] %>
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
               <%= service_areas_form.fields_for :postcode do |postcode_form| %>
                 <%= postcode_form.label :state_id, "State" %>
                 <%= postcode_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
               <% end %>
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
               <%= service_areas_form.fields_for :suburb do |suburb_form| %>
                 <%= suburb_form.label :postcode_id, "Postcode" %>
                 <%= suburb_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>

@@ -3,14 +3,14 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <% if @listing.image.attached? %>
           <%= image_tag(@listing.image, size: "300x300") %>
         <% else %>
           <%= image_tag("placeholder.jpg", size: "300x300") %>
         <% end %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="row">
           <div class="col-12">
             <h2 class="form-heading name-title"><%= @listing.title %></h2>
@@ -53,23 +53,23 @@
           <div class="col-12">
             <h2 class="form-heading">My Property Profile</h2>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <p><%= @profile.property.property_type %></p>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <p><%= @profile.property.description %></p>
           </div>
           <div class="col-12">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-md-4">
                     <p><%= @profile.property.storey %> - Storey</p>
                   </div>
-                  <div class="col-4">
+                  <div class="col-md-4">
                     <p><%= @profile.property.bed %> - Bed</p>
                   </div>
-                  <div class="col-4">
+                  <div class="col-md-4">
                     <p><%= @profile.property.bath %> - Bath</p>
                   </div>
                 </div>
@@ -78,7 +78,7 @@
           </div>
           <div class="col-12">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <p>
                   <%= @profile.property.street_address %> </br>
                   <%= @profile.property.suburb.name %>, <%= @profile.property.suburb.postcode.state.name %>, <%= @profile.property.suburb.postcode.number %>
@@ -103,20 +103,20 @@
           <div class="col-12">
             <h2 class="form-heading">Pro Cleaner</h2>
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             <% if @listing.profile.image.attached? %>
               <%= image_tag(@listing.profile.image, size: "150x150") %>
             <% else %>
               <%= image_tag("avatar-pro.png", size: "150x150") %>
             <% end %>
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             Name: <br />
             <%= @listing.profile.first_name %> <%= @listing.profile.last_name %> <br /><br />
             National Police Check: <br />
             <%= @listing.profile.documentation.npc_reference %>
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             ABN: <br />
             <%= @listing.profile.documentation.abn_number %> <br /><br />
             Insured: <br />
@@ -137,7 +137,7 @@
     <% end %>
 
     <div class="row">
-      <div class="col-3 mt-4">
+      <div class="col-md-3 mt-4">
         <% if ((user_signed_in?) && (current_user.profile) && (current_user.profile.user_type == "pro")) %>
           <%= link_to "Back", listings_path %>
         <% else %>
