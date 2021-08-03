@@ -3,17 +3,17 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <!-- Listing Information -->
         <div class="row">
-          <div class="col-5">
+          <div class="col-md-5">
             <% if @quote.request.listing.image.attached? %>
               <%= image_tag(@quote.request.listing.image, size: "150x150") %>
             <% else %>
               <%= image_tag("placeholder.jpg", size: "150x150") %>
             <% end %>
           </div>
-          <div class="col-7">
+          <div class="col-md-7">
             <h2 class="form-heading mt-0"><%= @quote.request.listing.title %></h2>
             Rate per Hour: <br />
             <%= @quote.request.listing.rate_per_hour %> <br /><br />
@@ -21,17 +21,17 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <!-- Customer Information -->
         <div class="row">
-          <div class="col-5">
+          <div class="col-md-5">
             <% if @quote.request.property.profile.image.attached? %>
               <%= image_tag(@quote.request.property.profile.image, size: "150x150") %>
             <% else %>
               <%= image_tag("avatar.png", size: "150x150") %>
             <% end %>
           </div>
-          <div class="col-7">
+          <div class="col-md-7">
             <h2 class="form-heading mt-0">Customer</h2>
             Name: <br />
             <%= @quote.request.property.profile.first_name %> <%= @quote.request.property.profile.last_name %>
@@ -47,20 +47,20 @@
       </div>
       <div class="col-12">
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="row">
               <div class="col-12">
                 <%= @quote.request.property.property_type %>
               </div>
             </div>
             <div class="row">
-              <div class="col-4">
+              <div class="col-md-4">
                 <%= @quote.request.property.storey %>-Storey
               </div>
-              <div class="col-4">
+              <div class="col-md-4">
                 <%= @quote.request.property.bed %>-Bed
               </div>
-              <div class="col-4">
+              <div class="col-md-4">
                 <%= @quote.request.property.bath %>-Bath
               </div>
             </div>
@@ -71,7 +71,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="row">
               <div class="col-12">
                 <%= @quote.request.property.description %>
@@ -87,11 +87,11 @@
       <div class="col-12">
         <h2 class="form-heading">Service Time</h2>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         Date <br />
         <%= @quote.request.service_date.strftime("%A, %d-%B-%Y") %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         Start Time <br />
         <%= @quote.request.start_time.strftime("%H:%M") %>
       </div>
@@ -108,15 +108,15 @@
             <%= render 'quotes/form' %>
           <% elsif (@quote.status.downcase == "quote sent.") || (@quote.status.downcase == "rejected.") %>
             <div class="row">
-              <div class="col-3">
+              <div class="col-md-3">
                 Hours <br />
                 <%= @quote.service_hour %>
               </div>
-              <div class="col-3">
+              <div class="col-md-3">
                 Total Cost <br />
                 $<%= @quote.total_cost %>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 Status <br />
                 <%= @quote.status %>
               </div>
@@ -134,11 +134,11 @@
         </div>
         <div class="col-12">
           <div class="row">
-            <div class="col-3">
+            <div class="col-md-3">
               Hours <br />
               <%= @quote.service_hour %>
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
               Total Cost <br />
               $<%= @quote.total_cost %>
             </div>
@@ -148,10 +148,10 @@
       <div class="row">
         <% if @quote.status.downcase != "rejected." %>
           <!-- To decide -->
-          <div class="col-3">
+          <div class="col-md-3">
             <%= link_to "Approve", jobs_path(date: @quote.request.service_date, service_hour: @quote.service_hour, total_cost: @quote.total_cost, quote_id: @quote.id), method: :post, class: "btn btn-submit mt-4" %>
           </div>
-          <div class="col-3">
+          <div class="col-md-3">
             <%= render 'quotes/form' %>
           </div>
         <% elsif @quote.status.downcase == "rejected." %>
@@ -177,20 +177,20 @@
         <div class="col-12">
           <h2 class="form-heading">Pro Cleaner</h2>
         </div>
-        <div class="col-4">
+        <div class="col-md-4">
           <% if @quote.request.listing.profile.image.attached? %>
             <%= image_tag(@quote.request.listing.profile.image, size: "150x150") %>
           <% else %>
             <%= image_tag("avatar-pro.png", size: "150x150") %>
           <% end %>
         </div>
-        <div class="col-4">
+        <div class="col-md-4">
           Name: <br />
           <%= @quote.request.listing.profile.first_name %> <%= @quote.request.listing.profile.last_name %> <br /><br />
           National Police Check: <br />
           <%= @quote.request.listing.profile.documentation.npc_reference %>
         </div>
-        <div class="col-4">
+        <div class="col-md-4">
           ABN: <br />
           <%= @quote.request.listing.profile.documentation.abn_number %> <br /><br />
           Insured: <br />
@@ -210,7 +210,7 @@
     <% end %>
 
     <div class="row">
-      <div class="col-3 mt-4">
+      <div class="col-md-3 mt-4">
         <%= link_to "Back", quotes_path %>
       </div>
     </div>

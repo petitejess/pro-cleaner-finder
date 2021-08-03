@@ -1,9 +1,9 @@
 <% review_details.each do |review| %>
-  <div class="col-6">
+  <div class="col-md-6">
     <div class="card-deck">
       <div class="card">
         <div class="row">
-          <div class="col-3">
+          <div class="col-md-3">
             <!-- Reviewer profile picture -->
             <% if review[4].image.attached? %>
               <%= image_tag(review[4].image, size: "100x100") %>

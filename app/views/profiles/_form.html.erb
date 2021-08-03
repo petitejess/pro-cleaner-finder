@@ -10,22 +10,22 @@
 
       <div class="form-inputs">
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <%= f.input :first_name %>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <%= f.input :last_name %>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <%= f.input :phone %>
             </div>
             </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <% if params[:user_type] %>
                 <%= f.hidden_field(:user_type, value: params[:user_type]) %>
@@ -34,7 +34,7 @@
               <% end %>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <!-- Image upload for profile picture -->
               <%= f.label :image, "Upload Profile Picture", class: "mt-5" %>
@@ -52,19 +52,19 @@
           
             <div class="form-inputs">
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                   <div>
                     <%= documentation_form.input :npc_reference, label: "National Police Check Reference Number" %>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                   <div>
                     <%= documentation_form.input :abn_number, label: "ABN" %>
                   </div>
                 </div>
               </div>
               <div class="row mt-3">
-                <div class="col-6">
+                <div class="col-md-6">
                   <div>
                     <%= documentation_form.input :insured, label: "Do you have a Public Liability insurance?", as: :radio_buttons %>
                   </div>
@@ -81,7 +81,7 @@
           
             <div class="form-inputs">
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                   <div>
                     <%= property_form.label :property_type, "Property Type" %>
                   </div>
@@ -117,22 +117,22 @@
 
               <!-- Property Address -->
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                   <%= property_form.input :street_address %>
                 </div>
               </div>
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                   <%= property_form.label :suburb_id, "Suburb" %>
                   <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <%= property_form.fields_for :postcode do |postcode_form| %>
                     <%= postcode_form.label :state_id, "State" %>
                     <%= postcode_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
                   <% end %>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <%= property_form.fields_for :suburb do |suburb_form| %>
                     <%= suburb_form.label :postcode_id, "Postcode" %>
                     <%= suburb_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
