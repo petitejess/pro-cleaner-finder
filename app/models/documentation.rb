@@ -1,7 +1,8 @@
 class Documentation < ApplicationRecord
+  # Documentation has a one-to-one relationship with Profile. Documentation must belong to exactly one Profile, and Profile may have 0 or 1 Documentation.
   belongs_to :profile
 
   # Validation
   validates :npc_reference, :abn_number, presence: true
-  validates :abn_number, numericality: true, length: { minimum: 9, maximum: 11 }
+  validates_format_of :abn_number, with: /[0-9 ]+/
 end

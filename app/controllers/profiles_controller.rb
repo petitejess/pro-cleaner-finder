@@ -13,18 +13,24 @@ class ProfilesController < ApplicationController
   # GET /profiles/1 or /profiles/1.json
   def show
     # Show only details belonging to current profile
-    @documentation = Documentation.find_by(profile_id: params[:id])
-    
-    @reviews = Review.where(review_to: @profile.id)
-    @review_details = []
-    @reviews.each do |review|
-      reviewer = Profile.find(review.review_from)
-      listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
-      reviewed_listing = Listing.find(listing_id)
-      @review_details << [review.id, reviewed_listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+    if @profile && @profile.user_type == "pro"
+      # If user is Cleaner, show documentation and reviews
+      @documentation = Documentation.find_by(profile_id: @profile.id)
+      @reviews = Review.where(review_to: @profile.id)
+      @review_details = []
+      @reviews.each do |review|
+        reviewer = Profile.find(review.review_from)
+        listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
+        reviewed_listing = Listing.find(listing_id)
+        # Prepare review details to be shown in the view
+        @review_details << [review.id, reviewed_listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+      end
+    else
+      # If user is Customer, show property
+      @property = Property.find_by(profile_id: @profile.id)
     end
 
-    @property = Property.find_by(profile_id: params[:id])
+    
   end
 
   # GET /profiles/new
@@ -36,12 +42,14 @@ class ProfilesController < ApplicationController
       @profile.user_type = @initial_user_type
     end
 
+    # Build nested form
     @profile.build_documentation
     @profile.build_property
   end
 
   # GET /profiles/1/edit
   def edit
+    # Build nested form if user hasn't enter anything upon profile creation
     if !(current_user.profile.documentation)
       @profile.build_documentation
     end
@@ -62,11 +70,11 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-          # Else if params Cleaner, redirect to jobs page after creating a profile
+          # If params Cleaner, redirect to my listings page after creating a profile
         if @profile.user_type == "pro"
-          format.html { redirect_to jobs_path, notice: "Profile was successfully created." }
+          format.html { redirect_to listings_path, notice: "Profile was successfully created." }
         else
-          # If params Customer, redirect to to root path after creating a profile
+          # Else if params Customer, redirect to to root path after creating a profile
           format.html { redirect_to root_path, notice: "Profile was successfully created." }
         end
 
@@ -116,6 +124,7 @@ class ProfilesController < ApplicationController
     end
 
     def set_user_type
+      # If existing user, get user type form profile
       @user_type = current_user.profile.user_type
     end
 
@@ -139,6 +148,7 @@ class ProfilesController < ApplicationController
     end
 
     def set_reviews
+      # Get all reviews stored in reviews table
       @reviews = Review.all
     end
 

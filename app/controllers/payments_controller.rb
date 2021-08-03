@@ -1,21 +1,16 @@
 class PaymentsController < ApplicationController
   def create
-    # Fetch the job
+    # Get the job
     @job = Job.find(params[:job_id])
 
-    # do not update buyer before successfully have the payment through
-    # # update the buyer
-    # @listing.buyer_id = current_user.profile.id
-    # @listing.save
-
-    # Fetch root path
+    # Get root path
     if ENV['RAILS_ENV'] == "development"
       root_path = "http://localhost:3000"
     else
       root_path = ENV['ROOT_PATH']
     end
 
-    # Implement stripe code
+    # Implement stripe key
     Stripe.api_key = Rails.application.credentials.dig(:stripe_api_key)
 
     session = Stripe::Checkout::Session.create({
@@ -32,10 +27,10 @@ class PaymentsController < ApplicationController
         }],
         mode: 'payment',
         # These placeholder URLs will be replaced in a following step.
-        # upon success redirect to listing show page, may be get the buyer to leave a review (string interpolation ruby needs to be surrounded by DOUBLE quote not single quote)
+        # Upon success, redirect to job show page to get the Customer to leave a review
         success_url: "#{root_path}/jobs/#{@job.id}?checkout=success",
 
-        # if payment cancelled show a cancel msg
+        # If payment is cancelled redirect to cancel page
         cancel_url: "#{root_path}/payment/cancel"
       })
     

@@ -4,31 +4,46 @@ class QuotesController < ApplicationController
 
   # GET /quotes or /quotes.json
   def index
-    # Get only quotes related to current user
-    profile_id = Profile.find_by(user_id: current_user.id).id
-    listings = Listing.where(profile_id: profile_id)
-    listing_ids = []
-    listings.each do |listing|
-      listing_ids << listing.id
-    end
-    property = Property.find_by(profile_id: profile_id)
+    # Display only quotes related to current user:
+    # Initialise variables
     requests = []
     @quotes = []
-    if listing_ids.length > 0
-      listing_ids.each do |listing_id|
-        requests << Request.where(listing_id: listing_id)
+    # Get current user's profile id
+    profile_id = current_user.profile.id
+
+    if current_user.profile.user_type == "pro"
+      # If user is Cleaner get all listings owned
+      listings = Listing.where(profile_id: profile_id)
+      listing_ids = []
+      listings.each do |listing|
+        # Get all listing ids
+        listing_ids << listing.id
       end
-      requests.each do |request|
-        request.each do |r|
-          @quotes << Quote.find_by(request_id: r.id)
+      
+      # Only if Cleaner has any listing
+      if listing_ids.length > 0
+        listing_ids.each do |listing_id|
+          # Get all requests
+          requests << Request.where(listing_id: listing_id)
+        end
+        requests.each do |request|
+          request.each do |r|
+            # Get all quotes
+            @quotes << Quote.find_by(request_id: r.id)
+          end
         end
       end
-    elsif property
+    else
+      # If user is Customer get property
+      property = Property.find_by(profile_id: profile_id)
+      # Get all requests made
       requests = Request.where(property_id: property.id)
       requests.each do |request|
+        # Get all quotes received
         @quotes << Quote.find_by(request_id: request.id)
       end
     end
+    
     # Removes nil
     @quotes.compact!
 
@@ -39,6 +54,8 @@ class QuotesController < ApplicationController
         quote_open << quote
       end
     end
+
+    # Return true if there are no open quote, of false if there is any open quote
     @no_open_quotes = quote_open.length == 0 ? true : false
   end
 
@@ -55,6 +72,7 @@ class QuotesController < ApplicationController
     @review_details = []
     @reviews.each do |review|
       reviewer = Profile.find(review.review_from)
+      # Prepare review details to be displayed in te view
       @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
     end
   end

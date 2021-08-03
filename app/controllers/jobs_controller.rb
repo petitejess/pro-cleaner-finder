@@ -5,45 +5,64 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    # Get only jobs related to current user
-    profile_id = Profile.find_by(user_id: current_user.id).id
-    listings = Listing.where(profile_id: profile_id)
-    listing_ids= []
-    listings.each do |listing|
-      listing_ids << listing.id
-    end
-    property = Property.find_by(profile_id: profile_id)
+    # Display only jobs related to current user:
+    # Initialise variables
     requests = []
     quotes = []
-    if listing_ids.length > 0
-      listing_ids.each do |listing_id|
-        requests << Request.where(listing_id: listing_id)
+
+    # Get current user's profile id
+    profile_id = current_user.profile.id
+
+    if current_user.profile.user_type == "pro"
+      # If user is Cleaner get all listings owned
+      listings = Listing.where(profile_id: profile_id)
+      listing_ids= []
+      listings.each do |listing|
+        # Get the listing ids
+        listing_ids << listing.id
       end
-      requests.each do |request|
-        request.each do |r|
-          quotes << Quote.find_by(request_id: r.id)
+
+      # Only if Cleaner has any listing
+      if listing_ids.length > 0
+        listing_ids.each do |listing_id|
+          # Get all requests received
+          requests << Request.where(listing_id: listing_id)
+        end
+        requests.each do |request|
+          request.each do |r|
+            # Get all quotes sent
+            quotes << Quote.find_by(request_id: r.id)
+          end
         end
       end
-    elsif property
+    else
+      # If user is Customer get property
+      property = Property.find_by(profile_id: profile_id)
+      # Get all requests made
       requests = Request.where(property_id: property.id)
       requests.each do |request|
+        # Get all quotes received
         quotes << Quote.find_by(request_id: request.id)
       end
     end
+
     # Removes nil
     quotes.compact!
     @jobs = []
     quotes.each do |quote|
+      # Get all jobs for the quotes
       @jobs << Job.find_by(quote_id: quote.id)
     end
+
     # Removes nil
     @jobs.compact!
   end
 
   # GET /jobs/1 or /jobs/1.json
   def show
+    # If payment is successful
     if params[:checkout] == "success"
-      # Update payment
+      # Update payment details
       @payment.job_id = @job.id
       @payment.payment_date = Time.current
       @payment.payment_method = "card"
@@ -114,7 +133,7 @@ class JobsController < ApplicationController
     end
 
     def update_quote_status
-      # After Customer accept the quote, and quote becomes a job, change the quote status to accepted
+      # After Customer accepts the quote, and quote becomes a job, change the quote status to accepted
       quote = Quote.find(@job.quote_id)
       quote.update(status: "Quote accepted.")
     end
@@ -141,6 +160,7 @@ class JobsController < ApplicationController
       if @review.review_from != nil
         reviewer = Profile.find(@review.review_from)
         @review_details = []
+        # Prepare review details to be shown in the view
         @review_details << [@review.id, @job.quote.request.listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, @review.rating, @review.content]
       end
     end

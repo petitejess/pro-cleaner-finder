@@ -20,7 +20,7 @@
 
 <div class="row text-center mt-2">
   <div class="col-12">
-    <% if current_user && @profile.user_type == "pro" %>
+    <% if current_user && @profile.user_type == "pro" && @listings.any? %>
       <%= link_to 'New Listing', new_listing_path, class: "btn btn-submit" %>
     <% end %>
   </div>

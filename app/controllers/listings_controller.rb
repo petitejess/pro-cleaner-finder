@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  # Allow visitor to see individual listing without login
+  # Allow visitor to see listings without login
   skip_before_action :authenticate_user!, only: [:show]
 
   before_action :set_listing, only: %i[ show edit update destroy ]
@@ -30,6 +30,7 @@ class ListingsController < ApplicationController
     @review_details = []
     @reviews.each do |review|
       reviewer = Profile.find(review.review_from)
+      # Prepare review details to be displayed in view
       @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
     end
   end
@@ -37,12 +38,15 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
+    
+    # Build nested form
     @listing.service_areas.build
   end
 
   # GET /listings/1/edit
   def edit
     if !(@service_areas)
+      # Build nested form, if user didn't enter any upon listing creation
       @listing.service_areas.build
     end
   end

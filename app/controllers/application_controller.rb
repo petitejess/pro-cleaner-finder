@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   # User authentication
   before_action :authenticate_user!
+
+  # Capture query params that are passed to the view
   before_action :set_user_type, :set_profile
 
   def set_user_type
@@ -15,9 +17,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_profile
-    # If user is logged in, set current user's profile
+    # If user is logged in, get current user's profile
     if user_signed_in? && current_user.profile
-      @profile = current_user.profile
+      @profile = Profile.find_by(user_id: current_user.id)
     end
   end
 
@@ -28,8 +30,8 @@ class ApplicationController < ActionController::Base
       if (current_user.profile.user_type == "customer")
         root_path
       else
-        # If user is Cleaner and have profile, take to jobs path
-        jobs_path
+        # If user is Cleaner and have profile, take to my listings page
+        listings_path
       end
     else
       # Pass the user type when creating the new profile
