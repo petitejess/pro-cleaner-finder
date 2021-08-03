@@ -71,7 +71,11 @@ class JobsController < ApplicationController
         format.html { redirect_to @job, notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # Show user error messages
+        flash[:error] = @job.errors.full_messages.join(". ")
+        flash.keep(:error)
+
+        format.html { redirect_to @job, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
@@ -84,7 +88,11 @@ class JobsController < ApplicationController
         format.html { redirect_to @job, notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # Show user error messages
+        flash[:error] = @job.errors.full_messages.join(". ")
+        flash.keep(:error)
+        
+        format.html { redirect_to @job, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end

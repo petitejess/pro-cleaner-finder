@@ -83,9 +83,6 @@
                 <div class="col-md-4">
                   <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-outline" %>
                 </div>
-                <div class="col-md-4 mt-2">
-                  <%= link_to "Delete", listing, method: :delete, data: { confirm: "Are you sure?" } %>
-                </div>
               </div>
             </p>
           <% elsif current_page?(quotes_path) %>
