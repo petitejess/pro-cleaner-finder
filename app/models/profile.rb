@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
 
   # Profile has a one-to-one relationship with Documentation. Profile may have 0 or 1 Documentation, and Documentation must belong to exactly one Profile.
   has_one :documentation, inverse_of: :profile, autosave: true, :dependent => :destroy
-  # Listing accepts attributes for Documentation through nested form
+  # Profile accepts attributes for Documentation through nested form
   accepts_nested_attributes_for :documentation, allow_destroy: true
   
   # Profile has a one-to-one relationship with Property. Profile may have 0 or 1 Property, and Property must belong to exactly one Profile.
