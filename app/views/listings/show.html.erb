@@ -27,20 +27,20 @@
       </div>
     </div>
     
+    <!-- Service Areas -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Service Areas</h2>
+        <ul>
+          <% @service_areas.to_a.each do |area| %>
+            <li><%= area.suburb.name %>, <%= area.suburb.postcode.state.name %> <%= area.suburb.postcode.number %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
     <% if current_user && current_user.profile %>
       <% if @profile.user_type == "pro" %>
-        <!-- Service Areas -->
-        <div class="row">
-          <div class="col-12">
-            <h2 class="form-heading">Service Areas</h2>
-            <ul>
-              <% @service_areas.to_a.each do |area| %>
-                <li><%= area.suburb.name %>, <%= area.suburb.postcode.state.name %> <%= area.suburb.postcode.number %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-
         <!-- Show edit and back to my listings button -->
         <div class="row mt-3">
           <div class="col-2">
@@ -97,34 +97,39 @@
             <%= render 'requests/form' %>
           </div>
         </div>
-
-        <!-- Display Cleaner's information -->
-        <div class="row">
-          <div class="col-12">
-            <h2 class="form-heading">Pro Cleaner</h2>
-          </div>
-          <div class="col-md-4">
-            <% if @listing.profile.image.attached? %>
-              <%= image_tag(@listing.profile.image, size: "150x150") %>
-            <% else %>
-              <%= image_tag("avatar-pro.png", size: "150x150") %>
-            <% end %>
-          </div>
-          <div class="col-md-4">
-            Name: <br />
-            <%= @listing.profile.first_name %> <%= @listing.profile.last_name %> <br /><br />
-            National Police Check: <br />
-            <%= @listing.profile.documentation.npc_reference %>
-          </div>
-          <div class="col-md-4">
-            ABN: <br />
-            <%= @listing.profile.documentation.abn_number %> <br /><br />
-            Insured: <br />
-            <%= @listing.profile.documentation.insured ? "Yes" : "No" %>
-          </div>
-        </div>
       <% end %>
     <% end %>
+
+    <!-- Display Cleaner's information -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="form-heading">Pro Cleaner</h2>
+      </div>
+      <div class="col-md-4">
+        <% if @listing.profile.image.attached? %>
+          <%= image_tag(@listing.profile.image, size: "150x150") %>
+        <% else %>
+          <%= image_tag("avatar-pro.png", size: "150x150") %>
+        <% end %>
+      </div>
+      <div class="col-md-4">
+        Name: <br />
+        <%= @listing.profile.first_name %> <%= @listing.profile.last_name %> <br /><br />
+        National Police Check: <br />
+        <%= @listing.profile.documentation.npc_reference %>
+      </div>
+      <div class="col-md-4">
+        ABN: <br />
+        <%= @listing.profile.documentation.abn_number %> <br /><br />
+        Insured: <br />
+        <%= @listing.profile.documentation.insured ? "Yes" : "No" %>
+      </div>
+      <% if user_signed_in? %>
+        <div class="col-12 mt-5">
+          <%= link_to "Show Cleaner Profile", profile_path(@listing.profile.id) %>
+        </div>
+      <% end %>
+    </div>
 
     <!-- Show reviews -->
     <% if @reviews.any? %>

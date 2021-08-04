@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :set_states, :set_postcodes, :set_suburbs, :set_property, :set_documentation
   before_action :set_initial_user_type, only: [:new, :create]
   before_action :set_user_type, only: [:edit, :show, :update]
-  before_action :set_reviews, only: [:show]
+  before_action :set_reviews, :set_viewer, only: [:show]
 
   # GET /profiles or /profiles.json
   def index
@@ -14,8 +14,9 @@ class ProfilesController < ApplicationController
   def show
     # Show only details belonging to current profile
     if @profile && @profile.user_type == "pro"
-      # If user is Cleaner, show documentation and reviews
+      # If user is Cleaner, show documentation, listings and reviews
       @documentation = Documentation.find_by(profile_id: @profile.id)
+      @listings = Listing.where(profile_id: @profile.id)
       @reviews = Review.where(review_to: @profile.id)
       @review_details = []
       @reviews.each do |review|
@@ -29,8 +30,6 @@ class ProfilesController < ApplicationController
       # If user is Customer, show property
       @property = Property.find_by(profile_id: @profile.id)
     end
-
-    
   end
 
   # GET /profiles/new
@@ -126,6 +125,14 @@ class ProfilesController < ApplicationController
     def set_user_type
       # If existing user, get user type form profile
       @user_type = current_user.profile.user_type
+    end
+
+    def set_viewer
+      if user_signed_in? && current_user.profile
+        @viewer = current_user.profile
+      else
+        @viewer = "visitor"
+      end
     end
 
     def set_states
