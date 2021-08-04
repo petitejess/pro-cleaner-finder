@@ -10,6 +10,8 @@ class Listing < ApplicationRecord
 
   # Listing can have 0 or 1 image
   has_one_attached :image
+
+  # Listing has a one-to-many relationship with Request. Listing may have 0 or many Request, and Request must belong to exactly 1 Listing.
   has_many :requests
   
   # Validation

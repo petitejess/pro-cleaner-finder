@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/search', to: 'home#search', as: 'search'
   get '/coming_soon', to: 'home#coming_soon', as: 'coming'
-  resources :profiles
+  resources :profiles, except: [:index, :destroy]
   resources :listings
-  resources :reviews
-  resources :jobs
-  resources :quotes
-  resources :requests
+  resources :reviews, only: [:edit, :update]
+  resources :quotes, :jobs, except: [:new, :edit, :destroy]
+  resources :requests, only: [:create, :update]
   devise_for :users
   post 'payment/page', to: 'payments#create', as: 'payment'
   get 'payment/cancel', to: 'payments#cancel', as: 'payment_cancel'

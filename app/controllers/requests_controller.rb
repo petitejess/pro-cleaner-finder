@@ -1,7 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
   before_action :set_property, only: [:create]
-  # after_action :create_quote, only: [:create]
 
   # GET /requests or /requests.json
   def index
