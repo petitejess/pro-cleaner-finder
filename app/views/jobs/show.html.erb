@@ -1,7 +1,7 @@
 <% content_for(:html_title) { 'Job' } %>
 
 <div class="row justify-content-center">
-  <div class="col-8">
+  <div class="col-md-8">
     <!-- For Customer to pay for the job if not yet paid -->
     <% if current_user && @profile.user_type == "customer" && @payment.job_id == nil %>
       <div class="row text-center mb-5">

@@ -86,7 +86,7 @@
     <% end %>
 
     <!-- Show all listings owned -->
-    <% if user_signed_in? && @listings.any? %>
+    <% if user_signed_in? && current_user.profile.user_type == "pro" && @listings.any? %>
       <div class="row mt-3">
         <h2 class="form-heading">Services Provided</h2>
       </div>

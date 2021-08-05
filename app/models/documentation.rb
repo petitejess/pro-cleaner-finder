@@ -1,5 +1,5 @@
 class Documentation < ApplicationRecord
-  # Documentation has a one-to-one relationship with Profile. Documentation must belong to exactly one Profile, and Profile may have 0 or 1 Documentation.
+  # Documentation has a one-to-one relationship with Profile. Documentation must belong to exactly one Profile, and Profile must have exactly 1 Documentation.
   belongs_to :profile
 
   # Validation

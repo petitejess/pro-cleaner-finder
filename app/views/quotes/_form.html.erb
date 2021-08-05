@@ -1,7 +1,7 @@
 <%= simple_form_for(@quote) do |f| %>
   <%  if flash[:error] || f.error_notification %>
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8">
         <p class="text-danger"><%= flash[:error] %></p>
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>

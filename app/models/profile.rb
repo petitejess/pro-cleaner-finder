@@ -2,13 +2,13 @@ class Profile < ApplicationRecord
   # Profile has a one-to-one relationship with User. Profile must belong to exactly one User, and User has exactly 1 Profile.
   belongs_to :user
 
-  # Profile has a one-to-one relationship with Documentation. Profile may have 0 or 1 Documentation, and Documentation must belong to exactly one Profile.
-  has_one :documentation, inverse_of: :profile, autosave: true, :dependent => :destroy
+  # Profile has a one-to-one relationship with Documentation. Profile has exactly 1 Documentation, and Documentation must belong to exactly one Profile.
+  has_one :documentation, inverse_of: :profile, autosave: true, dependent: :destroy
   # Profile accepts attributes for Documentation through nested form
   accepts_nested_attributes_for :documentation, allow_destroy: true
   
-  # Profile has a one-to-one relationship with Property. Profile may have 0 or 1 Property, and Property must belong to exactly one Profile.
-  has_one :property, inverse_of: :profile, autosave: true, :dependent => :destroy
+  # Profile has a one-to-one relationship with Property. Profile has exactly 1 Property, and Property must belong to exactly one Profile.
+  has_one :property, inverse_of: :profile, autosave: true, dependent: :destroy
   # Profile accepts attributes for Property through nested form
   accepts_nested_attributes_for :property, allow_destroy: true
 

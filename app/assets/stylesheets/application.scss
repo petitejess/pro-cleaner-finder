@@ -157,13 +157,15 @@ ul.menu {
 }
 
 .home-search-bar {
-  text-align: left;
-  z-index: 1;
-
-  .row {
-    max-width: 400px;
-    margin: auto;
+  .form-control {
+    display: inline-block;
+    width: auto;
+    position: relative;
+    top: 3px;
+    height: 2.4em;
+    width: 40%;
   }
+  z-index: 1;
 }
 
 main {
@@ -277,6 +279,8 @@ label.collection_radio_buttons {
 
 /* CTA Banner */
 .cta-banner {
+  position: relative;
+
   p {
     color: #fff;
     font-size: 1.5em;
@@ -291,13 +295,13 @@ label.collection_radio_buttons {
     }
   }
 
-  @extend header
-}
+  &::before {
+    top: auto;
+    opacity: .5;
+    height: 100%;
+  }
 
-.cta-banner::before {
-  top: auto;
-  opacity: .5;
-  min-height: 40vh;
+  @extend header
 }
 
 footer {
@@ -318,6 +322,9 @@ padding: $start-end-space;
   .navbar {
   padding-top: 0;
   padding-bottom: 0;
+    .container-fluid {
+      padding: 0;
+    }
   }
 
   .navbar-toggler { display: none; }
@@ -411,5 +418,18 @@ padding: $start-end-space;
         }
       }
     }
+  }
+
+  // Home Search Bar
+  .home-search-bar {
+    .form-control { width: 65%; }
+  }
+}
+
+// MEDIA QUERIES
+// < 992px
+@media (max-width: 280px) {
+  header nav a.logo, .cta-banner nav a.logo {
+    font-size: 120%;
   }
 }
