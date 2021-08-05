@@ -177,6 +177,9 @@
         Insured: <br />
         <%= @job.quote.request.listing.profile.documentation.insured ? "Yes" : "No" %>
       </div>
+      <div class="col-12 mt-5">
+        <%= link_to "Show Cleaner Profile", profile_path(@job.quote.request.listing.profile.id) %>
+      </div>
     </div>
 
     <!-- Show reviews -->
@@ -189,7 +192,7 @@
       </div>
     <% end %>
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-md-3">
         <%= link_to 'Back', jobs_path %>
       </div>

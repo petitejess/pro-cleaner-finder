@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_01_151456) do
+ActiveRecord::Schema.define(version: 2021_07_28_073734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,20 +71,6 @@ ActiveRecord::Schema.define(version: 2021_08_01_151456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["profile_id"], name: "index_listings_on_profile_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.datetime "message_date_time"
-    t.text "content"
-    t.boolean "unread"
-    t.bigint "listing_id", null: false
-    t.integer "message_from"
-    t.integer "message_to"
-    t.bigint "profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["listing_id"], name: "index_messages_on_listing_id"
-    t.index ["profile_id"], name: "index_messages_on_profile_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -206,8 +192,6 @@ ActiveRecord::Schema.define(version: 2021_08_01_151456) do
   add_foreign_key "documentations", "profiles"
   add_foreign_key "jobs", "quotes"
   add_foreign_key "listings", "profiles"
-  add_foreign_key "messages", "listings"
-  add_foreign_key "messages", "profiles"
   add_foreign_key "payments", "jobs"
   add_foreign_key "postcodes", "states"
   add_foreign_key "profiles", "users"

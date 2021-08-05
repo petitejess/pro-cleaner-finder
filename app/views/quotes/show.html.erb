@@ -196,6 +196,9 @@
           Insured: <br />
           <%= @quote.request.listing.profile.documentation.insured ? "Yes" : "No" %>
         </div>
+        <div class="col-12 mt-5">
+          <%= link_to "Show Cleaner Profile", profile_path(@quote.request.listing.profile.id) %>
+        </div>
       </div>
 
       <!-- Show reviews -->

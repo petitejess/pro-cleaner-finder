@@ -91,7 +91,7 @@
                     <%= property_form.select :property_type, ["Apartment/Flat", "House", "Villa/Townhouse"], class: "form-control" %>
                   </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                   <div>
                     <%= property_form.label :storey %>
                   </div>
@@ -99,7 +99,7 @@
                     <%= property_form.number_field :storey, in: 1..99, class: "form-control" %>
                   </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                   <div>
                     <%= property_form.label :bed %>
                   </div>
@@ -107,7 +107,7 @@
                     <%= property_form.number_field :bed, in: 0..99, class: "form-control" %>
                   </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                   <div>
                     <%= property_form.label :bath %>
                   </div>
