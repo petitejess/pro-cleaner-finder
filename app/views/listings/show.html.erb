@@ -17,7 +17,7 @@
           </div>
           <div class="col-12">
             Rate per Hour: <br />
-            $<%= @listing.rate_per_hour %>
+            <%= number_to_currency(@listing.rate_per_hour) %>
           </div>
           <div class="col-12 mt-3">
             Description: <br />
