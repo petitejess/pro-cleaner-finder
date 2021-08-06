@@ -129,15 +129,15 @@
                   <%= property_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
                 </div>
                 <div class="col-md-3">
-                  <%= property_form.fields_for :postcode do |postcode_form| %>
-                    <%= postcode_form.label :state_id, "State" %>
-                    <%= postcode_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
+                  <%= property_form.fields_for :state do |state_form| %>
+                    <%= state_form.label :state_id, "State" %>
+                    <%= state_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
                   <% end %>
                 </div>
                 <div class="col-md-3">
-                  <%= property_form.fields_for :suburb do |suburb_form| %>
-                    <%= suburb_form.label :postcode_id, "Postcode" %>
-                    <%= suburb_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
+                  <%= property_form.fields_for :postcode do |postcode_form| %>
+                    <%= postcode_form.label :postcode_id, "Postcode" %>
+                    <%= postcode_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
                   <% end %>
                 </div>
               </div>
