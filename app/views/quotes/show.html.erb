@@ -16,7 +16,7 @@
           <div class="col-md-7">
             <h2 class="form-heading mt-0"><%= @quote.request.listing.title %></h2>
             Rate per Hour: <br />
-            <%= @quote.request.listing.rate_per_hour %> <br /><br />
+            <%= number_to_currency(@quote.request.listing.rate_per_hour) %> <br /><br />
             <%= link_to "Check Listing", listing_path(@quote.request.listing.id) %>
           </div>
         </div>
@@ -114,7 +114,7 @@
               </div>
               <div class="col-md-3">
                 Total Cost <br />
-                $<%= @quote.total_cost %>
+                <%= number_to_currency(@quote.total_cost) %>
               </div>
               <div class="col-md-6">
                 Status <br />
@@ -140,7 +140,7 @@
             </div>
             <div class="col-md-3">
               Total Cost <br />
-              $<%= @quote.total_cost %>
+              <%= number_to_currency(@quote.total_cost) %>
             </div>
           </div>
         </div>

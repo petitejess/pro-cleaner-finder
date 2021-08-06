@@ -44,10 +44,10 @@
           </h5>
           <p class="card-text price">
             <% if current_page?(listings_path) || current_page?(root_path) || current_page?(search_path) %>
-              From $<%= listing.rate_per_hour %> / hr
+              From <%= number_to_currency(listing.rate_per_hour) %> / hr
             <% elsif current_page?(quotes_path) %>
               <% if listing.service_hour && listing.total_cost && (listing.status.downcase == "quote sent.") %>
-                <%= listing.service_hour %> hours for $<%= listing.total_cost %>
+                <%= listing.service_hour %> hours for <%= number_to_currency(listing.total_cost) %>
                 <% if (current_user.profile.user_type == "pro") && listing.date %>
                   <br /><%= listing.request.property.suburb.name %> - <%= listing.date.strftime("%a, %d/%m/%Y") %>
                 <% else %>
@@ -66,7 +66,7 @@
                 ---
               <% end %>
             <% elsif current_page?(jobs_path) %>
-              <%= listing.service_hour %> hours for $<%= listing.total_cost %> <br />
+              <%= listing.service_hour %> hours for <%= number_to_currency(listing.total_cost) %> <br />
               <%= listing.date.strftime("%a, %d/%m/%Y") %>
             <% end %>
           </p>
