@@ -8,9 +8,9 @@
         <div class="row">
           <div class="col-md-5">
             <% if @quote.request.listing.image.attached? %>
-              <%= image_tag(@quote.request.listing.image, size: "150x150") %>
+              <%= image_tag(@quote.request.listing.image, size: "150x112") %>
             <% else %>
-              <%= image_tag("placeholder.jpg", size: "150x150") %>
+              <%= image_tag("placeholder.jpg", size: "150x112") %>
             <% end %>
           </div>
           <div class="col-md-7">
@@ -26,9 +26,9 @@
         <div class="row">
           <div class="col-md-5">
             <% if @quote.request.property.profile.image.attached? %>
-              <%= image_tag(@quote.request.property.profile.image, size: "150x150") %>
+              <%= image_tag(@quote.request.property.profile.image, size: "150x112") %>
             <% else %>
-              <%= image_tag("avatar.png", size: "150x150") %>
+              <%= image_tag("avatar.png", size: "150x112") %>
             <% end %>
           </div>
           <div class="col-md-7">
@@ -179,9 +179,9 @@
         </div>
         <div class="col-md-4">
           <% if @quote.request.listing.profile.image.attached? %>
-            <%= image_tag(@quote.request.listing.profile.image, size: "150x150") %>
+            <%= image_tag(@quote.request.listing.profile.image, size: "150x112") %>
           <% else %>
-            <%= image_tag("avatar-pro.png", size: "150x150") %>
+            <%= image_tag("avatar-pro.png", size: "150x112") %>
           <% end %>
         </div>
         <div class="col-md-4">
