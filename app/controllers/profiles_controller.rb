@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
   before_action :set_property, :set_documentation
-  before_action :set_initial_user_type, :set_suburbs, only: [:new, :create]
-  before_action :set_suburbs, only: [:update]
+  before_action :set_initial_user_type, only: [:new, :create]
+  before_action :set_suburbs, only: [:new, :create, :update]
   before_action :set_user_type, only: [:edit, :show, :update]
   before_action :set_reviews, :set_viewer, only: [:show]
   before_action :set_suburb, only: [:edit, :show]
