@@ -6,9 +6,9 @@
           <div class="col-md-3">
             <!-- Reviewer profile picture -->
             <% if review[4].image.attached? %>
-              <%= image_tag(review[4].image, size: "100x100") %>
+              <%= image_tag(review[4].image, size: "100x75") %>
             <% else %>
-              <%= image_tag("avatar.png", size: "100x100") %>
+              <%= image_tag("avatar.png", size: "100x75") %>
             <% end %>
           </div>
           <div class="col-9">

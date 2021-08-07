@@ -8,9 +8,9 @@
         <div class="row">
           <div class="col-md-5">
             <% if @review.job.quote.request.listing.image.attached? %>
-              <%= image_tag(@review.job.quote.request.listing.image, size: "150x150") %>
+              <%= image_tag(@review.job.quote.request.listing.image, size: "150x112") %>
             <% else %>
-              <%= image_tag("placeholder.jpg", size: "150x150") %>
+              <%= image_tag("placeholder.jpg", size: "150x112") %>
             <% end %>
           </div>
           <div class="col-md-7">
