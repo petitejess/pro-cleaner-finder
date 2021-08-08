@@ -33,7 +33,7 @@
         <h2 class="form-heading">Service Areas</h2>
         <ul>
           <% @service_areas.to_a.each do |area| %>
-            <li><%= area.suburb.name %>, <%= area.suburb.postcode.state.name %> <%= area.suburb.postcode.number %></li>
+            <li><%= area.suburb.suburb %>, <%= area.suburb.state %> <%= area.suburb.postcode %></li>
           <% end %>
         </ul>
       </div>
@@ -81,7 +81,7 @@
               <div class="col-md-6">
                 <p>
                   <%= @profile.property.street_address %> <br />
-                  <%= @profile.property.suburb.name %>, <%= @profile.property.suburb.postcode.state.name %>, <%= @profile.property.suburb.postcode.number %>
+                  <%= @profile.property.suburb.suburb %>, <%= @profile.property.suburb.state %>, <%= @profile.property.suburb.postcode %>
                 </p>
               </div>
             </div>

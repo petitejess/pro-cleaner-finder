@@ -1,7 +1,4 @@
 class Suburb < ApplicationRecord
-  # Suburb has a many-to-one relationship with Postcode. Suburb must belong to exactly 1 Postcode, and Postcode may have 1 or many Suburbs.
-  belongs_to :postcode
-
   # Suburb has a one-to-many relationship with Property. Suburb may have 0 or many Properties, and Property must belong to exactly 1 Suburb.
   has_many :properties
 
@@ -10,5 +7,5 @@ class Suburb < ApplicationRecord
   has_many :listings, through: :service_areas
 
   # Validation
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :suburb, presence: true
 end

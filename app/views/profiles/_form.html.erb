@@ -126,15 +126,15 @@
               <div class="ui-widget row" id="service_area">
                 <div class="col-md-6">
                   <%= label_tag(:suburb, "Suburb") %>
-                  <%= text_field_tag(:suburb, @suburb.name, class: "form-control") %>
+                  <%= text_field_tag(:suburb, (@suburb ? @suburb.suburb : ''), class: "form-control") %>
                 </div>
                 <div class="col-md-3">
                   <%= label_tag(:state, "State") %>
-                  <%= text_field_tag(:state, @state.name, class: "form-control", readonly: true) %>
+                  <%= text_field_tag(:state, (@suburb ? @suburb.state : ''), class: "form-control", readonly: true) %>
                 </div>
                 <div class="col-md-3">
                   <%= label_tag(:postcode, "Postcode") %>
-                  <%= text_field_tag(:postcode, @postcode.number, class: "form-control", readonly: true) %>
+                  <%= text_field_tag(:postcode, (@suburb ? @suburb.postcode : ''), class: "form-control", readonly: true) %>
                 </div>
               </div>
 
@@ -149,7 +149,7 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Create", class: "btn btn-submit" %>
+        <%= f.button :submit, "Save", class: "btn btn-submit" %>
       </div>
     <% end %>
   </div>

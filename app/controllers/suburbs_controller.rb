@@ -31,7 +31,7 @@ class SuburbsController < ApplicationController
     else
       results = Suburb.all
       results.each do |result|
-        @suburbs << {"suburb": result["name"], "state": result.postcode.state.name, "postcode": result.postcode.number.to_s.rjust(4, "0")}
+        @suburbs << {"suburb": result["suburb"], "state": result["state"], "postcode": result["postcode"].to_s.rjust(4, "0")}
       end
     end
   end

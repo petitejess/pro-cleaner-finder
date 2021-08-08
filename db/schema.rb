@@ -83,14 +83,6 @@ ActiveRecord::Schema.define(version: 2021_07_28_073734) do
     t.index ["job_id"], name: "index_payments_on_job_id"
   end
 
-  create_table "postcodes", force: :cascade do |t|
-    t.integer "number"
-    t.bigint "state_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["state_id"], name: "index_postcodes_on_state_id"
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -161,18 +153,12 @@ ActiveRecord::Schema.define(version: 2021_07_28_073734) do
     t.index ["suburb_id"], name: "index_service_areas_on_suburb_id"
   end
 
-  create_table "states", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "suburbs", force: :cascade do |t|
-    t.string "name"
-    t.bigint "postcode_id", null: false
+    t.string "suburb"
+    t.string "state"
+    t.integer "postcode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["postcode_id"], name: "index_suburbs_on_postcode_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -193,7 +179,6 @@ ActiveRecord::Schema.define(version: 2021_07_28_073734) do
   add_foreign_key "jobs", "quotes"
   add_foreign_key "listings", "profiles"
   add_foreign_key "payments", "jobs"
-  add_foreign_key "postcodes", "states"
   add_foreign_key "profiles", "users"
   add_foreign_key "properties", "profiles"
   add_foreign_key "properties", "suburbs"
@@ -204,5 +189,4 @@ ActiveRecord::Schema.define(version: 2021_07_28_073734) do
   add_foreign_key "reviews", "profiles"
   add_foreign_key "service_areas", "listings"
   add_foreign_key "service_areas", "suburbs"
-  add_foreign_key "suburbs", "postcodes"
 end

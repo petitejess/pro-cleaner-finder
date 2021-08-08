@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
   before_action :set_property, :set_documentation
   before_action :set_initial_user_type, only: [:new, :create]
-  before_action :set_suburbs, only: [:new, :create, :update]
+  before_action :set_suburb_record, only: [:create, :update]
   before_action :set_user_type, only: [:edit, :show, :update]
   before_action :set_reviews, :set_viewer, only: [:show]
   before_action :set_suburb, only: [:edit, :show]
@@ -64,7 +64,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
 
     # Set suburb_id
-    @profile.property.suburb_id = @suburb.id
+    @profile.property.suburb_id = @suburb_record.id
 
     # Assigned current user id
     @profile.user_id = current_user.id
@@ -90,7 +90,7 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
     # Set suburb_id
-    @profile.property.suburb_id = @suburb.id
+    @profile.property.suburb_id = @suburb_record.id
 
     respond_to do |format|
       if @profile.update(profile_params)
@@ -140,35 +140,17 @@ class ProfilesController < ApplicationController
       end
     end
 
-    def set_suburbs
-      # Check suburb, state, postcode input against records in their respective tables
-      @suburb = Suburb.find_by(name: params[:suburb])
-      # If suburb is not exist in suburbs table yet, create one
-      if !@suburb
-        @state = State.find_by(name: params[:state])
-        # If state is not exist in states table yet, create one
-        if !@state
-          @state = State.create(name: params[:state])
-        end
-
-        @postcode = Postcode.find_by(number: params[:postcode])
-        # If postcode is not exist in postcodes table yet, create one
-        if !@postcode
-          @postcode = Postcode.create(number: params[:postcode].to_i, state_id: @state.id)
-        end
-
-        @suburb = Suburb.create(name: params[:suburb], postcode_id: @postcode.id)
-      else
-        @postcode = @suburb.postcode
-        @state = @postcode.state
+    def set_suburb_record
+      # Check if suburb set exists
+      @suburb_record = Suburb.find_by(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
+      if !@suburb_record
+        @suburb_record = Suburb.create(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
       end
     end
 
     def set_suburb
       # Get stored details (suburb, state, postcode) of profile
       @suburb = @profile.property.suburb
-      @state = @profile.property.suburb.postcode.state
-      @postcode = @profile.property.suburb.postcode
     end
 
     def set_documentation
