@@ -28,25 +28,47 @@
 
           <h2 class="form-heading">Service Area</h2>
           <!-- Service Area -->
-          <%= f.fields_for :service_areas do |service_areas_form| %>
-            <div class="col-md-6">
-            <%= service_areas_form.label :suburb_id, "Suburb" %>
-            <%= service_areas_form.select(:suburb_id, suburbs.map{|suburb| [suburb.name, suburb.id]}) %>
-            <% service_areas_form.hidden_field :listing_id, value: params[:id] %>
-            </div>
-            <div class="col-md-3">
-              <%= service_areas_form.fields_for :postcode do |postcode_form| %>
-                <%= postcode_form.label :state_id, "State" %>
-                <%= postcode_form.select(:state_id, states.map{|state| [state.name, state.id]}) %>
+          <fieldset id="service_area_list">
+            <div class="ui-widget row">
+              <%= render 'partials/suburb_instruction' %>
+              <% if @service_areas %>
+                <% @service_areas.each do |area| %>
+                  <div class="col-md-6">
+                    <%= label_tag("suburbs[]", "Suburb") %>
+                    <%= text_field_tag("suburbs[]", area.suburb.suburb, class: "suburb form-control") %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= label_tag("states[]", "State") %>
+                    <%= text_field_tag("states[]", area.suburb.state, class: "form-control", readonly: true) %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= label_tag("postcodes[]", "Postcode") %>
+                    <%= text_field_tag("postcodes[]", area.suburb.postcode, class: "form-control", readonly: true) %>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="col-md-6">
+                  <%= label_tag("suburbs[]", "Suburb") %>
+                  <%= text_field_tag("suburbs[]", "", class: "suburb form-control") %>
+                </div>
+                <div class="col-md-3">
+                  <%= label_tag("states[]", "State") %>
+                  <%= text_field_tag("states[]", "", class: "form-control", readonly: true) %>
+                </div>
+                <div class="col-md-3">
+                  <%= label_tag("postcodes[]", "Postcode") %>
+                  <%= text_field_tag("postcodes[]", "", class: "form-control", readonly: true) %>
+                </div>
               <% end %>
             </div>
-            <div class="col-md-3">
-              <%= service_areas_form.fields_for :suburb do |suburb_form| %>
-                <%= suburb_form.label :postcode_id, "Postcode" %>
-                <%= suburb_form.select(:postcode_id, postcodes.map{|postcode| [postcode.number, postcode.id]}) %>
-              <% end %>
+          </fieldset>
+
+          <!-- Button to add more or remove service areas -->
+          <div class="row mt-5">
+            <div class="col-md-12">
+              <input type="button" id="add_service_area" class="btn btn-outline" value="Add Service Area" />
             </div>
-          <% end %>
+          </div>
         
           <div class="col-12">
           <!-- Image upload for profile picture -->
@@ -68,3 +90,45 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $(document).on('keydown.autocomplete', '.suburb', function() {
+      $(this).autocomplete({
+        minLength: 4,
+        source: '<%= suburbs_path(:json) %>',
+        focus: function(event, ui) {
+          $(this).val(ui.item.suburb);
+          return false;
+        },
+        select: function(event, ui) {
+          $(this).val(ui.item.suburb);
+          $(this).parent().nextAll('div').first().children().nextAll('input').first().val(ui.item.state);
+          $(this).parent().nextAll('div').eq(1).children().nextAll('input').first().val(ui.item.postcode);
+          return false;
+        }
+      })
+      .autocomplete('instance')._renderItem = function(ul, item) {
+        return $('<li>')
+          .append('<div>' + item.suburb + ', ' + item.state + ' ' + item.postcode + '</div>')
+          .appendTo(ul);
+      };
+    });
+
+    $('#add_service_area').click(function() {
+      var service_area = $('<div class="ui-widget row" />');
+      var suburb = $('<div class="col-md-4"><%= label_tag("suburbs[]", "Suburb") %><%= text_field_tag("suburbs[]", "", class: "suburb form-control") %></div>');
+      var state = $('<div class="col-md-2"><%= label_tag("states[]", "State") %><%= text_field_tag("states[]", "", class: "form-control", readonly: true) %></div>');
+      var postcode = $('<div class="col-md-2"><%= label_tag("postcodes[]", "Postcode") %><%= text_field_tag("postcodes[]", "", class: "form-control", readonly: true) %></div>');
+      var remove_service_area = $('<div class="col-md-3 d-flex align-items-end"><input type="button" class="btn btn-outline mt-3" value="Remove" /></div>')
+      remove_service_area.click(function() {
+        $(this).parent().remove();
+      });
+      service_area.append(suburb);
+      service_area.append(state);
+      service_area.append(postcode);
+      service_area.append(remove_service_area);
+      $('#service_area_list').append(service_area);
+    });
+  });
+</script>

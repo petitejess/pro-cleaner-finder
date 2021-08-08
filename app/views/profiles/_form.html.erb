@@ -124,6 +124,7 @@
                 </div>
               </div>
               <div class="ui-widget row" id="service_area">
+                <%= render 'partials/suburb_instruction' %>
                 <div class="col-md-6">
                   <%= label_tag(:suburb, "Suburb") %>
                   <%= text_field_tag(:suburb, (@suburb ? @suburb.suburb : ''), class: "form-control") %>
@@ -178,4 +179,3 @@
     };
   });
 </script>
-

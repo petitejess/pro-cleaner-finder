@@ -63,8 +63,10 @@ class ProfilesController < ApplicationController
   def create
     @profile = Profile.new(profile_params)
 
-    # Set suburb_id
-    @profile.property.suburb_id = @suburb_record.id
+    # If customer, set suburb_id
+    if @profile.user_type == "customer"
+      @profile.property.suburb_id = @suburb_record.id
+    end
 
     # Assigned current user id
     @profile.user_id = current_user.id
@@ -89,8 +91,10 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
-    # Set suburb_id
-    @profile.property.suburb_id = @suburb_record.id
+    # If customer, set suburb_id
+    if @profile.user_type == "customer"
+      @profile.property.suburb_id = @suburb_record.id
+    end
 
     respond_to do |format|
       if @profile.update(profile_params)
@@ -141,16 +145,23 @@ class ProfilesController < ApplicationController
     end
 
     def set_suburb_record
-      # Check if suburb set exists
-      @suburb_record = Suburb.find_by(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
-      if !@suburb_record
-        @suburb_record = Suburb.create(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
+      # If customer
+      if @profile.user_type == "customer"
+        # Check if suburb set exists
+        @suburb_record = Suburb.find_by(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
+        if !@suburb_record
+          # Create new suburb set if none exists yet
+          @suburb_record = Suburb.create(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
+        end
       end
     end
 
     def set_suburb
-      # Get stored details (suburb, state, postcode) of profile
-      @suburb = @profile.property.suburb
+      # If customer, set suburb
+      if @profile.user_type == "customer"
+        # Get stored details (suburb, state, postcode) of profile
+        @suburb = @profile.property.suburb
+      end
     end
 
     def set_documentation
