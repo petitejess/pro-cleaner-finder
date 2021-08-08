@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <% if @listing.image.attached? %>
           <%= image_tag(@listing.image, class: "thumb-300 mb-5") %>
         <% else %>
@@ -32,45 +32,45 @@
       <div class="col-12">
         <h2 class="form-heading">Service Areas</h2>
         <ul>
-          <% @service_areas.to_a.each do |area| %>
-            <li><%= area.suburb.name %>, <%= area.suburb.postcode.state.name %> <%= area.suburb.postcode.number %></li>
+          <% @service_areas.each do |area| %>
+            <li><%= area.suburb.suburb %>, <%= area.suburb.state %> <%= area.suburb.postcode %></li>
           <% end %>
         </ul>
       </div>
     </div>
 
     <% if current_user && current_user.profile %>
-      <% if @profile.user_type == "pro" %>
+      <% if current_user.profile.user_type == "pro" %>
         <!-- Show edit and back to my listings button -->
         <div class="row mt-3">
           <div class="col-2">
             <%= link_to 'Edit', edit_listing_path(@listing), class: "btn btn-outline" %>
           </div>
         </div>
-      <% elsif @profile.user_type == "customer" %>
+      <% elsif current_user.profile.user_type == "customer" %>
         <!-- Display Customer's Property information -->
         <div class="row">
           <div class="col-12">
             <h2 class="form-heading">My Property Profile</h2>
           </div>
           <div class="col-md-6">
-            <p><%= @profile.property.property_type %></p>
+            <p><%= current_user.profile.property.property_type %></p>
           </div>
           <div class="col-md-6">
-            <p><%= @profile.property.description %></p>
+            <p><%= current_user.profile.property.description %></p>
           </div>
           <div class="col-12">
             <div class="row">
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-4">
-                    <p><%= @profile.property.storey %> - Storey</p>
+                    <p><%= current_user.profile.property.storey %> - Storey</p>
                   </div>
                   <div class="col-md-4">
-                    <p><%= @profile.property.bed %> - Bed</p>
+                    <p><%= current_user.profile.property.bed %> - Bed</p>
                   </div>
                   <div class="col-md-4">
-                    <p><%= @profile.property.bath %> - Bath</p>
+                    <p><%= current_user.profile.property.bath %> - Bath</p>
                   </div>
                 </div>
               </div>
@@ -80,8 +80,8 @@
             <div class="row">
               <div class="col-md-6">
                 <p>
-                  <%= @profile.property.street_address %> <br />
-                  <%= @profile.property.suburb.name %>, <%= @profile.property.suburb.postcode.state.name %>, <%= @profile.property.suburb.postcode.number %>
+                  <%= current_user.profile.property.street_address %> <br />
+                  <%= current_user.profile.property.suburb.suburb %>, <%= @profile.property.suburb.state %>, <%= current_user.profile.property.suburb.postcode %>
                 </p>
               </div>
             </div>
