@@ -49,7 +49,7 @@
               <% if listing.service_hour && listing.total_cost && (listing.status.downcase == "quote sent.") %>
                 <%= listing.service_hour %> hours for <%= number_to_currency(listing.total_cost) %>
                 <% if (current_user.profile.user_type == "pro") && listing.date %>
-                  <br /><%= listing.request.property.suburb.name %> - <%= listing.date.strftime("%a, %d/%m/%Y") %>
+                  <br /><%= listing.request.property.suburb.suburb %> - <%= listing.date.strftime("%a, %d/%m/%Y") %>
                 <% else %>
                   <br /><span class="text-danger"><%= listing.status %> Please review.</span>
                 <% end %>

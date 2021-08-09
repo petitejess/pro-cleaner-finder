@@ -10,16 +10,16 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    # If user is logged in, get current user's listings
+    # If user is logged in, get current user's all listings
     if current_user && (@profile.user_type == "pro")
-      @listings = Listing.where(profile_id: @profile.id)
+      @listings = Listing.includes(:profile).where(profile_id: @profile.id)
     end
   end
 
   # GET /listings/1 or /listings/1.json
   def show
     # Get reviews for this listing
-    all_reviews = Review.where(review_to: @listing.profile_id)
+    all_reviews = Review.includes(:job).where(review_to: @listing.profile_id)
     @reviews = []
     all_reviews.each do |review|
       if review.job.quote.request.listing_id == @listing.id
@@ -37,17 +37,10 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
-    
-    # Build nested form
-    @listing.service_areas.build
   end
 
   # GET /listings/1/edit
   def edit
-    if !(@service_areas)
-      # Build nested form, if user didn't enter any upon listing creation
-      @listing.service_areas.build
-    end
   end
 
   # POST /listings or /listings.json

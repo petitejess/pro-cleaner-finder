@@ -9,7 +9,6 @@ class ProfilesController < ApplicationController
 
   # GET /profiles or /profiles.json
   def index
-    @profiles = Profile.all
   end
 
   # GET /profiles/1 or /profiles/1.json
@@ -146,7 +145,7 @@ class ProfilesController < ApplicationController
 
     def set_suburb_record
       # If customer
-      if @profile.user_type == "customer"
+      if current_user.profile && @profile.user_type == "customer"
         # Check if suburb set exists
         @suburb_record = Suburb.find_by(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
         if !@suburb_record
@@ -158,7 +157,7 @@ class ProfilesController < ApplicationController
 
     def set_suburb
       # If customer, set suburb
-      if @profile.user_type == "customer"
+      if current_user.profile && @profile.user_type == "customer"
         # Get stored details (suburb, state, postcode) of profile
         @suburb = @profile.property.suburb
       end

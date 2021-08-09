@@ -63,11 +63,7 @@ class JobsController < ApplicationController
     # If payment is successful
     if params[:checkout] == "success"
       # Update payment details
-      @payment.job_id = @job.id
-      @payment.payment_date = Time.current
-      @payment.payment_method = "card"
-      @payment.payment_amount = @job.total_cost
-      @payment.save
+      @payment.update(job_id: @job.id, payment_date: Time.current, payment_method: "card", payment_amount: @job.total_cost)
     end
   end
 
