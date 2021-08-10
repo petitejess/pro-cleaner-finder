@@ -5,7 +5,4 @@ class Documentation < ApplicationRecord
   # Validation
   validates :npc_reference, :abn_number, presence: true
   validates_format_of :abn_number, with: /[0-9 ]+/
-
-  # Sanitisation
-  
 end
