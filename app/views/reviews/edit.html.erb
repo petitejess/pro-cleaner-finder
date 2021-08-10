@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-7">
             <h2 class="form-heading mt-0">Job #<%= @review.job.id %></h2>
-            Listing Title <br />
+            <strong><%= @review.job.quote.request.listing.title %></strong> <br />
             by <%= @review.job.quote.request.listing.profile.first_name %> <%= @review.job.quote.request.listing.profile.last_name %> <br /><br />
             <%= @review.job.quote.request.service_date.strftime("%A, %d-%B-%Y") %>
           </div>
