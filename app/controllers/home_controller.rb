@@ -3,64 +3,31 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @listings = Listing.all
+    # Eager loading for @listings with images attached
+    @listings = Listing.with_attached_image.all
   end
 
   def search
-    # Initialise variables
+    # Sanitise variable
     @query = params[:query].strip.downcase
-    all_listings = Listing.all
-    service_areas = []
-    listing_ids = []
+    # Initialise variables
     @listings = []
 
-    # To search listings with postcode number as query:
+    # To check if query is postcode or suburb name with regex
     if @query =~ /^[0-9]{4}$/
       # Check if postcode number query exists
-      suburb = Suburb.find_by(postcode: @query.to_i)
-      if suburb
-        # 1. Get all service areas that have the suburb id
-        service_areas << ServiceArea.where(suburb_id: suburb.id)
-
-        # 2. Get all listing ids from service areas
-        service_areas.each do |areas|
-          areas.each do |service_area|
-            listing_ids << service_area.listing_id
-          end
-        end
-
-        # 3. Remove duplicate listing ids
-        listing_ids.uniq!
-      end
+      suburbs = Suburb.where(postcode: @query.to_i)
     elsif @query =~ /^\w+/
-      # To search listings with suburb name as query:
-      # Check if suburb name query exists
+      # Check if suburb name query exists and sanitise using parameterised statement
       suburbs = Suburb.where('suburb ILIKE ?', "%#{@query}%")
-      if suburbs.any?
-        suburbs.each do |suburb|
-          if suburb.suburb.downcase == @query
-            # 1. Get all service areas that has suburb.id
-            service_areas = ServiceArea.where(suburb_id: suburb.id)
-  
-            # 2. Get all listing ids from service areas
-            service_areas.each do |service_area|
-              listing_ids << service_area.listing_id
-            end
-  
-            # 3. Remove duplicate listing ids
-            listing_ids.uniq!
-            break
-          end
-        end
-      end
-    else
-      # Return empty array if query is not found
-      return @listings
     end
-    
-    # Loop through listing ids to get the listings
-    listing_ids.each do |listing_id|
-      @listings << all_listings.find(listing_id)
+
+    # If any suburbs exist
+    if suburbs.any?
+      # Ger all service areas that have the suburbs ids
+      service_areas = ServiceArea.where(suburb_id: suburbs.pluck(:id))
+      # Eager loading for @listings with images attached
+      @listings = Listing.with_attached_image.where(id: service_areas.pluck(:listing_id).uniq)
     end
   end
 

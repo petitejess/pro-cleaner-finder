@@ -123,8 +123,7 @@ class JobsController < ApplicationController
 
     def create_review
       # After a quote becomes a job, create review based on created job
-      review = Review.new(job_id: @job.id, profile_id: @job.quote.request.property.profile_id)
-      review.save
+      review = Review.create(job_id: @job.id, profile_id: @job.quote.request.property.profile_id)
     end
 
     def set_payment

@@ -12,14 +12,15 @@ class ListingsController < ApplicationController
   def index
     # If user is a cleaner, get current user's all listings
     if current_user && (@profile.user_type == "pro")
-      @listings = Listing.includes(:profile).where(profile_id: @profile.id)
+      # Eager loading for @listings with images attached
+      @listings = Listing.with_attached_image.where(profile_id: @profile.id)
     end
   end
 
   # GET /listings/1 or /listings/1.json
   def show
     # Get all reviews owned by cleaner
-    all_reviews = Review.includes(:job).where(review_to: @listing.profile_id)
+    all_reviews = Review.where(review_to: @listing.profile_id)
 
     @reviews = []
     # Loop through all the reviews to get only reviews for this listing
