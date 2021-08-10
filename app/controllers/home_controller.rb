@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def search
-    # Initialise all necessary instances
+    # Initialise variables
     @query = params[:query].strip.downcase
     all_listings = Listing.all
     service_areas = []

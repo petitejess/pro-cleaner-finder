@@ -50,6 +50,7 @@ class QuotesController < ApplicationController
     # Check if no open quotes
     quote_open = []
     @quotes.each do |quote|
+      # Check quote status
       if quote.status.downcase != "quote accepted."
         quote_open << quote
       end
@@ -61,16 +62,18 @@ class QuotesController < ApplicationController
 
   # GET /quotes/1 or /quotes/1.json
   def show
-    # Get reviews associated with the listing
+    # Get all reviews associated with owner of the listing
     all_reviews = Review.where(review_to: @listing.profile_id)
     @reviews = []
     all_reviews.each do |review|
+      # Get only reviews for this listing
       if review.job.quote.request.listing_id == @listing.id
         @reviews << review
       end
     end
     @review_details = []
     @reviews.each do |review|
+      # Get the profile of the reviewer
       reviewer = Profile.find(review.review_from)
       # Prepare review details to be displayed in te view
       @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
@@ -119,15 +122,6 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, notice: "Something went wrong. Please review your submission." }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /quotes/1 or /quotes/1.json
-  def destroy
-    @quote.destroy
-    respond_to do |format|
-      format.html { redirect_to quotes_url, notice: "Quote was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

@@ -3,20 +3,6 @@ class ReviewsController < ApplicationController
   before_action :set_job, :set_listing, only: [:edit, :update]
   after_action :set_reviewer, only: [:update]
 
-  # GET /reviews or /reviews.json
-  def index
-    @reviews = Review.all
-  end
-
-  # GET /reviews/1 or /reviews/1.json
-  def show
-  end
-
-  # GET /reviews/new
-  def new
-    @review = Review.new
-  end
-
   # GET /reviews/1/edit
   def edit
   end
@@ -48,15 +34,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # DELETE /reviews/1 or /reviews/1.json
-  def destroy
-    @review.destroy
-    respond_to do |format|
-      format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review
@@ -75,9 +52,7 @@ class ReviewsController < ApplicationController
 
     def set_reviewer
       # Set id for review_from and review_to
-      @review.review_from = @job.quote.request.property.profile_id
-      @review.review_to = @listing.profile_id
-      @review.save
+      @review.update(review_from: @job.quote.request.property.profile_id, review_to: @listing.profile_id)
     end
 
     # Only allow a list of trusted parameters through.

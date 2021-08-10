@@ -5,6 +5,7 @@ class SuburbsController < ApplicationController
   before_action :set_suburbs, only: [:index]
 
   def index
+    # Render the collected suburbs in json format in view
     respond_to do |format|
       format.json { render json: @suburbs.to_json }
     end
@@ -29,6 +30,7 @@ class SuburbsController < ApplicationController
         end
       end
     else
+      # If no input passed, get all suburbs from database instead
       results = Suburb.all
       results.each do |result|
         @suburbs << {"suburb": result["suburb"], "state": result["state"], "postcode": result["postcode"].to_s.rjust(4, "0")}

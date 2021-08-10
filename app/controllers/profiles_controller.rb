@@ -1,34 +1,41 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
-  before_action :set_property, :set_documentation
   before_action :set_initial_user_type, only: [:new, :create]
   before_action :set_suburb_record, only: [:create, :update]
   before_action :set_user_type, only: [:edit, :show, :update]
   before_action :set_reviews, :set_viewer, only: [:show]
   before_action :set_suburb, only: [:edit, :show]
 
-  # GET /profiles or /profiles.json
-  def index
-  end
-
-  # GET /profiles/1 or /profiles/1.json
+ # GET /profiles/1 or /profiles/1.json
   def show
     # Show only details belonging to current profile
     if @profile && @profile.user_type == "pro"
-      # If user is Cleaner, show documentation, listings and reviews
+      # If user has a profile and is Cleaner:
+      # Get the documentation
       @documentation = Documentation.find_by(profile_id: @profile.id)
+
+      # Get all listings owned
       @listings = Listing.where(profile_id: @profile.id)
+      
+      # Get all reviews owned
       @reviews = Review.where(review_to: @profile.id)
       @review_details = []
+      # Loop through each review to get all details to be shown
       @reviews.each do |review|
+        # Get the reviewer profile
         reviewer = Profile.find(review.review_from)
+        
+        # Get the listing id for this review
         listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
+        
+        # Get the listing itself (to get the details)
         reviewed_listing = Listing.find(listing_id)
+        
         # Prepare review details to be shown in the view
         @review_details << [review.id, reviewed_listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
       end
     else
-      # If user is Customer, show property
+      # If user is Customer, show the property information
       @property = Property.find_by(profile_id: @profile.id)
     end
   end
@@ -37,7 +44,7 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
 
-    # Set user type
+    # Set user type if not yet set
     if @profile.user_type == nil
       @profile.user_type = @initial_user_type
     end
@@ -62,8 +69,9 @@ class ProfilesController < ApplicationController
   def create
     @profile = Profile.new(profile_params)
 
-    # If customer, set suburb_id
+    # If a customer
     if @profile.user_type == "customer"
+      # Set suburb_id for their property
       @profile.property.suburb_id = @suburb_record.id
     end
 
@@ -90,8 +98,9 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
-    # If customer, set suburb_id
+    # If a customer
     if @profile.user_type == "customer"
+      # Set suburb_id for their property
       @profile.property.suburb_id = @suburb_record.id
     end
 
@@ -106,15 +115,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # DELETE /profiles/1 or /profiles/1.json
-  def destroy
-    @profile.destroy
-    respond_to do |format|
-      format.html { redirect_to profiles_url, notice: "Profile was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -126,6 +126,7 @@ class ProfilesController < ApplicationController
       if params[:user_type]
         @initial_user_type = params[:user_type]
       else
+        # If somehow params is lost (user navigates away), use the one stored in session
         @initial_user_type = session[:user_type]
       end
     end
@@ -136,7 +137,9 @@ class ProfilesController < ApplicationController
     end
 
     def set_viewer
+      # If user is signed in and has a profile
       if user_signed_in? && current_user.profile
+        # Set the viewer as current user's profile
         @viewer = current_user.profile
       else
         @viewer = "visitor"
@@ -144,36 +147,30 @@ class ProfilesController < ApplicationController
     end
 
     def set_suburb_record
-      # If customer
+      # If user has a profile and is a customer or if the current session has user type as customer
       if (current_user.profile && @profile.user_type == "customer") || session[:user_type] == "customer"
-        # Check if suburb set exists
+        # Check if suburb set already exists in database
         @suburb_record = Suburb.find_by(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
+        
+        # If doesn't exist
         if !@suburb_record
-          # Create new suburb set if none exists yet
+          # Create new suburb set
           @suburb_record = Suburb.create(suburb: params[:suburb], state: params[:state], postcode: (params[:postcode].to_i))
         end
       end
     end
 
     def set_suburb
-      # If customer, set suburb
-      if current_user.profile && @profile.user_type == "customer" || session[:user_type] == "customer"
-        # Get stored details (suburb, state, postcode) of profile
-        @suburb = @profile.property.suburb
+      # If user has a profile and is a customer or if the current session has user type as customer
+      if current_user.profile && current_user.profile.user_type == "customer" || session[:user_type] == "customer"
+        # Get existing details (suburb, state, postcode) of profile
+        @suburb = current_user.profile.property.suburb
       end
-    end
-
-    def set_documentation
-      @documentation = Documentation.new
     end
 
     def set_reviews
       # Get all reviews stored in reviews table
       @reviews = Review.all
-    end
-
-    def set_property
-      @property = Property.new
     end
 
     # Only allow a list of trusted parameters through.
