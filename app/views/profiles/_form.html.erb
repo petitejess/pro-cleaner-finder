@@ -96,7 +96,7 @@
                     <%= property_form.label :storey %>
                   </div>
                   <div>
-                    <%= property_form.number_field :storey, in: 1..99, class: "form-control" %>
+                    <%= property_form.number_field :storey, min: 1, class: "form-control" %>
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -104,7 +104,7 @@
                     <%= property_form.label :bed %>
                   </div>
                   <div>
-                    <%= property_form.number_field :bed, in: 0..99, class: "form-control" %>
+                    <%= property_form.number_field :bed, min: 0, class: "form-control" %>
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -112,7 +112,7 @@
                     <%= property_form.label :bath %>
                   </div>
                   <div>
-                    <%= property_form.number_field :bath, in: 0..99, class: "form-control" %>
+                    <%= property_form.number_field :bath, min: 0, class: "form-control" %>
                   </div>
                 </div>
               </div>

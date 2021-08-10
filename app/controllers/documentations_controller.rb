@@ -1,24 +1,6 @@
 class DocumentationsController < ApplicationController
   before_action :set_documentation, only: %i[ show edit update destroy ]
 
-  # GET /documentations or /documentations.json
-  def index
-    @documentations = Documentation.all
-  end
-
-  # GET /documentations/1 or /documentations/1.json
-  def show
-  end
-
-  # GET /documentations/new
-  def new
-    @documentation = Documentation.new
-  end
-
-  # GET /documentations/1/edit
-  def edit
-  end
-
   # POST /documentations or /documentations.json
   def create
     @documentation = Documentation.new(documentation_params)
@@ -44,15 +26,6 @@ class DocumentationsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @documentation.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /documentations/1 or /documentations/1.json
-  def destroy
-    @documentation.destroy
-    respond_to do |format|
-      format.html { redirect_to documentations_url, notice: "Documentation was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
