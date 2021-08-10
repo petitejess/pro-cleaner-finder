@@ -6,47 +6,30 @@ class QuotesController < ApplicationController
   def index
     # Display only quotes related to current user:
     # Initialise variables
-    requests = []
+
     @quotes = []
     # Get current user's profile id
     profile_id = current_user.profile.id
 
     if current_user.profile.user_type == "pro"
-      # If user is Cleaner get all listings owned
-      listings = Listing.where(profile_id: profile_id)
-      listing_ids = []
-      listings.each do |listing|
-        # Get all listing ids
-        listing_ids << listing.id
-      end
+      # If user is Cleaner, eager loading for all listings owned
+      listings = Listing.with_attached_image.where(profile_id: profile_id)
       
       # Only if Cleaner has any listing
-      if listing_ids.length > 0
-        listing_ids.each do |listing_id|
-          # Get all requests
-          requests << Request.where(listing_id: listing_id)
-        end
-        requests.each do |request|
-          request.each do |r|
-            # Get all quotes
-            @quotes << Quote.find_by(request_id: r.id)
-          end
-        end
+      if listings.any?
+        # Get all requests
+        requests = Request.where(listing_id: listings.pluck(:id))
       end
     else
       # If user is Customer get property
       property = Property.find_by(profile_id: profile_id)
       # Get all requests made
       requests = Request.where(property_id: property.id)
-      requests.each do |request|
-        # Get all quotes received
-        @quotes << Quote.find_by(request_id: request.id)
-      end
     end
-    
-    # Removes nil
-    @quotes.compact!
 
+    # Get all quotes
+    @quotes = Quote.where(request_id: requests.pluck(:id))
+ 
     # Check if no open quotes
     quote_open = []
     @quotes.each do |quote|
