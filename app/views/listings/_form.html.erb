@@ -31,19 +31,19 @@
           <fieldset id="service_area_list">
             <div class="ui-widget row">
               <%= render 'partials/suburb_instruction' %>
-              <% if @service_areas %>
-                <% @service_areas.each do |area| %>
+              <% if @service_areas_suburbs %>
+                <% @service_areas_suburbs.each do |area| %>
                   <div class="col-md-6">
                     <%= label_tag("suburbs[]", "Suburb") %>
-                    <%= text_field_tag("suburbs[]", area.suburb.suburb, class: "suburb form-control") %>
+                    <%= text_field_tag("suburbs[]", area.suburb, class: "suburb form-control") %>
                   </div>
                   <div class="col-md-3">
                     <%= label_tag("states[]", "State") %>
-                    <%= text_field_tag("states[]", area.suburb.state, class: "form-control", readonly: true) %>
+                    <%= text_field_tag("states[]", area.state, class: "form-control", readonly: true) %>
                   </div>
                   <div class="col-md-3">
                     <%= label_tag("postcodes[]", "Postcode") %>
-                    <%= text_field_tag("postcodes[]", area.suburb.postcode, class: "form-control", readonly: true) %>
+                    <%= text_field_tag("postcodes[]", area.postcode, class: "form-control", readonly: true) %>
                   </div>
                 <% end %>
               <% else %>
@@ -91,6 +91,7 @@
   </div>
 </div>
 
+<!-- jQuery UI Autocomplete Custom Data -->
 <script type="text/javascript">
   $(function() {
     $(document).on('keydown.autocomplete', '.suburb', function() {
@@ -115,6 +116,7 @@
       };
     });
 
+    // javascript to add/remove input field based on https://newbedev.com/add-remove-input-field-dynamically-with-jquery
     $('#add_service_area').click(function() {
       var service_area = $('<div class="ui-widget row" />');
       var suburb = $('<div class="col-md-4"><%= label_tag("suburbs[]", "Suburb") %><%= text_field_tag("suburbs[]", "", class: "suburb form-control") %></div>');

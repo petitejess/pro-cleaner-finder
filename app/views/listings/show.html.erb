@@ -32,8 +32,8 @@
       <div class="col-12">
         <h2 class="form-heading">Service Areas</h2>
         <ul>
-          <% @service_areas.each do |area| %>
-            <li><%= area.suburb.suburb %>, <%= area.suburb.state %> <%= area.suburb.postcode %></li>
+          <% @service_areas_suburbs.each do |area| %>
+            <li><%= area.suburb %>, <%= area.state %> <%= area.postcode %></li>
           <% end %>
         </ul>
       </div>

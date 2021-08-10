@@ -19,24 +19,25 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
-    # Get all reviews owned by cleaner
-    all_reviews = Review.where(review_to: @listing.profile_id)
-
-    @reviews = []
-    # Loop through all the reviews to get only reviews for this listing
-    all_reviews.each do |review|
-      if review.job.quote.request.listing_id == @listing.id
-        @reviews << review
-      end
-    end
+    # Get all reviews owned by cleaner:
+    # Get all requests associated with listings owned
+    requests = Request.where(listing_id: @listing.id)
+    # Get all quotes based on requests ids
+    quotes = Quote.where(request_id: requests.pluck(:id))
+    # Get all jobs owned
+    jobs = Job.where(quote_id: quotes.pluck(:id))
+    # Get all reviews for this listing
+    @reviews = Review.where(job_id: jobs.pluck(:id))
 
     @review_details = []
     # Loop through this listings's review to get the details
     @reviews.each do |review|
-      # Get the profile of the reviewer
-      reviewer = Profile.find(review.review_from)
-      # Prepare review details to be displayed in view
-      @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+      if review.review_from
+        # Get the profile of the reviewer
+        reviewer = Profile.find(review.review_from)
+        # Prepare review details to be displayed in view
+        @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
+      end
     end
   end
 
@@ -172,6 +173,8 @@ class ListingsController < ApplicationController
     def set_service_areas
       # Get service areas for this listing
       @service_areas = ServiceArea.where(listing_id: params[:id])
+      # Get the suburbs of service areas
+      @service_areas_suburbs = Suburb.where(id: @service_areas.pluck(:suburb_id))
     end
 
     def set_request
