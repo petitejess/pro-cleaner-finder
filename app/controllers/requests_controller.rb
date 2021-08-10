@@ -2,22 +2,9 @@ class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
   before_action :set_property, only: [:create]
 
-  # GET /requests or /requests.json
-  def index
-    @requests = Request.all
-  end
-
-  # GET /requests/1 or /requests/1.json
-  def show
-  end
-
   # GET /requests/new
   def new
     @request = Request.new()
-  end
-
-  # GET /requests/1/edit
-  def edit
   end
 
   # POST /requests or /requests.json
@@ -61,15 +48,6 @@ class RequestsController < ApplicationController
     end
   end
 
-  # DELETE /requests/1 or /requests/1.json
-  def destroy
-    @request.destroy
-    respond_to do |format|
-      format.html { redirect_to requests_url, notice: "Request was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
@@ -83,8 +61,7 @@ class RequestsController < ApplicationController
 
     def create_quote
       # After Customer create a request for a quote, create a new quote in database
-      @quote = Quote.new(date: @request.created_at.to_date, request_id: @request.id, status: "Request for a quote.")
-      @quote.save
+      @quote = Quote.create(date: @request.created_at.to_date, request_id: @request.id, status: "Request for a quote.")
     end
 
     # Only allow a list of trusted parameters through.

@@ -10,7 +10,7 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    # If user is logged in, get current user's all listings
+    # If user is a cleaner, get current user's all listings
     if current_user && (@profile.user_type == "pro")
       @listings = Listing.includes(:profile).where(profile_id: @profile.id)
     end
@@ -18,16 +18,21 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
-    # Get reviews for this listing
+    # Get all reviews owned by cleaner
     all_reviews = Review.includes(:job).where(review_to: @listing.profile_id)
+
     @reviews = []
+    # Loop through all the reviews to get only reviews for this listing
     all_reviews.each do |review|
       if review.job.quote.request.listing_id == @listing.id
         @reviews << review
       end
     end
+
     @review_details = []
+    # Loop through this listings's review to get the details
     @reviews.each do |review|
+      # Get the profile of the reviewer
       reviewer = Profile.find(review.review_from)
       # Prepare review details to be displayed in view
       @review_details << [review.id, @listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
@@ -90,7 +95,6 @@ class ListingsController < ApplicationController
     end
 
     def set_profile
-      # If user is logged in
       if current_user
         # Gets current user's profile
         @profile = Profile.find_by(user_id: current_user.id)
@@ -98,6 +102,7 @@ class ListingsController < ApplicationController
     end
 
     def set_service_areas_record
+      # Collect params
       suburbs_params = params[:suburbs]
       states_params = params[:states]
       postcodes_params = params[:postcodes]
@@ -126,10 +131,12 @@ class ListingsController < ApplicationController
       service_areas_existing = ServiceArea.where(listing_id: @listing.id)
 
       suburbs_existing_id = []
+      # Loop through service areas to get the suburb ids
       service_areas_existing.each do |service_area_existing|
         suburbs_existing_id << service_area_existing.suburb_id
       end
 
+      # Collect params
       suburbs_params = params[:suburbs]
       states_params = params[:states]
       postcodes_params = params[:postcodes]
@@ -151,6 +158,7 @@ class ListingsController < ApplicationController
             service_area_record = ServiceArea.create(suburb_id: suburb_record.id, listing_id: @listing.id)
           end
 
+          # Collect suburb ids
           suburbs_record << suburb_record.id
         end
       end
@@ -166,6 +174,7 @@ class ListingsController < ApplicationController
     end
 
     def set_request
+      # Create new request instance
       @request = Request.new
     end
 
