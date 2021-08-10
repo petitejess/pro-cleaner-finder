@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <% if current_user && current_user.profile %>
+    <% if current_user && current_user.profile && (@listing.profile.id == current_user.profile.id) %>
       <% if current_user.profile.user_type == "pro" %>
         <!-- Show edit and back to my listings button -->
         <div class="row mt-3">
