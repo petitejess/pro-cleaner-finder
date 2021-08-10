@@ -34,6 +34,7 @@ gem 'bootstrap', '~> 5.0.1'
 gem 'simple_form'
 gem 'devise'
 gem 'faraday'
+gem 'aws-sdk-s3', require: false
 gem 'stripe'
 
 group :development, :test do
