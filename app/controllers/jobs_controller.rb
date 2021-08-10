@@ -6,56 +6,26 @@ class JobsController < ApplicationController
   # GET /jobs or /jobs.json
   def index
     # Display only jobs related to current user:
-    # Initialise variables
-    requests = []
-    quotes = []
-
     # Get current user's profile id
     profile_id = current_user.profile.id
 
     if current_user.profile.user_type == "pro"
-      # If user is Cleaner get all listings owned
-      listings = Listing.where(profile_id: profile_id)
-      listing_ids= []
-      listings.each do |listing|
-        # Get the listing ids
-        listing_ids << listing.id
-      end
-
-      # Only if Cleaner has any listing
-      if listing_ids.length > 0
-        listing_ids.each do |listing_id|
-          # Get all requests received
-          requests << Request.where(listing_id: listing_id)
-        end
-        requests.each do |request|
-          request.each do |r|
-            # Get all quotes sent
-            quotes << Quote.find_by(request_id: r.id)
-          end
-        end
-      end
+      # If user is Cleaner, get all listings owned
+      listings = Listing.includes(:requests).where(profile_id: profile_id)
+      # Get all requests associated with listings owned
+      requests = Request.where(listing_id: listings.pluck(:id))
+      
     else
-      # If user is Customer get property
-      property = Property.find_by(profile_id: profile_id)
+      # If user is Customer, get property
+      property = Property.includes(:requests).find_by(profile_id: profile_id)
       # Get all requests made
       requests = Request.where(property_id: property.id)
-      requests.each do |request|
-        # Get all quotes received
-        quotes << Quote.find_by(request_id: request.id)
-      end
     end
 
-    # Removes nil
-    quotes.compact!
-    @jobs = []
-    quotes.each do |quote|
-      # Get all jobs for the quotes
-      @jobs << Job.find_by(quote_id: quote.id)
-    end
-
-    # Removes nil
-    @jobs.compact!
+    # Get all quotes based on requests ids
+    quotes = Quote.where(request_id: requests.pluck(:id))
+    # Get all jobs owned
+    @jobs = Job.where(quote_id: quotes.pluck(:id))
   end
 
   # GET /jobs/1 or /jobs/1.json
@@ -140,6 +110,7 @@ class JobsController < ApplicationController
       @review = Review.find_by(job_id: @job.id)
 
       if @review.review_from != nil
+        # Get reviewer profile
         reviewer = Profile.find(@review.review_from)
         @review_details = []
         # Prepare review details to be shown in the view
