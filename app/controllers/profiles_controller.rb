@@ -14,23 +14,27 @@ class ProfilesController < ApplicationController
       # Get the documentation
       @documentation = Documentation.find_by(profile_id: @profile.id)
 
-      # Get all listings owned
-      @listings = Listing.where(profile_id: @profile.id)
+      # Eager loading for @listings owned with images attached
+      @listings = Listing.with_attached_image.where(profile_id: @profile.id)
       
       # Get all reviews owned
-      @reviews = Review.where(review_to: @profile.id)
+      @reviews = Review.includes(:reviewer).where(review_to: @profile.id)
+      # Get all requests associated with listings owned
+      requests = Request.where(listing_id: @listings.pluck(:id))
+      # Get all quotes based on requests ids
+      quotes = Quote.where(request_id: requests.pluck(:id))
+      # Get all jobs owned
+      jobs = Job.where(quote_id: quotes.pluck(:id))
+
       @review_details = []
       # Loop through each review to get all details to be shown
       @reviews.each do |review|
         # Get the reviewer profile
         reviewer = Profile.find(review.review_from)
         
-        # Get the listing id for this review
-        listing_id = Request.find(Quote.find(Job.find(review.job_id).quote_id).request_id).listing_id
-        
-        # Get the listing itself (to get the details)
-        reviewed_listing = Listing.find(listing_id)
-        
+        # Get the listings owned that have reviews
+        reviewed_listing = @listings.find(requests.find(quotes.find(jobs.find(review.job_id).quote_id).request_id).listing_id)
+
         # Prepare review details to be shown in the view
         @review_details << [review.id, reviewed_listing.title, reviewer.first_name, reviewer.last_name.first + ".", reviewer, review.rating, review.content]
       end
