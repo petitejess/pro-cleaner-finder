@@ -654,6 +654,7 @@ Last stage:
 |Rails|Ruby framework known for its speed to build web app.|
 |PostgreSQL|A popular open source relational database management system.|
 |Stripe|Payment gateway.|
+|Heroku|Cloud application platform|
 |GitHub|A service that provides hosting for software development and version control management using Git.|
 |Trello|Project management tool.|
 
