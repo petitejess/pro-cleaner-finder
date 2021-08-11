@@ -653,7 +653,7 @@ Last stage:
 |Ruby|A high level programming language known for its speed in productivity.|
 |Rails|Ruby framework known for its speed to build web app.|
 |PostgreSQL|A popular open source relational database management system.|
-|Braintree|Payment gateway.|
+|Stripe|Payment gateway.|
 |GitHub|A service that provides hosting for software development and version control management using Git.|
 |Trello|Project management tool.|
 
@@ -683,7 +683,7 @@ List of additional Gems used in building the app:
 
 The app uses Stripe checkout page and uses the Stripe API to pass the information of the job (job id and amount), process the payment.
 
-#### Postcode API and j	Query Autocomplete
+#### Postcode API and jQuery Autocomplete
 
 The app utilises Postcode API and jQuery Autocomplete (Custom Data) in the address suburb input (customer’s profile and cleaner’s listing service areas).
 
