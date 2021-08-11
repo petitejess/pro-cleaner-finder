@@ -140,13 +140,13 @@ Professional cleaner’s point of view:
 
 Cleaners can create multiple listings for different services that they offer. Each listing has service areas offered that customer can search through the search bar on the homepage. They can be searched by suburb name or postcode number.
 
-![Homepage search bar and result screenshot](./docs/images/journey-home-search.gif)
+![Homepage search bar and result screenshot](./docs/journey-home-search.gif)
 
 #### 2. Page that displays cleaner’s information, services provided and reviews
 
 Customers and cleaners have different information asked during profile creations through different registration links provided. Customers have information about their property shown to cleaners upon requesting for a quote. Cleaners have information about their National Police Check reference number, Australian Business Number, all services provided (listings), and all reviews earned.
 
-![Cleaner signup](./docs/images/journey-signup-cleaner.gif)
+![Cleaner signup](./docs/journey-signup-cleaner.gif)
 
 <!-- GIFs -->
 <details>
@@ -154,15 +154,15 @@ Customers and cleaners have different information asked during profile creations
 
   &nbsp;  
 
-  ![Customer signup](./docs/images/journey-signup-customer.gif)
+  ![Customer signup](./docs/journey-signup-customer.gif)
 
-  ![Cleaner profile creation](./docs/images/journey-profile-create-cleaner.gif)
+  ![Cleaner profile creation](./docs/journey-profile-create-cleaner.gif)
 
-  ![Customer profile creation](./docs/images/journey-profile-create-customer.gif)
+  ![Customer profile creation](./docs/journey-profile-create-customer.gif)
 
-  ![Cleaner profile show](./docs/images/journey-profile-show-cleaner.gif)
+  ![Cleaner profile show](./docs/journey-profile-show-cleaner.gif)
 
-  ![Customer profile show](./docs/images/journey-profile-show-customer.gif)
+  ![Customer profile show](./docs/journey-profile-show-customer.gif)
 
 </details>
 
@@ -172,7 +172,7 @@ Customers and cleaners have different information asked during profile creations
 
 Registered and signed in customers can request a quote through a listing. Cleaners can review the request then give a quote. Customers then check the quote and can either reject it or accept it (where it becomes a job). Only after a job is booked that a customer can leave a review for the job.
 
-![Customer send a request](./docs/images/journey-request-customer.gif)
+![Customer send a request](./docs/journey-request-customer.gif)
 
 <!-- GIFs -->
 <details>
@@ -180,11 +180,11 @@ Registered and signed in customers can request a quote through a listing. Cleane
 
   &nbsp;
 
-  ![Cleaner send the quote](./docs/images/journey-quote-cleaner.gif)
+  ![Cleaner send the quote](./docs/journey-quote-cleaner.gif)
 
-  ![Customer accepts the quote](./docs/images/journey-accept-quote.gif)
+  ![Customer accepts the quote](./docs/journey-accept-quote.gif)
 
-  ![Customer leaves a review](./docs/images/journey-review-create.gif)
+  ![Customer leaves a review](./docs/journey-review-create.gif)
 
 </details>
 
@@ -197,9 +197,9 @@ Registered and signed in customers can request a quote through a listing. Cleane
 
 After a job is created, customer can pay for it by clicking a Pay Now button on the job’s page which directs them to a Stripe payment gateway page. If the payment is successful, customer will be redirected back to the job’s page with updated payment details and a Leave a Review can then leave a review for the job.
 
-![Job page](./docs/images/journey-job-show.gif)
+![Job page](./docs/journey-job-show.gif)
 
-![Pay for a job](./docs/images/journey-job-pay.gif)
+![Pay for a job](./docs/journey-job-pay.gif)
 
 ### Coming Features
 
@@ -217,17 +217,17 @@ A customer and cleaners will be able to send and receive messages about a listin
 
 ### Sitemap
 
-![Pro Cleaner Finder visual sitemap](./docs/images/sitemap.png)
+![Pro Cleaner Finder visual sitemap](./docs/sitemap.png)
 
 ### Wireframes
 
-![Pro Cleaner Finder wireframes](./docs/images/wireframes.jpg)
+![Pro Cleaner Finder wireframes](./docs/wireframes.jpg)
 
 ### Screenshots
 
-![Homepage Mobile](./docs/images/website-screenshots/homepage-mobile.png)
+![Homepage Mobile](./docs/website-screenshots/homepage-mobile.png)
 
-![Homepage](./docs/images/website-screenshots/homepage.png)
+![Homepage](./docs/website-screenshots/homepage.png)
 
 &nbsp;
 
@@ -237,33 +237,33 @@ A customer and cleaners will be able to send and receive messages about a listin
 
   &nbsp;
 
-  ![Website Screenshot](./docs/images/website-screenshots/listing-cleaner-create.png)
+  ![Website Screenshot](./docs/website-screenshots/listing-cleaner-create.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/listing-cleaner-edit.png)
+  ![Website Screenshot](./docs/website-screenshots/listing-cleaner-edit.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/listing-customer-show.png)
+  ![Website Screenshot](./docs/website-screenshots/listing-customer-show.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/profile-cleaner-edit.png)
+  ![Website Screenshot](./docs/website-screenshots/profile-cleaner-edit.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/profile-cleaner-show.png)
+  ![Website Screenshot](./docs/website-screenshots/profile-cleaner-show.png)
   
-  ![Website Screenshot](./docs/images/website-screenshots/profile-customer-edit.png)
+  ![Website Screenshot](./docs/website-screenshots/profile-customer-edit.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/profile-customer-show.png)
+  ![Website Screenshot](./docs/website-screenshots/profile-customer-show.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/quote-cleaner-send.png)
+  ![Website Screenshot](./docs/website-screenshots/quote-cleaner-send.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/quote-customer-approve-reject.png)
+  ![Website Screenshot](./docs/website-screenshots/quote-customer-approve-reject.png)
   
-  ![Website Screenshot](./docs/images/website-screenshots/request-customer-form.jpg)
+  ![Website Screenshot](./docs/website-screenshots/request-customer-form.jpg)
 
-  ![Website Screenshot](./docs/images/website-screenshots/review-customer-edit.png)
+  ![Website Screenshot](./docs/website-screenshots/review-customer-edit.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/review-customer.png)
+  ![Website Screenshot](./docs/website-screenshots/review-customer.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/job-customer-booked.png)
+  ![Website Screenshot](./docs/website-screenshots/job-customer-booked.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/job-customer-pay-cancel.png)
+  ![Website Screenshot](./docs/website-screenshots/job-customer-pay-cancel.png)
 
 </details>
 
@@ -275,7 +275,7 @@ A customer and cleaners will be able to send and receive messages about a listin
 
 A normal user journey would look like:
 
-![User journey diagram](./docs/images/normal-user-journey.png)
+![User journey diagram](./docs/normal-user-journey.png)
 
 Customer that is not registered/logged in:
 
@@ -339,7 +339,7 @@ Registered and logged in cleaner:
 
 ### Initial ERD
 
-![Initial ERD](./docs/images/initial-erd.png)
+![Initial ERD](./docs/initial-erd.png)
 
 ### High-Level Components
 
@@ -369,7 +369,7 @@ A paid job would allow the customer to leave a review. This is done through a re
 
 ### Current Database Schema
 
-![Current Schema](./docs/images/database-schema.png)
+![Current Schema](./docs/database-schema.png)
 
 The relationships between the tables are the same as in initial ERD with exception of the image table. It has been replaced with active_storage_attachments polymorphic join table. And the Suburb, Postcode, and State tables have been merged into one table with suburb, postcode, state as attributes due to over normalised tables, making them hard to work with jQuery Autocomplete and Postcode API implementation.
 
@@ -448,7 +448,7 @@ Job has a one-to-one relationship with Review. Job may have 0 or 1 Review, and R
 
 Initial plan showed that features were separated between main features (in To Do list) and other tasks to do with design layout and some supporting features (in Backlog list). 
 
-![List of Backlog and list of Main Features](./docs/images/trello-cropped-00.png "Initial plan on Trello board.")
+![List of Backlog and list of Main Features](./docs/trello-cropped-00.png "Initial plan on Trello board.")
 
 &nbsp;
 
@@ -590,9 +590,9 @@ Description: Customer can send a request for a quote through a listing page, whi
 
 Initial plan:
 
-![Trello Screenshot 00](./docs/images/trello-screenshots/trello-00.png "Initial plan.")
+![Trello Screenshot 00](./docs/trello-screenshots/trello-00.png "Initial plan.")
 
-![Trello Screenshot 01](./docs/images/trello-screenshots/trello-01.png "Start of implementation.")
+![Trello Screenshot 01](./docs/trello-screenshots/trello-01.png "Start of implementation.")
 
 &nbsp;
 
@@ -602,29 +602,29 @@ Initial plan:
 
   &nbsp;
 
-  ![Trello Screenshot 02](./docs/images/trello-screenshots/trello-02.png "Implementation.")
+  ![Trello Screenshot 02](./docs/trello-screenshots/trello-02.png "Implementation.")
 
-  ![Trello Screenshot 03](./docs/images/trello-screenshots/trello-03.png "Implementation.")
+  ![Trello Screenshot 03](./docs/trello-screenshots/trello-03.png "Implementation.")
 
-  ![Trello Screenshot 04](./docs/images/trello-screenshots/trello-04.png "Implementation.")
+  ![Trello Screenshot 04](./docs/trello-screenshots/trello-04.png "Implementation.")
 
-  ![Trello Screenshot 05](./docs/images/trello-screenshots/trello-05.png "Implementation.")
+  ![Trello Screenshot 05](./docs/trello-screenshots/trello-05.png "Implementation.")
 
-  ![Trello Screenshot 06](./docs/images/trello-screenshots/trello-06.png "Implementation.")
+  ![Trello Screenshot 06](./docs/trello-screenshots/trello-06.png "Implementation.")
 
-  ![Trello Screenshot 07](./docs/images/trello-screenshots/trello-07.png "Implementation.")
+  ![Trello Screenshot 07](./docs/trello-screenshots/trello-07.png "Implementation.")
 
-  ![Trello Screenshot 08](./docs/images/trello-screenshots/trello-08.png "Implementation.")
+  ![Trello Screenshot 08](./docs/trello-screenshots/trello-08.png "Implementation.")
 
-  ![Trello Screenshot 09](./docs/images/trello-screenshots/trello-09.png "Implementation.")
+  ![Trello Screenshot 09](./docs/trello-screenshots/trello-09.png "Implementation.")
 
-  ![Trello Screenshot 10](./docs/images/trello-screenshots/trello-10.png "Implementation.")
+  ![Trello Screenshot 10](./docs/trello-screenshots/trello-10.png "Implementation.")
 
-  ![Trello Screenshot 11](./docs/images/trello-screenshots/trello-11.png "Implementation.")
+  ![Trello Screenshot 11](./docs/trello-screenshots/trello-11.png "Implementation.")
 
-  ![Trello Screenshot 12](./docs/images/trello-screenshots/trello-12.png "Implementation.")
+  ![Trello Screenshot 12](./docs/trello-screenshots/trello-12.png "Implementation.")
 
-  ![Trello Screenshot 13](./docs/images/trello-screenshots/trello-13.png "Implementation.")
+  ![Trello Screenshot 13](./docs/trello-screenshots/trello-13.png "Implementation.")
 
 </details>
 
@@ -632,9 +632,9 @@ Initial plan:
 
 Last stage:
 
-![Trello Screenshot 14](./docs/images/trello-screenshots/trello-14.png "Last stage of implementation.")
+![Trello Screenshot 14](./docs/trello-screenshots/trello-14.png "Last stage of implementation.")
 
-![Trello Screenshot 15](./docs/images/trello-screenshots/trello-15.png "Final stage.")
+![Trello Screenshot 15](./docs/trello-screenshots/trello-15.png "Final stage.")
 
 &nbsp;
 
@@ -679,7 +679,7 @@ List of additional Gems used in building the app:
 
 #### Stripe API
 
-![Stripe code snippet](./docs/images/stripe-code.jpg)
+![Stripe code snippet](./docs/stripe-code.jpg)
 
 The app uses Stripe checkout page and uses the Stripe API to pass the information of the job (job id and amount), process the payment.
 
