@@ -136,39 +136,60 @@ Professional cleaner’s point of view:
 
 ### Main Features
 
-#### Search listings based on suburb/postcode of service areas
+#### 1. Search listings based on suburb/postcode of service areas
 
 Cleaners can create multiple listings for different services that they offer. Each listing has service areas offered that customer can search through the search bar on the homepage. They can be searched by suburb name or postcode number.
 
 ![Homepage search bar and result screenshot](./docs/images/journey-home-search.gif)
 
-#### Page that displays cleaner’s information, services provided and reviews
+#### 2. Page that displays cleaner’s information, services provided and reviews
 
 Customers and cleaners have different information asked during profile creations through different registration links provided. Customers have information about their property shown to cleaners upon requesting for a quote. Cleaners have information about their National Police Check reference number, Australian Business Number, all services provided (listings), and all reviews earned.
 
 ![Cleaner signup](./docs/images/journey-signup-cleaner.gif)
 
-![Customer signup](./docs/images/journey-signup-customer.gif)
+<!-- GIFs -->
+<details>
+  <summary>... List of Other GIFs</summary>
 
-![Cleaner profile creation](./docs/images/journey-profile-create-cleaner.gif)
+  &nbsp;  
 
-![Customer profile creation](./docs/images/journey-profile-create-customer.gif)
+  ![Customer signup](./docs/images/journey-signup-customer.gif)
 
-![Cleaner profile show](./docs/images/journey-profile-show-cleaner.gif)
+  ![Cleaner profile creation](./docs/images/journey-profile-create-cleaner.gif)
 
-![Customer profile show](./docs/images/journey-profile-show-customer.gif)
+  ![Customer profile creation](./docs/images/journey-profile-create-customer.gif)
 
-#### Requests a quote through a listing, leaves a review
+  ![Cleaner profile show](./docs/images/journey-profile-show-cleaner.gif)
+
+  ![Customer profile show](./docs/images/journey-profile-show-customer.gif)
+
+</details>
+
+&nbsp;  
+
+#### 3. Requests a quote through a listing, leaves a review
 
 Registered and signed in customers can request a quote through a listing. Cleaners can review the request then give a quote. Customers then check the quote and can either reject it or accept it (where it becomes a job). Only after a job is booked that a customer can leave a review for the job.
 
 ![Customer send a request](./docs/images/journey-request-customer.gif)
 
-![Cleaner send the quote](./docs/images/journey-quote-cleaner.gif)
+<!-- GIFs -->
+<details>
+  <summary>... List of Other GIFs</summary>
 
-![Customer accepts the quote](./docs/images/journey-accept-quote.gif)
+  &nbsp;
 
-![Customer leaves a review](./docs/images/journey-review-create.gif)
+  ![Cleaner send the quote](./docs/images/journey-quote-cleaner.gif)
+
+  ![Customer accepts the quote](./docs/images/journey-accept-quote.gif)
+
+  ![Customer leaves a review](./docs/images/journey-review-create.gif)
+
+</details>
+
+&nbsp;  
+
 
 ### Supporting Features
 
@@ -204,7 +225,7 @@ A customer and cleaners will be able to send and receive messages about a listin
 
 ### Screenshots
 
-![Homepage Mobile](./docs/website-screenshots/homepage-mobile.png)
+![Homepage Mobile](./docs/images/website-screenshots/homepage-mobile.png)
 
 ![Homepage](./docs/images/website-screenshots/homepage.png)
 
@@ -222,8 +243,6 @@ A customer and cleaners will be able to send and receive messages about a listin
 
   ![Website Screenshot](./docs/images/website-screenshots/listing-customer-show.png)
 
-  ![Website Screenshot](./docs/images/website-screenshots/listing-show.png)
-
   ![Website Screenshot](./docs/images/website-screenshots/profile-cleaner-edit.png)
 
   ![Website Screenshot](./docs/images/website-screenshots/profile-cleaner-show.png)
@@ -236,7 +255,7 @@ A customer and cleaners will be able to send and receive messages about a listin
 
   ![Website Screenshot](./docs/images/website-screenshots/quote-customer-approve-reject.png)
   
-  ![Website Screenshot](./docs/images/website-screenshots/request-customer-form.png)
+  ![Website Screenshot](./docs/images/website-screenshots/request-customer-form.jpg)
 
   ![Website Screenshot](./docs/images/website-screenshots/review-customer-edit.png)
 
@@ -412,6 +431,12 @@ Job has a one-to-one relationship with Payment. Job may have 0 or 1 Payment, and
 
 #### Job and Review
 Job has a one-to-one relationship with Review. Job may have 0 or 1 Review, and Review must belong to exactly one Job. Review table has a foreign key of job_id that connects the two tables.
+
+&nbsp;
+
+---
+
+&nbsp;  
 
 ## Implementation Schedule
 
