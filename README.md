@@ -9,13 +9,6 @@
 
 &nbsp;  
 
-Sample users:
-
-- As Cleaners, emails: procleaner@mail.com, procleaner1@mail.com, password: 123123
-- As Customers, emails: customer@mail.com, customer1@mail.com, password: 123123
-
-&nbsp;  
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -43,7 +36,6 @@ Sample users:
       <ul>
         <li><a href="#sitemap">Sitemap</a></li>
         <li><a href="#wireframes">Wireframes</a></li>
-        <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="#user-journeys">User Journeys</a></li>
       </ul>
     </li>
@@ -146,25 +138,7 @@ Cleaners can create multiple listings for different services that they offer. Ea
 
 Customers and cleaners have different information asked during profile creations through different registration links provided. Customers have information about their property shown to cleaners upon requesting for a quote. Cleaners have information about their National Police Check reference number, Australian Business Number, all services provided (listings), and all reviews earned.
 
-![Cleaner signup](./docs/journey-signup-cleaner.gif)
-
-<!-- GIFs -->
-<details>
-  <summary>... List of Other GIFs</summary>
-
-  &nbsp;  
-
-  ![Customer signup](./docs/journey-signup-customer.gif)
-
-  ![Cleaner profile creation](./docs/journey-profile-create-cleaner.gif)
-
-  ![Customer profile creation](./docs/journey-profile-create-customer.gif)
-
-  ![Cleaner profile show](./docs/journey-profile-show-cleaner.gif)
-
-  ![Customer profile show](./docs/journey-profile-show-customer.gif)
-
-</details>
+![Cleaner profile show](./docs/journey-profile-show-cleaner.gif)
 
 &nbsp;  
 
@@ -222,52 +196,6 @@ A customer and cleaners will be able to send and receive messages about a listin
 ### Wireframes
 
 ![Pro Cleaner Finder wireframes](./docs/wireframes.jpg)
-
-### Screenshots
-
-![Homepage Mobile](./docs/website-screenshots/homepage-mobile.png)
-
-![Homepage](./docs/website-screenshots/homepage.png)
-
-&nbsp;
-
-<!-- Website Screenshots -->
-<details>
-  <summary>... List of Other Website Screenshots</summary>
-
-  &nbsp;
-
-  ![Website Screenshot](./docs/website-screenshots/listing-cleaner-create.png)
-
-  ![Website Screenshot](./docs/website-screenshots/listing-cleaner-edit.png)
-
-  ![Website Screenshot](./docs/website-screenshots/listing-customer-show.png)
-
-  ![Website Screenshot](./docs/website-screenshots/profile-cleaner-edit.png)
-
-  ![Website Screenshot](./docs/website-screenshots/profile-cleaner-show.png)
-  
-  ![Website Screenshot](./docs/website-screenshots/profile-customer-edit.png)
-
-  ![Website Screenshot](./docs/website-screenshots/profile-customer-show.png)
-
-  ![Website Screenshot](./docs/website-screenshots/quote-cleaner-send.png)
-
-  ![Website Screenshot](./docs/website-screenshots/quote-customer-approve-reject.png)
-  
-  ![Website Screenshot](./docs/website-screenshots/request-customer-form.jpg)
-
-  ![Website Screenshot](./docs/website-screenshots/review-customer-edit.png)
-
-  ![Website Screenshot](./docs/website-screenshots/review-customer.png)
-
-  ![Website Screenshot](./docs/website-screenshots/job-customer-booked.png)
-
-  ![Website Screenshot](./docs/website-screenshots/job-customer-pay-cancel.png)
-
-</details>
-
-&nbsp;
 
 ### User Journeys
 
@@ -591,48 +519,6 @@ Description: Customer can send a request for a quote through a listing page, whi
 Initial plan:
 
 ![Trello Screenshot 00](./docs/trello-screenshots/trello-00.png "Initial plan.")
-
-![Trello Screenshot 01](./docs/trello-screenshots/trello-01.png "Start of implementation.")
-
-&nbsp;
-
-<!-- Trello Screenshots of Implementation Records -->
-<details>
-  <summary>... List of Other Screenshots of Implementation Records</summary>
-
-  &nbsp;
-
-  ![Trello Screenshot 02](./docs/trello-screenshots/trello-02.png "Implementation.")
-
-  ![Trello Screenshot 03](./docs/trello-screenshots/trello-03.png "Implementation.")
-
-  ![Trello Screenshot 04](./docs/trello-screenshots/trello-04.png "Implementation.")
-
-  ![Trello Screenshot 05](./docs/trello-screenshots/trello-05.png "Implementation.")
-
-  ![Trello Screenshot 06](./docs/trello-screenshots/trello-06.png "Implementation.")
-
-  ![Trello Screenshot 07](./docs/trello-screenshots/trello-07.png "Implementation.")
-
-  ![Trello Screenshot 08](./docs/trello-screenshots/trello-08.png "Implementation.")
-
-  ![Trello Screenshot 09](./docs/trello-screenshots/trello-09.png "Implementation.")
-
-  ![Trello Screenshot 10](./docs/trello-screenshots/trello-10.png "Implementation.")
-
-  ![Trello Screenshot 11](./docs/trello-screenshots/trello-11.png "Implementation.")
-
-  ![Trello Screenshot 12](./docs/trello-screenshots/trello-12.png "Implementation.")
-
-  ![Trello Screenshot 13](./docs/trello-screenshots/trello-13.png "Implementation.")
-
-</details>
-
-&nbsp;
-
-Last stage:
-
-![Trello Screenshot 14](./docs/trello-screenshots/trello-14.png "Last stage of implementation.")
 
 ![Trello Screenshot 15](./docs/trello-screenshots/trello-15.png "Final stage.")
 
