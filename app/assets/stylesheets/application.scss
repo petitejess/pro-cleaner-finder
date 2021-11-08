@@ -288,6 +288,12 @@ img.thumb-300 {
   height: auto;
 }
 
+.thumb-listing-img {
+  > img {
+    max-width: 100%;
+  }
+}
+
 /* CTA Banner */
 .cta-banner {
   position: relative;
