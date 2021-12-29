@@ -530,6 +530,22 @@ Initial plan:
 
 ## Development Configuration
 
+|Pre-requisite|Version|
+|:---:|:---:|
+|ruby|2.7.2|
+|bundler|>= 1.15.0|
+
+1. Clone from repository
+  `git clone git@github.com:petitejess/pro-cleaner-finder.git`
+2. Go to root directory of the project, install dependencies with bundler
+  `bundler install`
+3. Setup PostgrSQL database
+  `rails db:create` and `rails db:migrate`
+4. Restart the terminal as necessary, then run the rails server
+  `rails s`
+
+&nbsp;  
+
 ### Tech Stack
 
 |Product|Description|
